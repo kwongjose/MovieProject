@@ -9,30 +9,71 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MovieLib
-{
+{    /*
+         * 
+         */
     public partial class Form1 : Form
-    {
+    {    /*
+         * 
+         */
         public Form1()
         {
             InitializeComponent();
         }
-
-        private void sdsToolStripMenuItem_Click(object sender, EventArgs e)
+        /*
+        * 
+        */
+        private void Load_Files_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        /*
+        * 
+        */
+        private void Sort_Genres_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String Sel_Genre = Sort_Genres.Text;
+            System.Diagnostics.Debug.WriteLine(Sort_Genres.Text);
+        }
+        /*
+        * 
+        */
+        private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+        /*
+         * 
+         */
         private void Rescan_Folder_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+        * 
+        */
+        private void Sort_Year_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        /*
+        * 
+        */
+        private void Sort_Rating_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+       /*
+       * 
+       */
+        private void Options_List_Click(object sender, EventArgs e)
+        {
+
+        }
+       /*
+       * 
+       */
+        private void Default_Click(object sender, EventArgs e)
         {
 
         }
