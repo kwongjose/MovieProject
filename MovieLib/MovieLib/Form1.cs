@@ -40,7 +40,9 @@ namespace MovieLib
         */
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            System.Diagnostics.Debug.WriteLine("TEST");
+            var form = new Movie_Info();
+            form.Show(this);
         }
         /*
          * 

@@ -159,6 +159,7 @@
             // 
             // Movies_Data
             // 
+            this.Movies_Data.AllowUserToDeleteRows = false;
             this.Movies_Data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Movies_Data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Title_Name,
@@ -178,6 +179,7 @@
             this.Title_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Title_Name.HeaderText = "Title";
             this.Title_Name.Name = "Title_Name";
+            this.Title_Name.ReadOnly = true;
             this.Title_Name.Text = "";
             this.Title_Name.Width = 687;
             // 
@@ -185,26 +187,31 @@
             // 
             this.Year_Made.HeaderText = "Year";
             this.Year_Made.Name = "Year_Made";
+            this.Year_Made.ReadOnly = true;
             // 
             // Genres_Data
             // 
             this.Genres_Data.HeaderText = "Genres";
             this.Genres_Data.Name = "Genres_Data";
+            this.Genres_Data.ReadOnly = true;
             // 
             // Rating_Data
             // 
             this.Rating_Data.HeaderText = "Rating";
             this.Rating_Data.Name = "Rating_Data";
+            this.Rating_Data.ReadOnly = true;
             // 
             // Length_Data
             // 
             this.Length_Data.HeaderText = "Length";
             this.Length_Data.Name = "Length_Data";
+            this.Length_Data.ReadOnly = true;
             // 
             // Resulution_Data
             // 
             this.Resulution_Data.HeaderText = "Resulution";
             this.Resulution_Data.Name = "Resulution_Data";
+            this.Resulution_Data.ReadOnly = true;
             // 
             // Default
             // 
