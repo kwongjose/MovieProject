@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MediaInfoLib;
+using MovieLib;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -18,10 +20,18 @@ using System.Windows.Forms;
 public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
-    int Width, Height;
+    String Width, Height, Resulution;
     public FileToDataBase(String F_Path)
     {
         //TODO:::GET RES
+        var Minfo = new MediaInfo();
+        Minfo.Open(F_Path);
+        var VidINfo = new VideoInfo(Minfo);
+        Height = VidINfo.Heigth.ToString();
+        Width = VidINfo.Width.ToString();
+        Resulution = Width + "x" + Height;
+        Minfo.Close();
+        System.Diagnostics.Debug.WriteLine(Resulution);
         Full_Path = F_Path;
         Movie_Path = Path.GetFileName(F_Path);//movie title (1999).mpg
         //does path hold a date
@@ -80,7 +90,7 @@ public class FileToDataBase
                 ApiCall.Append("+");
                 ApiCall.Append(M_Parts[i]);
             }
-            ApiCall.Append("&y=&plot=short&r=json");
+            ApiCall.Append("&y=&plot=full&r=json");
         }
         else//Call API using Title and Year
         {
@@ -140,7 +150,7 @@ public class FileToDataBase
         JObject SerJson = JObject.Parse(Json);
 
         Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(SerJson.ToString());
-        System.Diagnostics.Debug.WriteLine(Curent_Movie.Plot);
+        System.Diagnostics.Debug.WriteLine(Curent_Movie.Genre);
        
     }
 }
