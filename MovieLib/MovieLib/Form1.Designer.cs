@@ -32,17 +32,21 @@
             this.Options_List = new System.Windows.Forms.ToolStripMenuItem();
             this.Load_Files = new System.Windows.Forms.ToolStripMenuItem();
             this.Rescan_Folder = new System.Windows.Forms.ToolStripMenuItem();
+            this.startOverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lastChanchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Sort_Genres = new System.Windows.Forms.ComboBox();
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
             this.Movies_Data = new System.Windows.Forms.DataGridView();
+            this.Default = new System.Windows.Forms.Button();
             this.Title_Name = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.M_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Year_Made = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Genres_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rating_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Length_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resulution_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Default = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +65,8 @@
             // 
             this.Options_List.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Load_Files,
-            this.Rescan_Folder});
+            this.Rescan_Folder,
+            this.startOverToolStripMenuItem});
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
@@ -80,6 +85,21 @@
             this.Rescan_Folder.Size = new System.Drawing.Size(126, 22);
             this.Rescan_Folder.Text = "Rescan";
             this.Rescan_Folder.Click += new System.EventHandler(this.Rescan_Folder_Click);
+            // 
+            // startOverToolStripMenuItem
+            // 
+            this.startOverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lastChanchToolStripMenuItem});
+            this.startOverToolStripMenuItem.Name = "startOverToolStripMenuItem";
+            this.startOverToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.startOverToolStripMenuItem.Text = "Start Over";
+            // 
+            // lastChanchToolStripMenuItem
+            // 
+            this.lastChanchToolStripMenuItem.Name = "lastChanchToolStripMenuItem";
+            this.lastChanchToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.lastChanchToolStripMenuItem.Text = "Last Chanch";
+            this.lastChanchToolStripMenuItem.Click += new System.EventHandler(this.lastChanchToolStripMenuItem_Click);
             // 
             // Sort_Genres
             // 
@@ -163,6 +183,7 @@
             this.Movies_Data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Movies_Data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Title_Name,
+            this.M_ID,
             this.Year_Made,
             this.Genres_Data,
             this.Rating_Data,
@@ -174,6 +195,16 @@
             this.Movies_Data.TabIndex = 6;
             this.Movies_Data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
             // 
+            // Default
+            // 
+            this.Default.Location = new System.Drawing.Point(704, 60);
+            this.Default.Name = "Default";
+            this.Default.Size = new System.Drawing.Size(75, 23);
+            this.Default.TabIndex = 7;
+            this.Default.Text = "Show All";
+            this.Default.UseVisualStyleBackColor = true;
+            this.Default.Click += new System.EventHandler(this.Default_Click);
+            // 
             // Title_Name
             // 
             this.Title_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -182,6 +213,12 @@
             this.Title_Name.ReadOnly = true;
             this.Title_Name.Text = "";
             this.Title_Name.Width = 687;
+            // 
+            // M_ID
+            // 
+            this.M_ID.HeaderText = "ID";
+            this.M_ID.Name = "M_ID";
+            this.M_ID.Visible = false;
             // 
             // Year_Made
             // 
@@ -212,16 +249,6 @@
             this.Resulution_Data.HeaderText = "Resulution";
             this.Resulution_Data.Name = "Resulution_Data";
             this.Resulution_Data.ReadOnly = true;
-            // 
-            // Default
-            // 
-            this.Default.Location = new System.Drawing.Point(704, 60);
-            this.Default.Name = "Default";
-            this.Default.Size = new System.Drawing.Size(75, 23);
-            this.Default.TabIndex = 7;
-            this.Default.Text = "Show All";
-            this.Default.UseVisualStyleBackColor = true;
-            this.Default.Click += new System.EventHandler(this.Default_Click);
             // 
             // Form1
             // 
@@ -254,13 +281,17 @@
         private System.Windows.Forms.ComboBox Sort_Year;
         private System.Windows.Forms.ComboBox Sort_Rating;
         private System.Windows.Forms.DataGridView Movies_Data;
+        private System.Windows.Forms.Button Default;
+        private System.Windows.Forms.ToolStripMenuItem startOverToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lastChanchToolStripMenuItem;
         private System.Windows.Forms.DataGridViewButtonColumn Title_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn M_ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year_Made;
         private System.Windows.Forms.DataGridViewTextBoxColumn Genres_Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rating_Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Length_Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Resulution_Data;
-        private System.Windows.Forms.Button Default;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 

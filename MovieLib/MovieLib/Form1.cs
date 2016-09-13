@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace MovieLib
 {    /*
@@ -25,7 +26,17 @@ namespace MovieLib
         */
         private void Load_Files_Click(object sender, EventArgs e)
         {
-
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                //
+                // The user selected a folder and pressed the OK button.
+                // We print the number of files found.
+                //
+                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
+              
+            }
         }
         /*
         * 
@@ -40,8 +51,8 @@ namespace MovieLib
         */
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("TEST");
-            var form = new Movie_Info();
+            int M_ID = 0;//DUMMY VALUE!!!
+            var form = new Movie_Info(M_ID);
             form.Show(this);
         }
         /*
@@ -77,7 +88,18 @@ namespace MovieLib
        */
         private void Default_Click(object sender, EventArgs e)
         {
-
+            ConnectionClass con = new ConnectionClass();
+            con.NewDataBase();
+        }
+        /*
+         * 
+         * 
+         */ 
+        private void lastChanchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
         }
     }
+
+    
 }

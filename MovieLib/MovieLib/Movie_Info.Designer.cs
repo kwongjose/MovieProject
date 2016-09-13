@@ -43,10 +43,11 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(68, 145);
+            this.textBox1.Location = new System.Drawing.Point(75, 144);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(495, 20);
+            this.textBox1.Size = new System.Drawing.Size(495, 85);
             this.textBox1.TabIndex = 1;
             // 
             // Watch_Movie
@@ -57,6 +58,7 @@
             this.Watch_Movie.TabIndex = 2;
             this.Watch_Movie.Text = "Watch Movie";
             this.Watch_Movie.UseVisualStyleBackColor = true;
+            this.Watch_Movie.Click += new System.EventHandler(this.Watch_Movie_Click);
             // 
             // Movie_Info
             // 
