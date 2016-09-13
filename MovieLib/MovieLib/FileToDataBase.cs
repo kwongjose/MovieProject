@@ -150,7 +150,9 @@ public class FileToDataBase
         JObject SerJson = JObject.Parse(Json);
 
         Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(SerJson.ToString());
-        System.Diagnostics.Debug.WriteLine(Curent_Movie.Genre);
+
+        ConnectionClass con = new ConnectionClass();
+            con.InsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path);
        
     }
 }

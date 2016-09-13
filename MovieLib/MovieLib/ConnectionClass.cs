@@ -28,7 +28,7 @@ public class ConnectionClass
             SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=MyMovies.sqlite;Version=3;");
             m_dbConnection.Open();
 
-            String MakeTable = "Create Table IF NOT EXISTS Moives  (RowId INTERGER primary key, Title Text, Year Text, Gerna Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT)";
+            String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT)";
 
 
             SQLiteCommand command = new SQLiteCommand(MakeTable, m_dbConnection);
@@ -48,7 +48,31 @@ public class ConnectionClass
      */
      public void InsertNewRow(String M_Title, String M_Year, String M_Gernas, String M_Rating, String M_Length, String M_Res, String M_Plot, String M_Path)
     {
-
+        String SqlInsert = "INSERT INTO Movies ( Title, Year, Gerna, Rating, Length, Resolution, Plot, Path) VALUES (@Title,@Year,@Gerna,@Rating,@Length,@Resolution,@Plot,@Path)"; 
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open(); 
+        SQLiteCommand Insert = new SQLiteCommand(SqlInsert, con);
+        System.Diagnostics.Debug.WriteLine("somthing is wrong");
+        Insert.Parameters.AddWithValue("@Title", M_Title);
+            System.Diagnostics.Debug.WriteLine("somthing is sdafwrong");
+        Insert.Parameters.AddWithValue("@Year", M_Year);
+        Insert.Parameters.AddWithValue("@Gerna", M_Gernas);
+        Insert.Parameters.AddWithValue("@Rating", M_Rating);
+        Insert.Parameters.AddWithValue("@Length", M_Length);
+        Insert.Parameters.AddWithValue("@Resolution", M_Res);
+        Insert.Parameters.AddWithValue("@Plot", M_Plot);
+        Insert.Parameters.AddWithValue("@Path", M_Path);
+        System.Diagnostics.Debug.WriteLine("somthing isasdfasd wrong");
+        try
+        {
+            System.Diagnostics.Debug.WriteLine("somthing is wrong");
+            Insert.ExecuteNonQuery();
+        }
+        catch(SQLiteException e)
+        {
+            System.Diagnostics.Debug.WriteLine("somthing is wrong");
+            throw new Exception(e.Message); 
+        }
     }
     /*
      * Gets title year gerna rating length and res for all movies to be didplayed in table

@@ -38,7 +38,6 @@
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
             this.Movies_Data = new System.Windows.Forms.DataGridView();
-            this.Default = new System.Windows.Forms.Button();
             this.Title_Name = new System.Windows.Forms.DataGridViewButtonColumn();
             this.M_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Year_Made = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +45,10 @@
             this.Rating_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Length_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resulution_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Default = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Search = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -195,16 +197,6 @@
             this.Movies_Data.TabIndex = 6;
             this.Movies_Data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
             // 
-            // Default
-            // 
-            this.Default.Location = new System.Drawing.Point(704, 60);
-            this.Default.Name = "Default";
-            this.Default.Size = new System.Drawing.Size(75, 23);
-            this.Default.TabIndex = 7;
-            this.Default.Text = "Show All";
-            this.Default.UseVisualStyleBackColor = true;
-            this.Default.Click += new System.EventHandler(this.Default_Click);
-            // 
             // Title_Name
             // 
             this.Title_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -250,11 +242,41 @@
             this.Resulution_Data.Name = "Resulution_Data";
             this.Resulution_Data.ReadOnly = true;
             // 
+            // Default
+            // 
+            this.Default.Location = new System.Drawing.Point(704, 60);
+            this.Default.Name = "Default";
+            this.Default.Size = new System.Drawing.Size(75, 23);
+            this.Default.TabIndex = 7;
+            this.Default.Text = "Show All";
+            this.Default.UseVisualStyleBackColor = true;
+            this.Default.Click += new System.EventHandler(this.Default_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(828, 63);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(230, 20);
+            this.textBox1.TabIndex = 8;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // Search
+            // 
+            this.Search.Location = new System.Drawing.Point(1100, 60);
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(75, 23);
+            this.Search.TabIndex = 9;
+            this.Search.Text = "Search";
+            this.Search.UseVisualStyleBackColor = true;
+            this.Search.Click += new System.EventHandler(this.Search_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 662);
+            this.Controls.Add(this.Search);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Default);
             this.Controls.Add(this.Movies_Data);
             this.Controls.Add(this.Sort_Rating);
@@ -292,6 +314,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Length_Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Resulution_Data;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button Search;
     }
 }
 

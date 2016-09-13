@@ -13,6 +13,6 @@ using System.Threading.Tasks;
         public String Genre { get; set; }
         public String Plot { get; set; }
         public String imdbRating { get; set; }
-        public string Runtime { get; set; }
+        public String Runtime { get; set; }
     }
 

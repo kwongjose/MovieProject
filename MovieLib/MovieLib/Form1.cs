@@ -90,7 +90,7 @@ namespace MovieLib
             //should do nothing 
         }
        /*
-       * 
+       * Shows all rows in the database
        */
         private void Default_Click(object sender, EventArgs e)
         {
@@ -104,6 +104,20 @@ namespace MovieLib
         private void lastChanchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //TODO::: Drops all recoreds and start over
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         * gets the text from textbox1 
+         * looks for title in movie database
+         * 
+         */ 
+        private void Search_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
