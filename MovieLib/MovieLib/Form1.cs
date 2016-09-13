@@ -34,7 +34,13 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                foreach(String M_File in files)
+                {
+
+                }
                 MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
+                //Gets MetaData from API foreach movie
+                //break file path into path title year 
               
             }
         }
@@ -60,28 +66,28 @@ namespace MovieLib
          */
         private void Rescan_Folder_Click(object sender, EventArgs e)
         {
-
+            //TODO:::Scans dir of movies for new movies
         }
         /*
         * 
         */
         private void Sort_Year_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //TODO::: FInds only movies in sel decade
         }
         /*
         * 
         */
         private void Sort_Rating_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ///TODO::: Finds only movies of sel Rating rante ie 9 to 9.9
         }
        /*
        * 
        */
         private void Options_List_Click(object sender, EventArgs e)
         {
-
+            //should do nothing 
         }
        /*
        * 
@@ -97,7 +103,7 @@ namespace MovieLib
          */ 
         private void lastChanchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            //TODO::: Drops all recoreds and start over
         }
     }
 
