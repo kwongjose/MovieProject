@@ -36,7 +36,7 @@ namespace MovieLib
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
                 foreach(String M_File in files)
                 {
-
+                    FileToDataBase ftb = new FileToDataBase(M_File);
                 }
                 MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
                 //Gets MetaData from API foreach movie

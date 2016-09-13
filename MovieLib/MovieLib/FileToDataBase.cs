@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 /*
  * Class takes in a File Path Seperates it into a Title with or without year
@@ -14,12 +17,12 @@ using System.Threading.Tasks;
  */
 public class FileToDataBase
 {
-    String Movie_Path, Movie_Year, Movie_Title;
+    String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     int Width, Height;
     public FileToDataBase(String F_Path)
     {
-        //get resulution
-       
+        //TODO:::GET RES
+        Full_Path = F_Path;
         Movie_Path = Path.GetFileName(F_Path);//movie title (1999).mpg
         //does path hold a date
         if(Movie_Path.Contains('('))//Holds a Date
@@ -33,7 +36,7 @@ public class FileToDataBase
         }
         else
         {
-            Movie_Title = Movie_Path.Substring(Movie_Path.Length - 4);//Movie Title
+            Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
         }
 
        ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
@@ -91,9 +94,10 @@ public class FileToDataBase
             }
             ApiCall.Append("&y=");
             ApiCall.Append(M_Year);
-            ApiCall.Append("&plot=short&r=json");
+            ApiCall.Append("&plot=full&r=json");
         }
-    CallWebApi(ApiCall.ToString()).Wait();
+        System.Diagnostics.Debug.WriteLine(ApiCall.ToString());
+    CallWebApi(ApiCall.ToString());//Might not be right
         
     }
     /*
@@ -104,10 +108,11 @@ public class FileToDataBase
     {
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://www.omdbapi.com");
+            client.BaseAddress = new Uri("http://www.omdbapi.com/");
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("Application/json"));
+           
             HttpResponseMessage response = await client.GetAsync(Call);
-
+             System.Diagnostics.Debug.WriteLine("I am here");
             if (response.IsSuccessStatusCode)
             {
 
@@ -115,6 +120,7 @@ public class FileToDataBase
                 using (Stream responseStream = await response.Content.ReadAsStreamAsync())
                 {
                  JsonMessage = new StreamReader(responseStream).ReadToEnd();
+                    System.Diagnostics.Debug.WriteLine(JsonMessage);
                     ParseJson(JsonMessage);
                 }
                 
@@ -131,7 +137,11 @@ public class FileToDataBase
      */ 
      private void ParseJson(String Json)
     {
+        JObject SerJson = JObject.Parse(Json);
 
+        Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(SerJson.ToString());
+        System.Diagnostics.Debug.WriteLine(Curent_Movie.Plot);
+       
     }
 }
 
