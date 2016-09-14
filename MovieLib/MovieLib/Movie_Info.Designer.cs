@@ -64,11 +64,12 @@
             // M_Title
             // 
             this.M_Title.AutoSize = true;
-            this.M_Title.Location = new System.Drawing.Point(298, 28);
+            this.M_Title.Location = new System.Drawing.Point(94, 40);
             this.M_Title.Name = "M_Title";
             this.M_Title.Size = new System.Drawing.Size(35, 13);
             this.M_Title.TabIndex = 3;
             this.M_Title.Text = "label1";
+            this.M_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Movie_Info
             // 

@@ -14,5 +14,6 @@ using System.Threading.Tasks;
         public String Plot { get; set; }
         public String imdbRating { get; set; }
         public String Runtime { get; set; }
+        public String Response { get; set; }
     }
 

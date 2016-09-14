@@ -159,6 +159,42 @@ public class ConnectionClass
     public DataTable GetMovieByGernra(String G)
     {
         DataTable dt = new DataTable();
+        dt.Columns.Add("Title");
+        dt.Columns.Add("Year");
+        dt.Columns.Add("Gernra");
+        dt.Columns.Add("Rating");
+        dt.Columns.Add("Length");
+        dt.Columns.Add("Resolution");
+        dt.Columns.Add("ID");
+
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        String temp = '"' + "%" + G + "%" + '"';
+        SQLiteCommand sql = new SQLiteCommand("SELECT * FROM MOVIES WHERE Gerna LIKE " + temp , con);
+        
+    //    sql.Parameters.AddWithValue("@Gern", temp);
+        System.Diagnostics.Debug.WriteLine(temp);
+        try
+        {
+            SQLiteDataReader r = sql.ExecuteReader();
+            while (r.Read())
+            {
+                DataRow dr = dt.NewRow();
+                dr["Title"] = (String)r["Title"];
+                dr["Year"] = (String)r["Year"];
+                dr["Gernra"] = (String)r["Gerna"];
+                dr["Rating"] = (String)r["Rating"];
+                dr["Length"] = (String)r["Length"];
+                dr["Resolution"] = (String)r["Resolution"];
+                dr["ID"] = r["RowId"].ToString();
+                //add row to datatable
+                dt.Rows.Add(dr);
+            }
+        }
+        catch
+        {
+
+        }
 
         return dt;
     }
@@ -169,7 +205,38 @@ public class ConnectionClass
     public DataTable GetMovieByRating(String R)
     {
         DataTable dt = new DataTable();
+        dt.Columns.Add("Title");
+        dt.Columns.Add("Year");
+        dt.Columns.Add("Gernra");
+        dt.Columns.Add("Rating");
+        dt.Columns.Add("Length");
+        dt.Columns.Add("Resolution");
+        dt.Columns.Add("ID");
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        String Rate = '"' + R + "%" + '"';
+        SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Rating LIke " + Rate, con);
+        try
+        {
+            SQLiteDataReader r = com.ExecuteReader();
+            while (r.Read())
+            {
+                DataRow dr = dt.NewRow();
+                dr["Title"] = (String)r["Title"];
+                dr["Year"] = (String)r["Year"];
+                dr["Gernra"] = (String)r["Gerna"];
+                dr["Rating"] = (String)r["Rating"];
+                dr["Length"] = (String)r["Length"];
+                dr["Resolution"] = (String)r["Resolution"];
+                dr["ID"] = r["RowId"].ToString();
+                //add row to datatable
+                dt.Rows.Add(dr);
+            }
+        }
+        catch(SQLiteException e)
+        {
 
+        }
         return dt;
     }
     /*
@@ -179,7 +246,42 @@ public class ConnectionClass
     public DataTable GetMovieByYear(String Y)
     {
         DataTable dt = new DataTable();
+        dt.Columns.Add("Title");
+        dt.Columns.Add("Year");
+        dt.Columns.Add("Gernra");
+        dt.Columns.Add("Rating");
+        dt.Columns.Add("Length");
+        dt.Columns.Add("Resolution");
+        dt.Columns.Add("ID");
 
+        String Decade = '"' + Y + "%" + '"';
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Year LIKE " + Decade, con);
+        
+       // com.Parameters.AddWithValue("@year", Decade);
+        try
+        {
+            SQLiteDataReader r = com.ExecuteReader();
+            while (r.Read())
+            {
+                DataRow dr = dt.NewRow();
+                dr["Title"] = (String)r["Title"];
+                dr["Year"] = (String)r["Year"];
+                dr["Gernra"] = (String)r["Gerna"];
+                dr["Rating"] = (String)r["Rating"];
+                dr["Length"] = (String)r["Length"];
+                dr["Resolution"] = (String)r["Resolution"];
+                dr["ID"] = r["RowId"].ToString();
+                //add row to datatable
+                dt.Rows.Add(dr);
+            }
+        }
+        catch(SQLiteException e)
+        {
+
+        }
+        con.Close();
         return dt;
     }
     /*

@@ -25,7 +25,9 @@ namespace MovieLib
             Movie_Name = Movie_info[0];
             Movie_Plot = Movie_info[1];
             File_Path = Movie_info[2];
+            M_Title.Font = new Font(M_Title.Font.FontFamily, 16);
             M_Title.Text = Movie_Name;
+            M_Plot.Font = new Font(M_Plot.Font.FontFamily, 12);
             M_Plot.Text = Movie_Plot;
         }
 

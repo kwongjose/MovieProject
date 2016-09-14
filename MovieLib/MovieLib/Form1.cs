@@ -63,6 +63,12 @@ namespace MovieLib
         {
             String Sel_Genre = Sort_Genres.Text;
             System.Diagnostics.Debug.WriteLine(Sort_Genres.Text);
+            ConnectionClass con = new ConnectionClass();
+            DataTable dt = con.GetMovieByGernra(Sel_Genre);
+
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
         * brings up info about the selected movie
@@ -70,11 +76,11 @@ namespace MovieLib
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-
+            DataGridViewRow r = senderGrid.Rows[e.RowIndex];
             if (e.ColumnIndex == 0)
             {
                
-                int M_ID = int.Parse(senderGrid.Rows[0].Cells[6].Value.ToString());
+                int M_ID = int.Parse(r.Cells[6].Value.ToString());
                
                 var form = new Movie_Info(M_ID);
                 form.Show(this);
@@ -124,13 +130,28 @@ namespace MovieLib
         private void Sort_Year_SelectedIndexChanged(object sender, EventArgs e)
         {
             //TODO::: FInds only movies in sel decade
+            String Year = Sort_Year.SelectedItem.ToString();
+            String SubYear = Year.Substring(0, 3);
+
+            ConnectionClass con = new ConnectionClass();
+            DataTable dt = con.GetMovieByYear(SubYear);
+            System.Diagnostics.Debug.WriteLine(SubYear);
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
         * 
         */
         private void Sort_Rating_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ///TODO::: Finds only movies of sel Rating rante ie 9 to 9.9
+            String Rating = Sort_Rating.SelectedItem.ToString();
+            ConnectionClass con = new ConnectionClass();
+            DataTable dt = con.GetMovieByRating(Rating);
+
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
         * 
@@ -145,7 +166,10 @@ namespace MovieLib
         private void Default_Click(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
-            con.NewDataBase();
+            DataTable dt = con.SelAllMovies();
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
          * delete all rows from movies table

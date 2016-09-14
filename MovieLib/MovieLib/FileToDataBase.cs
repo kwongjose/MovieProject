@@ -23,15 +23,22 @@ public class FileToDataBase
     String Width, Height, Resulution;
     public FileToDataBase(String F_Path)
     {
-        //TODO:::GET RES
-        var Minfo = new MediaInfo();
-        Minfo.Open(F_Path);
-        var VidINfo = new VideoInfo(Minfo);
-        Height = VidINfo.Heigth.ToString();
-        Width = VidINfo.Width.ToString();
-        Resulution = Width + "x" + Height;
-        Minfo.Close();
-        System.Diagnostics.Debug.WriteLine(Resulution);
+        Resulution = "n/a";
+        try
+        {
+            var Minfo = new MediaInfo();
+            Minfo.Open(F_Path);
+            var VidINfo = new VideoInfo(Minfo);
+            Height = VidINfo.Heigth.ToString();
+            Width = VidINfo.Width.ToString();
+            Resulution = Width + "x" + Height;
+            Minfo.Close();
+            System.Diagnostics.Debug.WriteLine(Resulution);
+        }
+        catch (Exception e)
+        {
+
+        }
         Full_Path = F_Path;
         Movie_Path = Path.GetFileName(F_Path);//movie title (1999).mpg
         //does path hold a date
@@ -144,16 +151,23 @@ public class FileToDataBase
     /*
      * Parse JSON Data for info to be inserted into the Data Base
      *
-     */ 
-     private void ParseJson(String Json)
-    {
+     */
+    private void ParseJson(String Json)
+    {       //handels when no data from server
         JObject SerJson = JObject.Parse(Json);
-
-        Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(SerJson.ToString());
-
-        ConnectionClass con = new ConnectionClass();
-            con.InsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path);
        
+        
+            Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(SerJson.ToString());
+        if (Curent_Movie.Response == "True")
+        {
+            ConnectionClass con = new ConnectionClass();
+            con.InsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path);
+
+        }
+        else
+        {
+
+        }
     }
 }
 
