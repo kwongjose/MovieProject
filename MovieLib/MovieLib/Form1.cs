@@ -57,7 +57,7 @@ namespace MovieLib
             }
         }
         /*
-        * 
+        * Selects Movies based on Genres
         */
         private void Sort_Genres_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -125,7 +125,7 @@ namespace MovieLib
             }
         }
         /*
-        * 
+        * Selects movie based on Decade
         */
         private void Sort_Year_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -141,7 +141,7 @@ namespace MovieLib
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
-        * 
+        * selects movie based on rating
         */
         private void Sort_Rating_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -196,7 +196,12 @@ namespace MovieLib
          */
         private void Search_Click(object sender, EventArgs e)
         {
-
+            String Title = textBox1.Text;
+            ConnectionClass con = new ConnectionClass();
+            DataTable dt = con.GetMovieByTitle(Title);
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
     }
 

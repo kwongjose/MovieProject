@@ -65,7 +65,7 @@ public class ConnectionClass
         System.Diagnostics.Debug.WriteLine("somthing isasdfasd wrong");
         try
         {
-            
+
             Insert.ExecuteNonQuery();
             con.Close();
         }
@@ -137,11 +137,11 @@ public class ConnectionClass
 
             while (r.Read())
             {
-                
+
                 Movie_Dets[0] = (String)r["Title"];
                 Movie_Dets[1] = (String)r["Plot"];
                 Movie_Dets[2] = (String)r["Path"];
-                
+
             }
             con.Close();
         }
@@ -170,9 +170,9 @@ public class ConnectionClass
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         String temp = '"' + "%" + G + "%" + '"';
-        SQLiteCommand sql = new SQLiteCommand("SELECT * FROM MOVIES WHERE Gerna LIKE " + temp , con);
-        
-    //    sql.Parameters.AddWithValue("@Gern", temp);
+        SQLiteCommand sql = new SQLiteCommand("SELECT * FROM MOVIES WHERE Gerna LIKE " + temp, con);
+
+        //    sql.Parameters.AddWithValue("@Gern", temp);
         System.Diagnostics.Debug.WriteLine(temp);
         try
         {
@@ -233,7 +233,7 @@ public class ConnectionClass
                 dt.Rows.Add(dr);
             }
         }
-        catch(SQLiteException e)
+        catch (SQLiteException e)
         {
 
         }
@@ -258,8 +258,8 @@ public class ConnectionClass
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Year LIKE " + Decade, con);
-        
-       // com.Parameters.AddWithValue("@year", Decade);
+
+        // com.Parameters.AddWithValue("@year", Decade);
         try
         {
             SQLiteDataReader r = com.ExecuteReader();
@@ -277,7 +277,7 @@ public class ConnectionClass
                 dt.Rows.Add(dr);
             }
         }
-        catch(SQLiteException e)
+        catch (SQLiteException e)
         {
 
         }
@@ -291,9 +291,43 @@ public class ConnectionClass
     public DataTable GetMovieByTitle(String Title)
     {
         DataTable dt = new DataTable();
+        dt.Columns.Add("Title");
+        dt.Columns.Add("Year");
+        dt.Columns.Add("Gernra");
+        dt.Columns.Add("Rating");
+        dt.Columns.Add("Length");
+        dt.Columns.Add("Resolution");
+        dt.Columns.Add("ID");
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        String Ser_Title = '"' + Title + "%" + '"';
+        SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Title LIKE " + Ser_Title, con);
+        try
+        {
+            SQLiteDataReader r = com.ExecuteReader();
+            while (r.Read())
+            {
+                DataRow dr = dt.NewRow();
+                dr["Title"] = (String)r["Title"];
+                dr["Year"] = (String)r["Year"];
+                dr["Gernra"] = (String)r["Gerna"];
+                dr["Rating"] = (String)r["Rating"];
+                dr["Length"] = (String)r["Length"];
+                dr["Resolution"] = (String)r["Resolution"];
+                dr["ID"] = r["RowId"].ToString();
+                //add row to datatable
+                dt.Rows.Add(dr);
+            }
+        }
+        catch (SQLiteException e)
+        {
 
+        }
+        con.Close();
         return dt;
     }
+
+
     /*
      * checks if filepath is already in database
      * if present true
@@ -319,7 +353,7 @@ public class ConnectionClass
                 return true;
             }
         }
-        catch(SQLiteException e)
+        catch (SQLiteException e)
         {
 
         }
