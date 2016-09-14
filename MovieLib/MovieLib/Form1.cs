@@ -31,10 +31,7 @@ namespace MovieLib
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
 
         }
-        public List<String> GetBadFiles()
-        {
-            return BadFile;
-        }
+
         /*
         * 
         */
@@ -126,7 +123,7 @@ namespace MovieLib
                 Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
                 Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-                System.Diagnostics.Debug.WriteLine("testtestes" + BadFile[0].ToString());
+
 
             }
         }
@@ -238,6 +235,12 @@ namespace MovieLib
                         BadFiles++;
                     }
                 }
+                if (BadList[0] != null)
+                {
+                    var form = new FileInfo(BadList);
+                    form.Show(this);
+                }
+
                 MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
             }
         }
