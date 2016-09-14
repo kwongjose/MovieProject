@@ -16,10 +16,17 @@ namespace MovieLib
 {
     public partial class Movie_Info : Form
     {
-        public String File_Path, Movie_Name;
+        public String File_Path, Movie_Name, Movie_Plot;
         public Movie_Info(int ID)
         {
             InitializeComponent();
+            ConnectionClass con = new ConnectionClass();
+            String[] Movie_info = con.GetMoiveByID(ID);
+            Movie_Name = Movie_info[0];
+            Movie_Plot = Movie_info[1];
+            File_Path = Movie_info[2];
+            M_Title.Text = Movie_Name;
+            M_Plot.Text = Movie_Plot;
         }
 
         private void Watch_Movie_Click(object sender, EventArgs e)

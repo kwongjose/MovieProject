@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLib", "MovieLib\MovieLib.csproj", "{C4F69EE5-9CCA-499E-8F74-8CDD6734280F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{789AC946-A182-4A79-9A82-EEF1F9B73EB1}"
-	ProjectSection(SolutionItems) = preProject
-		F:\downloads\MediaInfoDLL.cs = F:\downloads\MediaInfoDLL.cs
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

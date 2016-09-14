@@ -20,6 +20,14 @@ namespace MovieLib
         public Form1()
         {
             InitializeComponent();
+            //call database and load table
+            ConnectionClass con = new ConnectionClass();
+            con.NewDataBase();
+            DataTable dt = con.SelAllMovies();
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+
         }
         /*
         * 
@@ -34,14 +42,18 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-                foreach(String M_File in files)
+                foreach (String M_File in files)
                 {
                     FileToDataBase ftb = new FileToDataBase(M_File);
                 }
                 MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
-                //Gets MetaData from API foreach movie
-                //break file path into path title year 
-              
+
+                ConnectionClass con = new ConnectionClass();
+                DataTable dt = con.SelAllMovies();
+                Movies_Data.Columns.Clear();
+                Movies_Data.DataSource = dt;
+                Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+
             }
         }
         /*
@@ -53,20 +65,58 @@ namespace MovieLib
             System.Diagnostics.Debug.WriteLine(Sort_Genres.Text);
         }
         /*
-        * 
+        * brings up info about the selected movie
         */
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int M_ID = 0;//DUMMY VALUE!!!
-            var form = new Movie_Info(M_ID);
-            form.Show(this);
+            var senderGrid = (DataGridView)sender;
+
+            if (e.ColumnIndex == 0)
+            {
+               
+                int M_ID = int.Parse(senderGrid.Rows[0].Cells[6].Value.ToString());
+               
+                var form = new Movie_Info(M_ID);
+                form.Show(this);
+            }
         }
         /*
-         * 
+         * Scans a folder for files and adds if they are not present in the database
          */
         private void Rescan_Folder_Click(object sender, EventArgs e)
         {
-            //TODO:::Scans dir of movies for new movies
+            //TODO::DEBUG HANGS ON INSERT IN INSERNEWROW CONCLASS
+            int newFiles = 0;
+
+
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                //
+                // The user selected a folder and pressed the OK button.
+                // We print the number of files found.
+                //
+                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                ConnectionClass con = new ConnectionClass();
+
+                foreach (String M_File in files)
+                {
+
+                    if (con.IsPresent(M_File))//check if file path is in database
+                    {
+                        FileToDataBase ftb = new FileToDataBase(M_File);
+                        newFiles++;
+                    }
+                }
+                MessageBox.Show("Files found: " + newFiles.ToString(), "Message");
+
+
+                DataTable dt = con.SelAllMovies();
+                Movies_Data.Columns.Clear();
+                Movies_Data.DataSource = dt;
+                Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+
+            }
         }
         /*
         * 
@@ -82,28 +132,33 @@ namespace MovieLib
         {
             ///TODO::: Finds only movies of sel Rating rante ie 9 to 9.9
         }
-       /*
-       * 
-       */
+        /*
+        * 
+        */
         private void Options_List_Click(object sender, EventArgs e)
         {
             //should do nothing 
         }
-       /*
-       * Shows all rows in the database
-       */
+        /*
+        * Shows all rows in the database
+        */
         private void Default_Click(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
             con.NewDataBase();
         }
         /*
+         * delete all rows from movies table
          * 
-         * 
-         */ 
+         */
         private void lastChanchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO::: Drops all recoreds and start over
+            ConnectionClass con = new ConnectionClass();
+            con.DeleteAll();
+            DataTable dt = con.SelAllMovies();
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -114,12 +169,12 @@ namespace MovieLib
          * gets the text from textbox1 
          * looks for title in movie database
          * 
-         */ 
+         */
         private void Search_Click(object sender, EventArgs e)
         {
 
         }
     }
 
-    
+
 }

@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.Movie_Title = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.M_Plot = new System.Windows.Forms.TextBox();
             this.Watch_Movie = new System.Windows.Forms.Button();
+            this.M_Title = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Movie_Title
@@ -41,14 +42,14 @@
             this.Movie_Title.Size = new System.Drawing.Size(0, 13);
             this.Movie_Title.TabIndex = 0;
             // 
-            // textBox1
+            // M_Plot
             // 
-            this.textBox1.Location = new System.Drawing.Point(75, 144);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(495, 85);
-            this.textBox1.TabIndex = 1;
+            this.M_Plot.Location = new System.Drawing.Point(75, 144);
+            this.M_Plot.Multiline = true;
+            this.M_Plot.Name = "M_Plot";
+            this.M_Plot.ReadOnly = true;
+            this.M_Plot.Size = new System.Drawing.Size(495, 85);
+            this.M_Plot.TabIndex = 1;
             // 
             // Watch_Movie
             // 
@@ -60,13 +61,23 @@
             this.Watch_Movie.UseVisualStyleBackColor = true;
             this.Watch_Movie.Click += new System.EventHandler(this.Watch_Movie_Click);
             // 
+            // M_Title
+            // 
+            this.M_Title.AutoSize = true;
+            this.M_Title.Location = new System.Drawing.Point(298, 28);
+            this.M_Title.Name = "M_Title";
+            this.M_Title.Size = new System.Drawing.Size(35, 13);
+            this.M_Title.TabIndex = 3;
+            this.M_Title.Text = "label1";
+            // 
             // Movie_Info
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(625, 332);
+            this.Controls.Add(this.M_Title);
             this.Controls.Add(this.Watch_Movie);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.M_Plot);
             this.Controls.Add(this.Movie_Title);
             this.Name = "Movie_Info";
             this.Text = "Form2";
@@ -78,7 +89,8 @@
         #endregion
 
         private System.Windows.Forms.Label Movie_Title;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox M_Plot;
         private System.Windows.Forms.Button Watch_Movie;
+        private System.Windows.Forms.Label M_Title;
     }
 }
