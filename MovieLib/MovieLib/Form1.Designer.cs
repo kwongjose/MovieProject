@@ -38,10 +38,6 @@
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
             this.Movies_Data = new System.Windows.Forms.DataGridView();
-            this.Default = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.Search = new System.Windows.Forms.Button();
             this.Title_Name = new System.Windows.Forms.DataGridViewButtonColumn();
             this.M_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Year_Made = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +45,11 @@
             this.Rating_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Length_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resulution_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Default = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Search = new System.Windows.Forms.Button();
+            this.findBadNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +69,8 @@
             this.Options_List.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Load_Files,
             this.Rescan_Folder,
-            this.startOverToolStripMenuItem});
+            this.startOverToolStripMenuItem,
+            this.findBadNamesToolStripMenuItem});
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
@@ -77,14 +79,14 @@
             // Load_Files
             // 
             this.Load_Files.Name = "Load_Files";
-            this.Load_Files.Size = new System.Drawing.Size(126, 22);
+            this.Load_Files.Size = new System.Drawing.Size(160, 22);
             this.Load_Files.Text = "Load Files";
             this.Load_Files.Click += new System.EventHandler(this.Load_Files_Click);
             // 
             // Rescan_Folder
             // 
             this.Rescan_Folder.Name = "Rescan_Folder";
-            this.Rescan_Folder.Size = new System.Drawing.Size(126, 22);
+            this.Rescan_Folder.Size = new System.Drawing.Size(160, 22);
             this.Rescan_Folder.Text = "Rescan";
             this.Rescan_Folder.Click += new System.EventHandler(this.Rescan_Folder_Click);
             // 
@@ -93,7 +95,7 @@
             this.startOverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lastChanchToolStripMenuItem});
             this.startOverToolStripMenuItem.Name = "startOverToolStripMenuItem";
-            this.startOverToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.startOverToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.startOverToolStripMenuItem.Text = "Start Over";
             // 
             // lastChanchToolStripMenuItem
@@ -198,34 +200,6 @@
             this.Movies_Data.TabIndex = 6;
             this.Movies_Data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
             // 
-            // Default
-            // 
-            this.Default.Location = new System.Drawing.Point(704, 60);
-            this.Default.Name = "Default";
-            this.Default.Size = new System.Drawing.Size(75, 23);
-            this.Default.TabIndex = 7;
-            this.Default.Text = "Show All";
-            this.Default.UseVisualStyleBackColor = true;
-            this.Default.Click += new System.EventHandler(this.Default_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(828, 63);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 20);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // Search
-            // 
-            this.Search.Location = new System.Drawing.Point(1100, 60);
-            this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(75, 23);
-            this.Search.TabIndex = 9;
-            this.Search.Text = "Search";
-            this.Search.UseVisualStyleBackColor = true;
-            this.Search.Click += new System.EventHandler(this.Search_Click);
-            // 
             // Title_Name
             // 
             this.Title_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -277,6 +251,41 @@
             this.Resulution_Data.Name = "Resulution_Data";
             this.Resulution_Data.ReadOnly = true;
             // 
+            // Default
+            // 
+            this.Default.Location = new System.Drawing.Point(704, 60);
+            this.Default.Name = "Default";
+            this.Default.Size = new System.Drawing.Size(75, 23);
+            this.Default.TabIndex = 7;
+            this.Default.Text = "Show All";
+            this.Default.UseVisualStyleBackColor = true;
+            this.Default.Click += new System.EventHandler(this.Default_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(828, 63);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(230, 20);
+            this.textBox1.TabIndex = 8;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // Search
+            // 
+            this.Search.Location = new System.Drawing.Point(1100, 60);
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(75, 23);
+            this.Search.TabIndex = 9;
+            this.Search.Text = "Search";
+            this.Search.UseVisualStyleBackColor = true;
+            this.Search.Click += new System.EventHandler(this.Search_Click);
+            // 
+            // findBadNamesToolStripMenuItem
+            // 
+            this.findBadNamesToolStripMenuItem.Name = "findBadNamesToolStripMenuItem";
+            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
+            this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,6 +332,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Rating_Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Length_Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Resulution_Data;
+        private System.Windows.Forms.ToolStripMenuItem findBadNamesToolStripMenuItem;
     }
 }
 

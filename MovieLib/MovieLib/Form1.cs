@@ -14,7 +14,9 @@ namespace MovieLib
          * 
          */
     public partial class Form1 : Form
-    {    /*
+    {
+        public List<String> BadFile = new List<string>();
+        /*
          * 
          */
         public Form1()
@@ -28,6 +30,10 @@ namespace MovieLib
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
 
+        }
+        public List<String> GetBadFiles()
+        {
+            return BadFile;
         }
         /*
         * 
@@ -79,9 +85,9 @@ namespace MovieLib
             DataGridViewRow r = senderGrid.Rows[e.RowIndex];
             if (e.ColumnIndex == 0)
             {
-               
+
                 int M_ID = int.Parse(r.Cells[6].Value.ToString());
-               
+
                 var form = new Movie_Info(M_ID);
                 form.Show(this);
             }
@@ -93,7 +99,6 @@ namespace MovieLib
         {
             //TODO::DEBUG HANGS ON INSERT IN INSERNEWROW CONCLASS
             int newFiles = 0;
-
 
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -121,6 +126,7 @@ namespace MovieLib
                 Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
                 Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+                System.Diagnostics.Debug.WriteLine("testtestes" + BadFile[0].ToString());
 
             }
         }
@@ -203,7 +209,39 @@ namespace MovieLib
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
+        /*
+         * finds files that are not in the DataBase
+         * Call LoadFiles or Rescan
+         * Call this to see if files were not inserted
+         * 
+         */
+        private void findBadNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int BadFiles = 0;
+            List<String> BadList = new List<string>();
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                //
+                // The user selected a folder and pressed the OK button.
+                // We print the number of files found.
+                //
+                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                ConnectionClass con = new ConnectionClass();
+
+                foreach (String M_File in files)
+                {
+
+                    if (con.IsPresent(M_File))//check if file path is in database
+                    {
+                        BadList.Add(M_File);
+                        BadFiles++;
+                    }
+                }
+                MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
+            }
+        }
+
+
     }
-
-
 }
