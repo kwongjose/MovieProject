@@ -244,7 +244,24 @@ namespace MovieLib
                 MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
             }
         }
+        /*
+         * sends a typed ID of movie
+         * Opens New form where user edits Movie info
+         * 
+         */
+        private void Edit_Click(object sender, EventArgs e)
+        {
 
-
+            try
+            {
+                int M_int = int.Parse(textBox2.Text);
+                var form = new UpdateRow(M_int);
+                form.Show(this);
+            }
+            catch(Exception t)
+            {
+                MessageBox.Show("Check Input", "Message");
+            }
+        }
     }
 }

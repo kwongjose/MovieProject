@@ -22,11 +22,11 @@ public class FileToDataBase
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String Width, Height, Resulution;
 
-    
+
     public FileToDataBase(String F_Path)
     {
         Resulution = "n/a";
-        
+
         var Minfo = new MediaInfo();
         Minfo.Open(F_Path);
         try
@@ -61,8 +61,9 @@ public class FileToDataBase
             Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
         }
 
-       ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
-
+         ApiCallBuilder(Movie_Title, Movie_Year).Wait();//Call the API
+       
+       // System.Diagnostics.Debug.WriteLine(j + "test");
     }
     /*
      * Gets Text Between Two subStrings
@@ -87,7 +88,7 @@ public class FileToDataBase
      * returns JSON
      * http://www.omdbapi.com/?t=taken+2&y=2012&plot=short&r=json
      */
-    private async void ApiCallBuilder(String M_Title, String M_Year)
+    private async Task<string> ApiCallBuilder(String M_Title, String M_Year)
     {
 
         StringBuilder ApiCall = new StringBuilder();
@@ -119,22 +120,25 @@ public class FileToDataBase
             ApiCall.Append("&plot=full&r=json");
         }
         System.Diagnostics.Debug.WriteLine(ApiCall.ToString());
-        await CallWebApi(ApiCall.ToString());//Might not be right
+        Task<String> t =  CallWebApi(ApiCall.ToString());//Might not be right
 
+        System.Diagnostics.Debug.WriteLine(t + "I AM HERE");                          //  String json = t.Result;
+        return "";
     }
     /*
      * Calls the OMDB API to get the Movie Data
      * 
      */
-    private async Task CallWebApi(String Call)
+    private async Task<String> CallWebApi(String Call)
     {
+
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://www.omdbapi.com/");
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("Application/json"));
 
             HttpResponseMessage response = await client.GetAsync(Call);
-            System.Diagnostics.Debug.WriteLine(Call);
+           
             if (response.IsSuccessStatusCode)
             {
 
@@ -142,21 +146,14 @@ public class FileToDataBase
                 using (Stream responseStream = await response.Content.ReadAsStreamAsync())
                 {
                     JsonMessage = new StreamReader(responseStream).ReadToEnd();
-
-                    if (!ParseJson(JsonMessage))
-                    {
-                        
-                    }
-                    else
-                    {
-                       
-                    }
+                    System.Diagnostics.Debug.WriteLine(JsonMessage);
+                    return JsonMessage;
                 }
 
             }
             else
             {
-                
+                return "";
             }
         }//end using
     }

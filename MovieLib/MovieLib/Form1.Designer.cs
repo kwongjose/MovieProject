@@ -34,6 +34,7 @@
             this.Rescan_Folder = new System.Windows.Forms.ToolStripMenuItem();
             this.startOverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastChanchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findBadNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Sort_Genres = new System.Windows.Forms.ComboBox();
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
@@ -49,7 +50,8 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Search = new System.Windows.Forms.Button();
-            this.findBadNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.Edit = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -104,6 +106,13 @@
             this.lastChanchToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.lastChanchToolStripMenuItem.Text = "Last Chanch";
             this.lastChanchToolStripMenuItem.Click += new System.EventHandler(this.lastChanchToolStripMenuItem_Click);
+            // 
+            // findBadNamesToolStripMenuItem
+            // 
+            this.findBadNamesToolStripMenuItem.Name = "findBadNamesToolStripMenuItem";
+            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
+            this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
             // 
             // Sort_Genres
             // 
@@ -279,18 +288,30 @@
             this.Search.UseVisualStyleBackColor = true;
             this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
-            // findBadNamesToolStripMenuItem
+            // textBox2
             // 
-            this.findBadNamesToolStripMenuItem.Name = "findBadNamesToolStripMenuItem";
-            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
-            this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
+            this.textBox2.Location = new System.Drawing.Point(828, 28);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(73, 20);
+            this.textBox2.TabIndex = 10;
+            // 
+            // Edit
+            // 
+            this.Edit.Location = new System.Drawing.Point(940, 25);
+            this.Edit.Name = "Edit";
+            this.Edit.Size = new System.Drawing.Size(75, 23);
+            this.Edit.TabIndex = 11;
+            this.Edit.Text = "Edit By ID";
+            this.Edit.UseVisualStyleBackColor = true;
+            this.Edit.Click += new System.EventHandler(this.Edit_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 662);
+            this.Controls.Add(this.Edit);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.Search);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Default);
@@ -333,6 +354,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Length_Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Resulution_Data;
         private System.Windows.Forms.ToolStripMenuItem findBadNamesToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button Edit;
     }
 }
 

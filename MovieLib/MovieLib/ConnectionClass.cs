@@ -122,6 +122,31 @@ public class ConnectionClass
         return dt;
     }
     /*
+     * Updates a row in the movie db based on RowID
+     * 
+     */
+     public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("UPDATE Movies set Title = @NTitle, Year = @NYear, Gerna = @NGenra, Rating = @NRating, Length = @NLength, Plot = @NPlot WHERE Rowid = " + Rid, con);
+        com.Parameters.AddWithValue("@NTitle", N_Title);
+        com.Parameters.AddWithValue("@NYear", N_Year);
+        com.Parameters.AddWithValue("@NGenra", N_Genra);
+        com.Parameters.AddWithValue("@NRating", N_Rating);
+        com.Parameters.AddWithValue("@NLength", N_Length);
+        com.Parameters.AddWithValue("@NPlot", N_Plot);
+        try
+        {
+            com.ExecuteNonQuery();
+            return true;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+    } 
+    /*
      * gets the movie title plot and file path from rowID
      * 
      */
