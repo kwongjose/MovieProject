@@ -68,6 +68,7 @@ public class ConnectionClass
 
             Insert.ExecuteNonQuery();
             con.Close();
+            con.Dispose();
         }
         catch (SQLiteException e)
         {
@@ -111,6 +112,7 @@ public class ConnectionClass
                 dt.Rows.Add(dr);
             }
             con.Close();
+            con.Dispose();
         }
         catch (SQLiteException e)
         {
@@ -144,6 +146,7 @@ public class ConnectionClass
 
             }
             con.Close();
+            con.Dispose();
         }
         catch (SQLiteException e)
         {
@@ -282,6 +285,7 @@ public class ConnectionClass
 
         }
         con.Close();
+        con.Dispose();
         return dt;
     }
     /*
@@ -324,6 +328,7 @@ public class ConnectionClass
 
         }
         con.Close();
+        con.Dispose();
         return dt;
     }
 
@@ -345,11 +350,13 @@ public class ConnectionClass
             if (r.Read())
             {
                 con.Close();
+                con.Dispose();
                 return false;
             }
             else
             {
                 con.Close();
+                con.Dispose();
                 return true;
             }
         }
@@ -372,6 +379,7 @@ public class ConnectionClass
         {
             com.ExecuteNonQuery();
             con.Close();
+            con.Dispose();
         }
         catch (SQLiteException e)
         {
