@@ -105,15 +105,24 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-               
-
+                ConnectionClass con = new ConnectionClass();
+                List<String> FilesToInsert = new List<String>();
                 foreach (String M_File in files)
                 {
-                     ConnectionClass con = new ConnectionClass();
-                 
-                        FileToDataBase ftb = new FileToDataBase(M_File);
-                    
+
+                    if (con.IsPresent(M_File))
+                    {
+                        FilesToInsert.Add(M_File); System.Diagnostics.Debug.WriteLine("LOOK" + M_File);
+                        newFiles++;
+                    }
+                    //FileToDataBase ftb = new FileToDataBase(M_File);
+
                 }
+                foreach(String path in FilesToInsert)
+                {
+                    FileToDataBase ftb = new FileToDataBase(path);
+                }
+
                 MessageBox.Show("Files found: " + newFiles.ToString(), "Message");
                 ConnectionClass cons = new ConnectionClass();
 

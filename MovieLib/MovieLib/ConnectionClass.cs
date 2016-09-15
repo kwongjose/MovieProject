@@ -378,15 +378,17 @@ public class ConnectionClass
         {
             SQLiteDataReader r = com.ExecuteReader();
             if (r.Read())
-            {
+            { r.Close();
                 con.Close();
                 con.Dispose();
+                
                 return false;
             }
             else
-            {
+            { r.Close();
                 con.Close();
                 con.Dispose();
+                
                 return true;
             }
         }
