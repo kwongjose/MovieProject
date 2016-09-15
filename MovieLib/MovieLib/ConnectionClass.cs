@@ -323,7 +323,7 @@ public class ConnectionClass
         {
 
         }
-        
+
         con.Close();
         con.Dispose();
         return dt;
@@ -389,17 +389,19 @@ public class ConnectionClass
         {
             SQLiteDataReader r = com.ExecuteReader();
             if (r.Read())
-            { r.Close();
+            {
+                r.Close();
                 con.Close();
                 con.Dispose();
-                
+
                 return false;
             }
             else
-            { r.Close();
+            {
+                r.Close();
                 con.Close();
                 con.Dispose();
-                
+
                 return true;
             }
         }
@@ -496,5 +498,22 @@ public class ConnectionClass
             System.Diagnostics.Debug.WriteLine("somthing is wrong");
             throw new Exception(e.Message);
         }
+    }
+    /*
+     * Delete a Row by RowId
+     * 
+     */
+    public void DeleteByID(int M_Id)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("DELETE  FROM Movies WHERE Rowid = " + M_Id, con);
+
+
+        com.ExecuteNonQuery();
+
+        con.Clone();
+        con.Dispose();
+        com.Dispose();
     }
 }

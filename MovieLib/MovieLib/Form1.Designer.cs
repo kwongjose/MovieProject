@@ -53,6 +53,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.Edit = new System.Windows.Forms.Button();
             this.NRow = new System.Windows.Forms.Button();
+            this.DelBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -298,7 +299,7 @@
             // 
             // Edit
             // 
-            this.Edit.Location = new System.Drawing.Point(940, 25);
+            this.Edit.Location = new System.Drawing.Point(919, 25);
             this.Edit.Name = "Edit";
             this.Edit.Size = new System.Drawing.Size(75, 23);
             this.Edit.TabIndex = 11;
@@ -316,11 +317,23 @@
             this.NRow.UseVisualStyleBackColor = true;
             this.NRow.Click += new System.EventHandler(this.NRow_Click);
             // 
+            // DelBtn
+            // 
+            this.DelBtn.Location = new System.Drawing.Point(1009, 24);
+            this.DelBtn.Name = "DelBtn";
+            this.DelBtn.Size = new System.Drawing.Size(75, 23);
+            this.DelBtn.TabIndex = 13;
+            this.DelBtn.TabStop = false;
+            this.DelBtn.Text = "Delete Row";
+            this.DelBtn.UseVisualStyleBackColor = true;
+            this.DelBtn.Click += new System.EventHandler(this.DelBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 662);
+            this.Controls.Add(this.DelBtn);
             this.Controls.Add(this.NRow);
             this.Controls.Add(this.Edit);
             this.Controls.Add(this.textBox2);
@@ -369,6 +382,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button Edit;
         private System.Windows.Forms.Button NRow;
+        private System.Windows.Forms.Button DelBtn;
     }
 }
 

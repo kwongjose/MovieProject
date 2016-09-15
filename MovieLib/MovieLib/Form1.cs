@@ -276,11 +276,32 @@ namespace MovieLib
                 MessageBox.Show("Check Input", "Message");
             }
         }
-
+        /*
+         * manually add a new row
+         * 
+         */ 
         private void NRow_Click(object sender, EventArgs e)
         {
             var form = new NewRow();
             form.Show(this);
+        }
+        /*
+         * delete a row 
+         * 
+         */ 
+        private void DelBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int M_int = int.Parse(textBox2.Text);
+                ConnectionClass con = new ConnectionClass();
+                con.DeleteByID(M_int);
+                MessageBox.Show("Row Deleted", "Message");
+            }
+            catch (Exception t)
+            {
+                MessageBox.Show("Check Input", "Message");
+            }
         }
     }
 }
