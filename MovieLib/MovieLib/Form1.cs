@@ -45,10 +45,13 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                var form = new Waiting();
+                form.Show();
                 foreach (String M_File in files)
                 {
                     FileToDataBase ftb = new FileToDataBase(M_File);
                 }
+                form.Close();
                 MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
 
                 ConnectionClass con = new ConnectionClass();
@@ -105,8 +108,11 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                var form = new Waiting();
+                form.Show();
                 ConnectionClass con = new ConnectionClass();
                 List<String> FilesToInsert = new List<String>();
+              
                 foreach (String M_File in files)
                 {
 
@@ -122,7 +128,7 @@ namespace MovieLib
                 {
                     FileToDataBase ftb = new FileToDataBase(path);
                 }
-
+                form.Close();
                 MessageBox.Show("Files found: " + newFiles.ToString(), "Message");
                 ConnectionClass cons = new ConnectionClass();
 

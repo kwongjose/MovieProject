@@ -17,6 +17,12 @@ namespace MovieLib
     public partial class Movie_Info : Form
     {
         public String File_Path, Movie_Name, Movie_Plot;
+
+        private void M_Plot_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         public Movie_Info(int ID)
         {
             InitializeComponent();

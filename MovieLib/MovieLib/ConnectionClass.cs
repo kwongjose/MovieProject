@@ -111,6 +111,7 @@ public class ConnectionClass
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
+            r.Close();
             con.Close();
             con.Dispose();
         }
@@ -173,6 +174,7 @@ public class ConnectionClass
                 Movie_Dets[2] = (String)r["Path"];
 
             }
+            r.Close();
             con.Close();
             con.Dispose();
             com.Dispose();
@@ -222,6 +224,9 @@ public class ConnectionClass
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
+            r.Close();
+            con.Close();
+            con.Dispose();
         }
         catch
         {
@@ -265,6 +270,9 @@ public class ConnectionClass
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
+            r.Close();
+            con.Close();
+            con.Dispose();
         }
         catch (SQLiteException e)
         {
@@ -309,11 +317,13 @@ public class ConnectionClass
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
+            r.Close();
         }
         catch (SQLiteException e)
         {
 
         }
+        
         con.Close();
         con.Dispose();
         return dt;
@@ -352,6 +362,7 @@ public class ConnectionClass
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
+            r.Close();
         }
         catch (SQLiteException e)
         {
@@ -442,6 +453,7 @@ public class ConnectionClass
                 data[6] = (String)r["Plot"];
                 data[7] = (String)r["Path"];
             }
+            r.Close();
             con.Close();
             con.Dispose();
             return data;
