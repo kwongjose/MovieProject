@@ -125,7 +125,7 @@ public class ConnectionClass
      * Updates a row in the movie db based on RowID
      * 
      */
-     public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot)
+    public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
@@ -139,13 +139,15 @@ public class ConnectionClass
         try
         {
             com.ExecuteNonQuery();
+            com.Dispose();
+            con.Dispose();
             return true;
         }
-        catch(Exception e)
+        catch (SQLiteException e)
         {
             return false;
         }
-    } 
+    }
     /*
      * gets the movie title plot and file path from rowID
      * 
@@ -172,6 +174,7 @@ public class ConnectionClass
             }
             con.Close();
             con.Dispose();
+            com.Dispose();
         }
         catch (SQLiteException e)
         {
@@ -223,6 +226,7 @@ public class ConnectionClass
         {
 
         }
+        sql.Dispose();
 
         return dt;
     }

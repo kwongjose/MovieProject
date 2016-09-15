@@ -34,7 +34,7 @@ public class FileToDataBase
             var VidINfo = new VideoInfo(Minfo);
             Width = VidINfo.Width.ToString();
             Height = VidINfo.Heigth.ToString();
-            Resulution = Width + "x" + Height;
+            Resulution = Width + " X " + Height;
             Minfo.Close();
         }
         catch (Exception e)
@@ -61,9 +61,9 @@ public class FileToDataBase
             Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
         }
 
-         ApiCallBuilder(Movie_Title, Movie_Year).Wait();//Call the API
-       
-       // System.Diagnostics.Debug.WriteLine(j + "test");
+        ApiCallBuilder(Movie_Title, Movie_Year).Wait();//Call the API
+
+        // System.Diagnostics.Debug.WriteLine(j + "test");
     }
     /*
      * Gets Text Between Two subStrings
@@ -120,7 +120,7 @@ public class FileToDataBase
             ApiCall.Append("&plot=full&r=json");
         }
         System.Diagnostics.Debug.WriteLine(ApiCall.ToString());
-        Task<String> t =  CallWebApi(ApiCall.ToString());//Might not be right
+        Task<String> t = CallWebApi(ApiCall.ToString());//Might not be right
 
         System.Diagnostics.Debug.WriteLine(t + "I AM HERE");                          //  String json = t.Result;
         return "";
@@ -138,7 +138,7 @@ public class FileToDataBase
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("Application/json"));
 
             HttpResponseMessage response = await client.GetAsync(Call);
-           
+
             if (response.IsSuccessStatusCode)
             {
 

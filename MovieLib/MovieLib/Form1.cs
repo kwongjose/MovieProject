@@ -258,10 +258,16 @@ namespace MovieLib
                 var form = new UpdateRow(M_int);
                 form.Show(this);
             }
-            catch(Exception t)
+            catch (Exception t)
             {
                 MessageBox.Show("Check Input", "Message");
             }
+        }
+
+        private void NRow_Click(object sender, EventArgs e)
+        {
+            var form = new NewRow();
+            form.Show(this);
         }
     }
 }

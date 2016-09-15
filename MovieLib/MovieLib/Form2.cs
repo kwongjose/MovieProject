@@ -29,15 +29,15 @@ namespace MovieLib
         /*
          * calls connection class and updates the movie row with new info
          * 
-         */ 
+         */
         private void UpDate_Click(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
-           if( con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text))
+            if (con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text))
             {
                 MessageBox.Show("Row Updated", "Message");
             }
-           else
+            else
             {
                 MessageBox.Show("There Was An Error", "Message");
             }

@@ -52,6 +52,7 @@
             this.Search = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.Edit = new System.Windows.Forms.Button();
+            this.NRow = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -305,11 +306,22 @@
             this.Edit.UseVisualStyleBackColor = true;
             this.Edit.Click += new System.EventHandler(this.Edit_Click);
             // 
+            // NRow
+            // 
+            this.NRow.Location = new System.Drawing.Point(1100, 24);
+            this.NRow.Name = "NRow";
+            this.NRow.Size = new System.Drawing.Size(75, 23);
+            this.NRow.TabIndex = 12;
+            this.NRow.Text = "New Row";
+            this.NRow.UseVisualStyleBackColor = true;
+            this.NRow.Click += new System.EventHandler(this.NRow_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 662);
+            this.Controls.Add(this.NRow);
             this.Controls.Add(this.Edit);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.Search);
@@ -356,6 +368,7 @@
         private System.Windows.Forms.ToolStripMenuItem findBadNamesToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button Edit;
+        private System.Windows.Forms.Button NRow;
     }
 }
 
