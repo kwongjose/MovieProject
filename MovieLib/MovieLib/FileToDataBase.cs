@@ -147,6 +147,7 @@ public class FileToDataBase
                 {
                     JsonMessage = new StreamReader(responseStream).ReadToEnd();
                     System.Diagnostics.Debug.WriteLine(JsonMessage);
+                    ParseJson(JsonMessage);
                     return JsonMessage;
                 }
 

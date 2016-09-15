@@ -125,17 +125,18 @@ public class ConnectionClass
      * Updates a row in the movie db based on RowID
      * 
      */
-    public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot)
+    public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot, String N_Res)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        SQLiteCommand com = new SQLiteCommand("UPDATE Movies set Title = @NTitle, Year = @NYear, Gerna = @NGenra, Rating = @NRating, Length = @NLength, Plot = @NPlot WHERE Rowid = " + Rid, con);
+        SQLiteCommand com = new SQLiteCommand("UPDATE Movies set Title = @NTitle, Year = @NYear, Gerna = @NGenra, Rating = @NRating, Length = @NLength, Plot = @NPlot, Resolution = @NRes WHERE Rowid = " + Rid, con);
         com.Parameters.AddWithValue("@NTitle", N_Title);
         com.Parameters.AddWithValue("@NYear", N_Year);
         com.Parameters.AddWithValue("@NGenra", N_Genra);
         com.Parameters.AddWithValue("@NRating", N_Rating);
         com.Parameters.AddWithValue("@NLength", N_Length);
         com.Parameters.AddWithValue("@NPlot", N_Plot);
+        com.Parameters.AddWithValue("@NRes", N_Res);
         try
         {
             com.ExecuteNonQuery();
@@ -415,6 +416,41 @@ public class ConnectionClass
 
         }
     }
+    /*
+     * Gets all row info of a movie by RowID
+     * 
+     */
+     public String[] GetMovieData(int Mid)
+    {
+        String[] data = new String[10];
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("SELECT * FROM Movies WHERE Rowid = " + Mid, con);
+        try
+        {
+            SQLiteDataReader r = com.ExecuteReader();
+            while (r.Read())
+            {
+                data[0] = (String)r["Title"];
+                data[1] = (String)r["Year"];
+                data[2] = (String)r["Gerna"];
+                data[3] = (String)r["Rating"];
+                data[4] = (String)r["Length"];
+                data[5] = (String)r["Resolution"];
+                data[6] = (String)r["Plot"];
+                data[7] = (String)r["Path"];
+            }
+            con.Close();
+            con.Dispose();
+            return data;
+            
+        }
+        catch(Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.Message);
+            return data;
+        }
+    } 
 
 
 

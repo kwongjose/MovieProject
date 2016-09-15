@@ -14,6 +14,7 @@ namespace MovieLib
     {
         public NewRow()
         {
+           
             InitializeComponent();
         }
         /*

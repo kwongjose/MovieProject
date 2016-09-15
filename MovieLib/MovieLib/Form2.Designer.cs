@@ -42,6 +42,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.UpDate = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Nres = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Tpath
@@ -55,7 +57,7 @@
             // 
             // Plot
             // 
-            this.Plot.Location = new System.Drawing.Point(140, 376);
+            this.Plot.Location = new System.Drawing.Point(140, 420);
             this.Plot.Multiline = true;
             this.Plot.Name = "Plot";
             this.Plot.Size = new System.Drawing.Size(378, 67);
@@ -99,11 +101,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 402);
+            this.label1.Location = new System.Drawing.Point(62, 474);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Plot";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -152,7 +155,7 @@
             // 
             // UpDate
             // 
-            this.UpDate.Location = new System.Drawing.Point(233, 468);
+            this.UpDate.Location = new System.Drawing.Point(230, 517);
             this.UpDate.Name = "UpDate";
             this.UpDate.Size = new System.Drawing.Size(108, 23);
             this.UpDate.TabIndex = 13;
@@ -160,11 +163,29 @@
             this.UpDate.UseVisualStyleBackColor = true;
             this.UpDate.Click += new System.EventHandler(this.UpDate_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(65, 384);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Resolution";
+            // 
+            // Nres
+            // 
+            this.Nres.Location = new System.Drawing.Point(140, 377);
+            this.Nres.Name = "Nres";
+            this.Nres.Size = new System.Drawing.Size(198, 20);
+            this.Nres.TabIndex = 15;
+            // 
             // UpdateRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 515);
+            this.ClientSize = new System.Drawing.Size(578, 578);
+            this.Controls.Add(this.Nres);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.UpDate);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -203,5 +224,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button UpDate;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox Nres;
     }
 }
