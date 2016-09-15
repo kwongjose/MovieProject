@@ -61,7 +61,7 @@ public class FileToDataBase
             Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
         }
 
-        ApiCallBuilder(Movie_Title, Movie_Year).Wait();//Call the API
+        ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
 
         // System.Diagnostics.Debug.WriteLine(j + "test");
     }
@@ -88,7 +88,7 @@ public class FileToDataBase
      * returns JSON
      * http://www.omdbapi.com/?t=taken+2&y=2012&plot=short&r=json
      */
-    private async Task<string> ApiCallBuilder(String M_Title, String M_Year)
+    private void ApiCallBuilder(String M_Title, String M_Year)
     {
 
         StringBuilder ApiCall = new StringBuilder();
@@ -120,10 +120,11 @@ public class FileToDataBase
             ApiCall.Append("&plot=full&r=json");
         }
         System.Diagnostics.Debug.WriteLine(ApiCall.ToString());
-        Task<String> t = CallWebApi(ApiCall.ToString());//Might not be right
+        Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()) );//I don't know why this works
+         Task.WhenAll(t);
+        System.Diagnostics.Debug.WriteLine(t.Result + "I AM HERE");                          //  String json = t.Result;
+        ParseJson(t.Result);
 
-        System.Diagnostics.Debug.WriteLine(t + "I AM HERE");                          //  String json = t.Result;
-        return "";
     }
     /*
      * Calls the OMDB API to get the Movie Data
@@ -146,8 +147,8 @@ public class FileToDataBase
                 using (Stream responseStream = await response.Content.ReadAsStreamAsync())
                 {
                     JsonMessage = new StreamReader(responseStream).ReadToEnd();
-                    System.Diagnostics.Debug.WriteLine(JsonMessage);
-                    ParseJson(JsonMessage);
+                  //  System.Diagnostics.Debug.WriteLine(JsonMessage);
+                   // ParseJson(JsonMessage);
                     return JsonMessage;
                 }
 
@@ -171,7 +172,7 @@ public class FileToDataBase
         if (Curent_Movie.Response == "True")
         {
             ConnectionClass con = new ConnectionClass();
-            con.InsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path);
+            con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path);
             return true;
         }
         else

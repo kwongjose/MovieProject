@@ -105,21 +105,19 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-                ConnectionClass con = new ConnectionClass();
+               
 
                 foreach (String M_File in files)
                 {
-
-                    if (con.IsPresent(M_File))//check if file path is in database
-                    {
+                     ConnectionClass con = new ConnectionClass();
+                 
                         FileToDataBase ftb = new FileToDataBase(M_File);
-                        newFiles++;
-                    }
+                    
                 }
                 MessageBox.Show("Files found: " + newFiles.ToString(), "Message");
+                ConnectionClass cons = new ConnectionClass();
 
-
-                DataTable dt = con.SelAllMovies();
+                DataTable dt = cons.SelAllMovies();
                 Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
                 Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
