@@ -25,6 +25,7 @@ namespace MovieLib
         {
             ConnectionClass con = new ConnectionClass();
             con.InsertNewRow(Mtitle.Text, Myear.Text, MGernra.Text, MRating.Text, Mlength.Text, MRes.Text, Mplot.Text, Path.Text);
+            MessageBox.Show("Row Inserted!", "Message");
         }
     }
 }

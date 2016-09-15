@@ -248,13 +248,15 @@ namespace MovieLib
                         BadFiles++;
                     }
                 }
-                if (BadList[0] != null)
+                if (BadList.Count > 0)
                 {
                     var form = new FileInfo(BadList);
                     form.Show(this);
                 }
-
-                MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
+               
+                    MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
+                
+               
             }
         }
         /*
