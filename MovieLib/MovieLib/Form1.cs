@@ -297,13 +297,32 @@ namespace MovieLib
             {
                 int M_int = int.Parse(textBox2.Text);
                 ConnectionClass con = new ConnectionClass();
+               
+                DialogResult dialogResult = MessageBox.Show("Do You Also Want to Delete The File", "", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    String[] Data = con.GetMovieData(M_int);
+                    File.Delete(Data[7]);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
                 con.DeleteByID(M_int);
                 MessageBox.Show("Row Deleted", "Message");
-            }
+            }//end try
             catch (Exception t)
             {
                 MessageBox.Show("Check Input", "Message");
             }
+        }
+        /*
+         * Shows a list of duplicate TITLES in the Database
+         * 
+         */ 
+        private void findDuplicatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConnectionClass con = new ConnectionClass();
         }
     }
 }

@@ -344,7 +344,7 @@ public class ConnectionClass
         dt.Columns.Add("ID");
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        String Ser_Title = '"' + Title + "%" + '"';
+        String Ser_Title = '"' + "%" + Title + "%" + '"';
         SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Title LIKE " + Ser_Title, con);
         try
         {

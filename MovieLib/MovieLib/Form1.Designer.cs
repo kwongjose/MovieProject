@@ -54,6 +54,7 @@
             this.Edit = new System.Windows.Forms.Button();
             this.NRow = new System.Windows.Forms.Button();
             this.DelBtn = new System.Windows.Forms.Button();
+            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -74,7 +75,8 @@
             this.Load_Files,
             this.Rescan_Folder,
             this.startOverToolStripMenuItem,
-            this.findBadNamesToolStripMenuItem});
+            this.findBadNamesToolStripMenuItem,
+            this.findDuplicatesToolStripMenuItem});
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
@@ -195,6 +197,10 @@
             // Movies_Data
             // 
             this.Movies_Data.AllowUserToDeleteRows = false;
+            this.Movies_Data.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Movies_Data.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Movies_Data.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Movies_Data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Title_Name,
@@ -328,6 +334,13 @@
             this.DelBtn.UseVisualStyleBackColor = true;
             this.DelBtn.Click += new System.EventHandler(this.DelBtn_Click);
             // 
+            // findDuplicatesToolStripMenuItem
+            // 
+            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates";
+            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +396,7 @@
         private System.Windows.Forms.Button Edit;
         private System.Windows.Forms.Button NRow;
         private System.Windows.Forms.Button DelBtn;
+        private System.Windows.Forms.ToolStripMenuItem findDuplicatesToolStripMenuItem;
     }
 }
 
