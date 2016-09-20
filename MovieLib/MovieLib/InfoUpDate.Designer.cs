@@ -45,7 +45,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.Nres = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ImdbId = new System.Windows.Forms.TextBox();
             this.IMDb_Id = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -192,12 +192,12 @@
             this.checkBox1.Text = "IMDb Id";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // ImdbId
             // 
-            this.textBox1.Location = new System.Drawing.Point(140, 525);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 17;
+            this.ImdbId.Location = new System.Drawing.Point(140, 525);
+            this.ImdbId.Name = "ImdbId";
+            this.ImdbId.Size = new System.Drawing.Size(100, 20);
+            this.ImdbId.TabIndex = 17;
             // 
             // IMDb_Id
             // 
@@ -215,7 +215,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 615);
             this.Controls.Add(this.IMDb_Id);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ImdbId);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.Nres);
             this.Controls.Add(this.label7);
@@ -260,7 +260,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox Nres;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ImdbId;
         private System.Windows.Forms.Label IMDb_Id;
     }
 }

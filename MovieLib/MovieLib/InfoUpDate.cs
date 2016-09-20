@@ -43,7 +43,7 @@ namespace MovieLib
             String Path = Tpath.Text;
             if (checkBox1.Checked)
             {
-                //TODO:: Make API Call with IMDB ID
+                FileToDataBase ftb = new FileToDataBase(ImdbId.Text, M_Id, Nres.Text);
             }
             else
             {

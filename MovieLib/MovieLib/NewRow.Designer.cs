@@ -45,6 +45,8 @@
             this.Year = new System.Windows.Forms.Label();
             this.Title = new System.Windows.Forms.Label();
             this.Fpath = new System.Windows.Forms.Label();
+            this.Imdb = new System.Windows.Forms.CheckBox();
+            this.ImdbId = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Mplot
@@ -107,7 +109,7 @@
             // 
             // submitBtn
             // 
-            this.submitBtn.Location = new System.Drawing.Point(219, 544);
+            this.submitBtn.Location = new System.Drawing.Point(219, 581);
             this.submitBtn.Name = "submitBtn";
             this.submitBtn.Size = new System.Drawing.Size(75, 23);
             this.submitBtn.TabIndex = 8;
@@ -187,11 +189,31 @@
             this.Fpath.TabIndex = 16;
             this.Fpath.Text = "File Path";
             // 
+            // Imdb
+            // 
+            this.Imdb.AutoSize = true;
+            this.Imdb.Location = new System.Drawing.Point(12, 559);
+            this.Imdb.Name = "Imdb";
+            this.Imdb.Size = new System.Drawing.Size(64, 17);
+            this.Imdb.TabIndex = 17;
+            this.Imdb.Text = "IMDb Id";
+            this.Imdb.UseVisualStyleBackColor = true;
+            this.Imdb.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // ImdbId
+            // 
+            this.ImdbId.Location = new System.Drawing.Point(88, 557);
+            this.ImdbId.Name = "ImdbId";
+            this.ImdbId.Size = new System.Drawing.Size(100, 20);
+            this.ImdbId.TabIndex = 18;
+            // 
             // NewRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 596);
+            this.ClientSize = new System.Drawing.Size(540, 616);
+            this.Controls.Add(this.ImdbId);
+            this.Controls.Add(this.Imdb);
             this.Controls.Add(this.Fpath);
             this.Controls.Add(this.Title);
             this.Controls.Add(this.Year);
@@ -235,5 +257,7 @@
         private System.Windows.Forms.Label Year;
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.Label Fpath;
+        private System.Windows.Forms.CheckBox Imdb;
+        private System.Windows.Forms.TextBox ImdbId;
     }
 }

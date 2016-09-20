@@ -23,9 +23,51 @@ public class FileToDataBase
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String  Resulution;
 
-    public FileToDataBase(String IMDB_Id, int M_Id)
+    public FileToDataBase(String IMDB_Id, int M_Id, String Res)
     {
         //TODO::Make API Call using IMDB ID then call UPDATEROW FROM CONNECTIN CLASS
+        StringBuilder ApiCall = new StringBuilder();
+        ApiCall.Append("?i=");
+        ApiCall.Append(IMDB_Id);
+        ApiCall.Append("&plot=full&r=json");
+
+        Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
+        Task.WhenAll(t);
+        System.Diagnostics.Debug.WriteLine(t.Result + "I AM HERE");      
+
+        Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(t.Result);
+
+
+        ConnectionClass con = new ConnectionClass();
+        con.UpDateRow(M_Id, Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Plot, Res);
+    }
+
+    public FileToDataBase(String IMDB_Id, String Path)
+    {
+        System.Diagnostics.Debug.WriteLine( "I AM HERE");
+        StringBuilder ApiCall = new StringBuilder();
+        ApiCall.Append("?i=");
+        ApiCall.Append(IMDB_Id);
+        ApiCall.Append("&plot=full&r=json");
+                
+
+        Full_Path = Path;
+
+        var infile = new MediaFile { Filename = Path };
+        using (var engin = new Engine())
+        {
+            engin.GetMetadata(infile);
+
+        }
+        Resulution = infile.Metadata.VideoData.FrameSize;
+        Resulution = Resulution.Replace("x", " X ");
+
+        Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
+        Task.WhenAll(t);
+        System.Diagnostics.Debug.WriteLine(t.Result + "I AM HERE");
+        ParseJson(t.Result);
+
+
     }
 
     public FileToDataBase(String F_Path)
@@ -164,10 +206,8 @@ public class FileToDataBase
      */
     private bool ParseJson(String Json)
     {       //handels when no data from server
-        JObject SerJson = JObject.Parse(Json);
-
-
-        Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(SerJson.ToString());
+        
+        Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(Json);
         if (Curent_Movie.Response == "True")
         {
             ConnectionClass con = new ConnectionClass();

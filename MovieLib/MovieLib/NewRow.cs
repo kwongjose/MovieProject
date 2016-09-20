@@ -23,9 +23,23 @@ namespace MovieLib
          */ 
         private void submitBtn_Click(object sender, EventArgs e)
         {
-            ConnectionClass con = new ConnectionClass();
-            con.InsertNewRow(Mtitle.Text, Myear.Text, MGernra.Text, MRating.Text, Mlength.Text, MRes.Text, Mplot.Text, Path.Text);
+            if (Imdb.Checked)
+            {
+                System.Diagnostics.Debug.WriteLine("I AM HERE");
+                FileToDataBase ftb = new FileToDataBase(ImdbId.Text, Path.Text);
+            }
+            else
+            {
+                ConnectionClass con = new ConnectionClass();
+                con.InsertNewRow(Mtitle.Text, Myear.Text, MGernra.Text, MRating.Text, Mlength.Text, MRes.Text, Mplot.Text, Path.Text);
+            }
             MessageBox.Show("Row Inserted!", "Message");
+            
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
