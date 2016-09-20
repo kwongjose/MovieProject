@@ -44,6 +44,9 @@
             this.UpDate = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.Nres = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.IMDb_Id = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Tpath
@@ -155,7 +158,7 @@
             // 
             // UpDate
             // 
-            this.UpDate.Location = new System.Drawing.Point(230, 517);
+            this.UpDate.Location = new System.Drawing.Point(230, 580);
             this.UpDate.Name = "UpDate";
             this.UpDate.Size = new System.Drawing.Size(108, 23);
             this.UpDate.TabIndex = 13;
@@ -179,11 +182,41 @@
             this.Nres.Size = new System.Drawing.Size(198, 20);
             this.Nres.TabIndex = 15;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(65, 580);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(64, 17);
+            this.checkBox1.TabIndex = 16;
+            this.checkBox1.Text = "IMDb Id";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(140, 525);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 17;
+            // 
+            // IMDb_Id
+            // 
+            this.IMDb_Id.AutoSize = true;
+            this.IMDb_Id.Location = new System.Drawing.Point(65, 531);
+            this.IMDb_Id.Name = "IMDb_Id";
+            this.IMDb_Id.Size = new System.Drawing.Size(46, 13);
+            this.IMDb_Id.TabIndex = 18;
+            this.IMDb_Id.Text = "IMDB Id";
+            this.IMDb_Id.Click += new System.EventHandler(this.label8_Click);
+            // 
             // UpdateRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 578);
+            this.ClientSize = new System.Drawing.Size(578, 615);
+            this.Controls.Add(this.IMDb_Id);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.Nres);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.UpDate);
@@ -226,5 +259,8 @@
         private System.Windows.Forms.Button UpDate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox Nres;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label IMDb_Id;
     }
 }

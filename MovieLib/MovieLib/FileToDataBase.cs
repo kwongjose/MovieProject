@@ -1,4 +1,5 @@
-﻿using MediaInfoLib;
+﻿using MediaToolkit;
+using MediaToolkit.Model;
 using MovieLib;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,27 +21,25 @@ using System.Windows.Forms;
 public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
-    String Width, Height, Resulution;
+    String  Resulution;
 
+    public FileToDataBase(String IMDB_Id, int M_Id)
+    {
+        //TODO::Make API Call using IMDB ID then call UPDATEROW FROM CONNECTIN CLASS
+    }
 
     public FileToDataBase(String F_Path)
     {
         Resulution = "n/a";
 
-        var Minfo = new MediaInfo();
-        Minfo.Open(F_Path);
-        try
+        var infile = new MediaFile { Filename = F_Path };
+        using (var engin = new Engine())
         {
-            var VidINfo = new VideoInfo(Minfo);
-            Width = VidINfo.Width.ToString();
-            Height = VidINfo.Heigth.ToString();
-            Resulution = Width + " X " + Height;
-            Minfo.Close();
+            engin.GetMetadata(infile);
+
         }
-        catch (Exception e)
-        {
-            // MessageBox.Show("Files found: " + e.Message, "Message");
-        }
+        Resulution = infile.Metadata.VideoData.FrameSize;
+        Resulution = Resulution.Replace("x", " X ");
 
         System.Diagnostics.Debug.WriteLine(Resulution);
 
@@ -120,8 +119,8 @@ public class FileToDataBase
             ApiCall.Append("&plot=full&r=json");
         }
         System.Diagnostics.Debug.WriteLine(ApiCall.ToString());
-        Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()) );//I don't know why this works
-         Task.WhenAll(t);
+        Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
+        Task.WhenAll(t);
         System.Diagnostics.Debug.WriteLine(t.Result + "I AM HERE");                          //  String json = t.Result;
         ParseJson(t.Result);
 
@@ -147,8 +146,8 @@ public class FileToDataBase
                 using (Stream responseStream = await response.Content.ReadAsStreamAsync())
                 {
                     JsonMessage = new StreamReader(responseStream).ReadToEnd();
-                  //  System.Diagnostics.Debug.WriteLine(JsonMessage);
-                   // ParseJson(JsonMessage);
+                    //  System.Diagnostics.Debug.WriteLine(JsonMessage);
+                    // ParseJson(JsonMessage);
                     return JsonMessage;
                 }
 

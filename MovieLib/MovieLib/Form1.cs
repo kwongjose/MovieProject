@@ -45,23 +45,34 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-                var form = new Waiting();
-                form.Show();
-                foreach (String M_File in files)
-                {
-                    FileToDataBase ftb = new FileToDataBase(M_File);
-                }
-                form.Close();
-                MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
-
-                ConnectionClass con = new ConnectionClass();
-                DataTable dt = con.SelAllMovies();
+                
+                DataTable dt = ToDatabase(files);
+                
                 Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
                 Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
 
             }
         }
+        /*
+         * Takes a Array of file names and processes them into the database
+         * 
+         */
+         private DataTable ToDatabase(String[] files)
+        {
+            var form = new Waiting();
+            form.Show();
+            foreach (String M_File in files)
+            {
+                FileToDataBase ftb = new FileToDataBase(M_File);
+            }
+            form.Close();
+            MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
+
+            ConnectionClass con = new ConnectionClass();
+            DataTable dt = con.SelAllMovies();
+            return dt;
+        } 
         /*
         * Selects Movies based on Genres
         */

@@ -40,17 +40,31 @@ namespace MovieLib
         private void UpDate_Click(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
-            if (con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text, Nres.Text))
+            String Path = Tpath.Text;
+            if (checkBox1.Checked)
             {
-                MessageBox.Show("Row Updated", "Message");
+                //TODO:: Make API Call with IMDB ID
             }
             else
             {
-                MessageBox.Show("There Was An Error", "Message");
+                if (con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text, Nres.Text))
+                {
+                    MessageBox.Show("Row Updated", "Message");
+                }
+                else
+                {
+                    MessageBox.Show("There Was An Error", "Message");
+                }
             }
+            this.Close();
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
         {
 
         }

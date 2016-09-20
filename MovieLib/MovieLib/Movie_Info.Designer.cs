@@ -44,11 +44,11 @@
             // 
             // M_Plot
             // 
-            this.M_Plot.Location = new System.Drawing.Point(75, 144);
+            this.M_Plot.Location = new System.Drawing.Point(33, 91);
             this.M_Plot.Multiline = true;
             this.M_Plot.Name = "M_Plot";
             this.M_Plot.ReadOnly = true;
-            this.M_Plot.Size = new System.Drawing.Size(495, 85);
+            this.M_Plot.Size = new System.Drawing.Size(566, 152);
             this.M_Plot.TabIndex = 1;
             this.M_Plot.TextChanged += new System.EventHandler(this.M_Plot_TextChanged);
             // 
