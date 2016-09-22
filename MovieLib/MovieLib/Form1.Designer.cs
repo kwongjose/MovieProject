@@ -54,7 +54,7 @@
             this.Edit = new System.Windows.Forms.Button();
             this.NRow = new System.Windows.Forms.Button();
             this.DelBtn = new System.Windows.Forms.Button();
-            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -75,8 +75,7 @@
             this.Load_Files,
             this.Rescan_Folder,
             this.startOverToolStripMenuItem,
-            this.findBadNamesToolStripMenuItem,
-            this.findDuplicatesToolStripMenuItem});
+            this.findBadNamesToolStripMenuItem});
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
@@ -334,18 +333,19 @@
             this.DelBtn.UseVisualStyleBackColor = true;
             this.DelBtn.Click += new System.EventHandler(this.DelBtn_Click);
             // 
-            // findDuplicatesToolStripMenuItem
+            // progressBar
             // 
-            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
-            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates";
-            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
+            this.progressBar.Location = new System.Drawing.Point(156, 24);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(357, 23);
+            this.progressBar.TabIndex = 14;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 662);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.DelBtn);
             this.Controls.Add(this.NRow);
             this.Controls.Add(this.Edit);
@@ -396,7 +396,7 @@
         private System.Windows.Forms.Button Edit;
         private System.Windows.Forms.Button NRow;
         private System.Windows.Forms.Button DelBtn;
-        private System.Windows.Forms.ToolStripMenuItem findDuplicatesToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

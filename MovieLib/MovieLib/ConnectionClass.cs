@@ -2,18 +2,24 @@
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-
+/*
+ * This Class handels all interaction with the SQLite database
+ * 
+ */ 
 public class ConnectionClass
 {
     String ConString = "Data Source=MyMovies.sqlite;Version=3;";
-
+    /*
+     * An Empty constructor
+     * 
+     */ 
     public ConnectionClass()
     {
 
     }
 
     /*
-     * makes a new Database with movie table
+     * makes a new Database with movie table if it does not exist
      * 
      */
     public void NewDataBase()
@@ -42,7 +48,7 @@ public class ConnectionClass
     }
     /*
      * Inserts a new Movie Row into the Database
-     * Takes String title, String Year, String Gernas, String Rating, String Length, String Resoulution, 
+     * @pram String title, String Year, String Gernas, String Rating, String Length, String Resoulution, 
      * sring File Path String Plot
      * 
      */
@@ -124,7 +130,8 @@ public class ConnectionClass
     }
     /*
      * Updates a row in the movie db based on RowID
-     * 
+     * @pram int rowid, string title, string year, string genras, string rating, string length, string plot, string res
+     * @return a bool on good insert
      */
     public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot, String N_Res)
     {
@@ -152,7 +159,8 @@ public class ConnectionClass
     }
     /*
      * gets the movie title plot and file path from rowID
-     * 
+     * @Pram Movie rowID
+     * @return String[] with title plot and path
      */
     public String[] GetMoiveByID(int ID)
     {
@@ -188,7 +196,8 @@ public class ConnectionClass
     }
     /*
      * returns all movie of the selected Gernra
-     * 
+     * @param a gerna as string
+     * @return A datatable with all the movie info
      */
     public DataTable GetMovieByGernra(String G)
     {
@@ -238,7 +247,8 @@ public class ConnectionClass
     }
     /*
      * returns all movies of the selected rating range
-     * 
+     * @param a string rating
+     * @return a datatable with movies from n.0 to n.9
      */
     public DataTable GetMovieByRating(String R)
     {
@@ -282,7 +292,8 @@ public class ConnectionClass
     }
     /*
      * get all movies made in the selected decade
-     * 
+     * @param A decade as a year
+     * @return a datatable of movies from that decade
      */
     public DataTable GetMovieByYear(String Y)
     {
@@ -330,7 +341,8 @@ public class ConnectionClass
     }
     /*
      * Get movies matching Title
-     * 
+     * @pram a title or part of a title as a string
+     * @return a datatable that matches part of that title
      */
     public DataTable GetMovieByTitle(String Title)
     {
@@ -376,8 +388,8 @@ public class ConnectionClass
 
     /*
      * checks if filepath is already in database
-     * if present true
-     * false if absent
+     * @param a file path
+     * @return a bool showing wither the file is in the database or not
      */
     public bool IsPresent(String F_Path)
     {
@@ -475,9 +487,7 @@ public class ConnectionClass
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand Insert = new SQLiteCommand(SqlInsert, con);
-        System.Diagnostics.Debug.WriteLine("somthing is wrong");
         Insert.Parameters.AddWithValue("@Title", M_Title);
-        System.Diagnostics.Debug.WriteLine("somthing is sdafwrong");
         Insert.Parameters.AddWithValue("@Year", M_Year);
         Insert.Parameters.AddWithValue("@Gerna", M_Gernas);
         Insert.Parameters.AddWithValue("@Rating", M_Rating);
@@ -485,7 +495,6 @@ public class ConnectionClass
         Insert.Parameters.AddWithValue("@Resolution", M_Res);
         Insert.Parameters.AddWithValue("@Plot", M_Plot);
         Insert.Parameters.AddWithValue("@Path", M_Path);
-        System.Diagnostics.Debug.WriteLine("somthing isasdfasd wrong");
         try
         {
 
@@ -495,8 +504,7 @@ public class ConnectionClass
         }
         catch (SQLiteException e)
         {
-            System.Diagnostics.Debug.WriteLine("somthing is wrong");
-            throw new Exception(e.Message);
+           throw new Exception(e.Message);
         }
     }
     /*

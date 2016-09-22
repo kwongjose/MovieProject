@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace MovieLib
 {    /*
@@ -16,12 +17,17 @@ namespace MovieLib
     public partial class Form1 : Form
     {
         public List<String> BadFile = new List<string>();
+        BackgroundWorker worker;
+        int prog = 0;
+        int fn;
+        // ProgressBar bar;
         /*
          * 
          */
         public Form1()
         {
             InitializeComponent();
+            progressBar.Visible = false;
             //call database and load table
             ConnectionClass con = new ConnectionClass();
             con.NewDataBase();
@@ -45,9 +51,9 @@ namespace MovieLib
                 // We print the number of files found.
                 //
                 string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-                
+
                 DataTable dt = ToDatabase(files);
-                
+
                 Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
                 Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
@@ -58,21 +64,51 @@ namespace MovieLib
          * Takes a Array of file names and processes them into the database
          * 
          */
-         private DataTable ToDatabase(String[] files)
+        private DataTable ToDatabase(String[] files)
         {
             var form = new Waiting();
-            form.Show();
-            foreach (String M_File in files)
-            {
-                FileToDataBase ftb = new FileToDataBase(M_File);
-            }
-            form.Close();
+            progressBar.Visible = true;
+            progressBar.Maximum = files.Length;
+            progressBar.Step = 1;
+            worker = new BackgroundWorker();
+            fn = files.Length;
+            worker.WorkerReportsProgress = true;
+            //Change to Async-Await 
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 3 },
+                M_File =>
+                {
+                    ToFileTODatabase(M_File, worker);
+                });
+
+            // form.Close();
+
             MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
 
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.SelAllMovies();
+            progressBar.Visible = false;
             return dt;
-        } 
+        }
+        /*
+         * method used to call in parralel
+         * @parm object. used as string
+         * 
+         */
+        private void ToFileTODatabase(object a, BackgroundWorker bc)
+        {
+            try
+            {
+
+                String Files = a as String;
+                FileToDataBase ftb = new FileToDataBase(Files);                
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+        }
+
         /*
         * Selects Movies based on Genres
         */
@@ -123,19 +159,19 @@ namespace MovieLib
                 form.Show();
                 ConnectionClass con = new ConnectionClass();
                 List<String> FilesToInsert = new List<String>();
-              
+
                 foreach (String M_File in files)
                 {
 
                     if (con.IsPresent(M_File))
                     {
-                        FilesToInsert.Add(M_File); System.Diagnostics.Debug.WriteLine("LOOK" + M_File);
+                        FilesToInsert.Add(M_File);
                         newFiles++;
                     }
                     //FileToDataBase ftb = new FileToDataBase(M_File);
 
                 }
-                foreach(String path in FilesToInsert)
+                foreach (String path in FilesToInsert)
                 {
                     FileToDataBase ftb = new FileToDataBase(path);
                 }
@@ -264,10 +300,10 @@ namespace MovieLib
                     var form = new FileInfo(BadList);
                     form.Show(this);
                 }
-               
-                    MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
-                
-               
+
+                MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
+
+
             }
         }
         /*
@@ -292,7 +328,7 @@ namespace MovieLib
         /*
          * manually add a new row
          * 
-         */ 
+         */
         private void NRow_Click(object sender, EventArgs e)
         {
             var form = new NewRow();
@@ -301,14 +337,14 @@ namespace MovieLib
         /*
          * delete a row 
          * 
-         */ 
+         */
         private void DelBtn_Click(object sender, EventArgs e)
         {
             try
             {
                 int M_int = int.Parse(textBox2.Text);
                 ConnectionClass con = new ConnectionClass();
-               
+
                 DialogResult dialogResult = MessageBox.Show("Do You Also Want to Delete The File", "", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -330,7 +366,7 @@ namespace MovieLib
         /*
          * Shows a list of duplicate TITLES in the Database
          * 
-         */ 
+         */
         private void findDuplicatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();

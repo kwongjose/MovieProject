@@ -15,8 +15,8 @@ namespace MovieLib
         public Waiting()
         {
             InitializeComponent();
-            label1.Font = new Font(label1.Font.FontFamily, 16);
-            label1.Text = "Working Please Wait";
+          //  label1.Font = new Font(label1.Font.FontFamily, 16);
+           // label1.Text = "Working Please Wait";
         }
 
         private void Waiting_Load(object sender, EventArgs e)

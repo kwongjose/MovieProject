@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -32,8 +33,7 @@ public class FileToDataBase
         ApiCall.Append("&plot=full&r=json");
 
         Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
-        Task.WhenAll(t);
-        System.Diagnostics.Debug.WriteLine(t.Result + "I AM HERE");      
+        Task.WhenAll(t);   
 
         Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(t.Result);
 
@@ -44,7 +44,7 @@ public class FileToDataBase
 
     public FileToDataBase(String IMDB_Id, String Path)
     {
-        System.Diagnostics.Debug.WriteLine( "I AM HERE");
+        
         StringBuilder ApiCall = new StringBuilder();
         ApiCall.Append("?i=");
         ApiCall.Append(IMDB_Id);
@@ -64,7 +64,6 @@ public class FileToDataBase
 
         Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
         Task.WhenAll(t);
-        System.Diagnostics.Debug.WriteLine(t.Result + "I AM HERE");
         ParseJson(t.Result);
 
 
@@ -73,17 +72,23 @@ public class FileToDataBase
     public FileToDataBase(String F_Path)
     {
         Resulution = "n/a";
-
+        System.Diagnostics.Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
         var infile = new MediaFile { Filename = F_Path };
         using (var engin = new Engine())
         {
             engin.GetMetadata(infile);
 
         }
-        Resulution = infile.Metadata.VideoData.FrameSize;
-        Resulution = Resulution.Replace("x", " X ");
+        try
+        {
+            Resulution = infile.Metadata.VideoData.FrameSize;
+            Resulution = Resulution.Replace("x", " X ");
+        }
+        catch(Exception e)
+        {
 
-        System.Diagnostics.Debug.WriteLine(Resulution);
+        }
+       
 
         Full_Path = F_Path;
         Movie_Path = Path.GetFileName(F_Path);//movie title (1999).mpg
@@ -160,10 +165,9 @@ public class FileToDataBase
             ApiCall.Append(M_Year);
             ApiCall.Append("&plot=full&r=json");
         }
-        System.Diagnostics.Debug.WriteLine(ApiCall.ToString());
-        Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
+        Task<String> t =  CallWebApi(ApiCall.ToString());//I don't know why this works
         Task.WhenAll(t);
-        System.Diagnostics.Debug.WriteLine(t.Result + "I AM HERE");                          //  String json = t.Result;
+        
         ParseJson(t.Result);
 
     }
