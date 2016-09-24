@@ -39,13 +39,6 @@
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
             this.Movies_Data = new System.Windows.Forms.DataGridView();
-            this.Title_Name = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.M_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Year_Made = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Genres_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rating_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Resulution_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Default = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -201,71 +194,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Movies_Data.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Movies_Data.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.Movies_Data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Title_Name,
-            this.M_ID,
-            this.Year_Made,
-            this.Genres_Data,
-            this.Rating_Data,
-            this.Length_Data,
-            this.Resulution_Data});
             this.Movies_Data.Location = new System.Drawing.Point(12, 109);
             this.Movies_Data.Name = "Movies_Data";
             this.Movies_Data.ReadOnly = true;
             this.Movies_Data.Size = new System.Drawing.Size(1230, 457);
             this.Movies_Data.TabIndex = 6;
             this.Movies_Data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
-            // 
-            // Title_Name
-            // 
-            this.Title_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Title_Name.HeaderText = "Title";
-            this.Title_Name.Name = "Title_Name";
-            this.Title_Name.ReadOnly = true;
-            this.Title_Name.Text = "";
-            // 
-            // M_ID
-            // 
-            this.M_ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.M_ID.HeaderText = "ID";
-            this.M_ID.Name = "M_ID";
-            this.M_ID.ReadOnly = true;
-            this.M_ID.Visible = false;
-            // 
-            // Year_Made
-            // 
-            this.Year_Made.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Year_Made.HeaderText = "Year";
-            this.Year_Made.Name = "Year_Made";
-            this.Year_Made.ReadOnly = true;
-            // 
-            // Genres_Data
-            // 
-            this.Genres_Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Genres_Data.HeaderText = "Genres";
-            this.Genres_Data.Name = "Genres_Data";
-            this.Genres_Data.ReadOnly = true;
-            // 
-            // Rating_Data
-            // 
-            this.Rating_Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Rating_Data.HeaderText = "Rating";
-            this.Rating_Data.Name = "Rating_Data";
-            this.Rating_Data.ReadOnly = true;
-            // 
-            // Length_Data
-            // 
-            this.Length_Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Length_Data.HeaderText = "Length";
-            this.Length_Data.Name = "Length_Data";
-            this.Length_Data.ReadOnly = true;
-            // 
-            // Resulution_Data
-            // 
-            this.Resulution_Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Resulution_Data.HeaderText = "Resulution";
-            this.Resulution_Data.Name = "Resulution_Data";
-            this.Resulution_Data.ReadOnly = true;
             // 
             // Default
             // 
@@ -384,13 +318,6 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Search;
-        private System.Windows.Forms.DataGridViewButtonColumn Title_Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn M_ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Year_Made;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Genres_Data;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rating_Data;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Length_Data;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Resulution_Data;
         private System.Windows.Forms.ToolStripMenuItem findBadNamesToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button Edit;

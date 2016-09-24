@@ -35,11 +35,18 @@ namespace MovieLib
             Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+                      
 
         }
 
+        private void Sorter(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("test");
+        }
+
         /*
-        * 
+        * User Selects a folder to scan.
+        * Returns ALL files in folder so only movie/video files should be in the folder
         */
         private void Load_Files_Click(object sender, EventArgs e)
         {
@@ -67,20 +74,17 @@ namespace MovieLib
         private DataTable ToDatabase(String[] files)
         {
             var form = new Waiting();
-            progressBar.Visible = true;
-            progressBar.Maximum = files.Length;
-            progressBar.Step = 1;
-            worker = new BackgroundWorker();
-            fn = files.Length;
-            worker.WorkerReportsProgress = true;
+            form.Show();
+           
             //Change to Async-Await 
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 3 },
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 10 },
                 M_File =>
                 {
-                    ToFileTODatabase(M_File, worker);
+                   ToFileTODatabase(M_File);
                 });
+       
 
-            // form.Close();
+            form.Close();
 
             MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
 
@@ -89,18 +93,22 @@ namespace MovieLib
             progressBar.Visible = false;
             return dt;
         }
+      
         /*
          * method used to call in parralel
          * @parm object. used as string
          * 
          */
-        private void ToFileTODatabase(object a, BackgroundWorker bc)
+        private void ToFileTODatabase(String a)
         {
             try
             {
 
                 String Files = a as String;
-                FileToDataBase ftb = new FileToDataBase(Files);                
+                FileToDataBase ftb = new FileToDataBase();
+                ftb.MakeAPI(Files);
+                
+                            
             }
             catch (Exception e)
             {
@@ -119,7 +127,7 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByGernra(Sel_Genre);
 
-            Movies_Data.Columns.Clear();
+           // Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -129,14 +137,17 @@ namespace MovieLib
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            DataGridViewRow r = senderGrid.Rows[e.RowIndex];
-            if (e.ColumnIndex == 0)
+            if (e.RowIndex >= 0)
             {
+                DataGridViewRow r = senderGrid.Rows[e.RowIndex];
+                if (e.ColumnIndex == 0)
+                {
 
-                int M_ID = int.Parse(r.Cells[6].Value.ToString());
+                    int M_ID = int.Parse(r.Cells[6].Value.ToString());
 
-                var form = new Movie_Info(M_ID);
-                form.Show(this);
+                    var form = new Movie_Info(M_ID);
+                    form.Show(this);
+                }
             }
         }
         /*

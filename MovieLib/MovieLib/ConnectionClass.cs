@@ -445,7 +445,8 @@ public class ConnectionClass
     }
     /*
      * Gets all row info of a movie by RowID
-     * 
+     * @Pram the RowID of a Movie as an in
+     * @Return All columns for that RowId
      */
     public String[] GetMovieData(int Mid)
     {
@@ -479,7 +480,11 @@ public class ConnectionClass
             return data;
         }
     }
-
+    /*
+     * Inserts only if row data is not in table
+     * @Pram movie title, movie year, gerna, rating, length, res, plot and path
+     * 
+     */ 
     public void TestInsertNewRow(String M_Title, String M_Year, String M_Gernas, String M_Rating, String M_Length, String M_Res, String M_Plot, String M_Path)
     {
         String p = '"' + M_Path + '"';
@@ -509,7 +514,7 @@ public class ConnectionClass
     }
     /*
      * Delete a Row by RowId
-     * 
+     * @pram a movie RowId as a int
      */
     public void DeleteByID(int M_Id)
     {

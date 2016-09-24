@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Timers;
+using System.Diagnostics;
 
 /*
  * Class takes in a File Path Seperates it into a Title with or without year
@@ -40,6 +42,57 @@ public class FileToDataBase
 
         ConnectionClass con = new ConnectionClass();
         con.UpDateRow(M_Id, Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Plot, Res);
+    }
+    
+    public FileToDataBase()
+    {
+
+    }
+
+    public String MakeAPI(String Fname)
+    {
+        Stopwatch timer = Stopwatch.StartNew();
+
+        Resulution = "n/a";
+       // System.Diagnostics.Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
+        var infile = new MediaFile { Filename = Fname };
+        using (var engin = new Engine())
+        {
+            engin.GetMetadata(infile);
+
+        }
+        try
+        {
+            Resulution = infile.Metadata.VideoData.FrameSize;
+            Resulution = Resulution.Replace("x", " X ");
+        }
+        catch (Exception e)
+        {
+
+        }
+
+
+        Full_Path = Fname;
+        Movie_Path = Path.GetFileName(Fname);//movie title (1999).mpg
+        //does path hold a date
+        if (Movie_Path.Contains('('))//Holds a Date
+        {
+            Movie_Year = getBetween(Movie_Path, "(", ")");//(1990) or ""
+
+            int i = Movie_Path.IndexOf("(");
+
+            Movie_Title = Movie_Path.Substring(0, i);//Movie Title
+
+        }
+        else
+        {
+            Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
+        }
+        timer.Stop();
+
+        System.Diagnostics.Debug.WriteLine(timer.ElapsedMilliseconds + " thread  in builder" + Thread.CurrentThread.ManagedThreadId);
+        ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
+        return "";
     }
 
     public FileToDataBase(String IMDB_Id, String Path)
@@ -113,7 +166,8 @@ public class FileToDataBase
     }
     /*
      * Gets Text Between Two subStrings
-     * 
+     * @param full String, The first part of the sub string, the end of the substring
+     * @return The SubString between strStart and strEnd
      */
     private static string getBetween(string strSource, string strStart, string strEnd)
     {
@@ -134,8 +188,9 @@ public class FileToDataBase
      * returns JSON
      * http://www.omdbapi.com/?t=taken+2&y=2012&plot=short&r=json
      */
-    private void ApiCallBuilder(String M_Title, String M_Year)
+    private String ApiCallBuilder(String M_Title, String M_Year)
     {
+        
 
         StringBuilder ApiCall = new StringBuilder();
 
@@ -165,11 +220,15 @@ public class FileToDataBase
             ApiCall.Append(M_Year);
             ApiCall.Append("&plot=full&r=json");
         }
-        Task<String> t =  CallWebApi(ApiCall.ToString());//I don't know why this works
+
+        Stopwatch timers = Stopwatch.StartNew();
+        Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()));//I don't know why this works
         Task.WhenAll(t);
         
-        ParseJson(t.Result);
-
+       ParseJson(t.Result);
+        timers.Stop();
+        System.Diagnostics.Debug.WriteLine(timers.ElapsedMilliseconds + " thread  in API" + Thread.CurrentThread.ManagedThreadId);
+        return "";
     }
     /*
      * Calls the OMDB API to get the Movie Data
@@ -177,7 +236,7 @@ public class FileToDataBase
      */
     private async Task<String> CallWebApi(String Call)
     {
-
+        Stopwatch timers = Stopwatch.StartNew();
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://www.omdbapi.com/");
@@ -193,7 +252,7 @@ public class FileToDataBase
                 {
                     JsonMessage = new StreamReader(responseStream).ReadToEnd();
                     //  System.Diagnostics.Debug.WriteLine(JsonMessage);
-                    // ParseJson(JsonMessage);
+                    
                     return JsonMessage;
                 }
 
