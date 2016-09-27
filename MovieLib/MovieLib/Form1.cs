@@ -35,7 +35,7 @@ namespace MovieLib
             Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-                      
+
 
         }
 
@@ -75,14 +75,14 @@ namespace MovieLib
         {
             var form = new Waiting();
             form.Show();
-           
+
             //Change to Async-Await 
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 10 },
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
                 M_File =>
                 {
-                   ToFileTODatabase(M_File);
+                    ToFileTODatabase(M_File);
                 });
-       
+
 
             form.Close();
 
@@ -93,22 +93,18 @@ namespace MovieLib
             progressBar.Visible = false;
             return dt;
         }
-      
+
         /*
          * method used to call in parralel
          * @parm object. used as string
          * 
          */
-        private void ToFileTODatabase(String a)
+        private void ToFileTODatabase(String Files)
         {
             try
             {
+                FileToDataBase ftb = new FileToDataBase(Files);
 
-                String Files = a as String;
-                FileToDataBase ftb = new FileToDataBase();
-                ftb.MakeAPI(Files);
-                
-                            
             }
             catch (Exception e)
             {
@@ -127,7 +123,7 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByGernra(Sel_Genre);
 
-           // Movies_Data.Columns.Clear();
+            // Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -191,7 +187,6 @@ namespace MovieLib
                 ConnectionClass cons = new ConnectionClass();
 
                 DataTable dt = cons.SelAllMovies();
-                Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
                 Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
 
@@ -210,7 +205,6 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByYear(SubYear);
             System.Diagnostics.Debug.WriteLine(SubYear);
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -223,7 +217,7 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByRating(Rating);
 
-            Movies_Data.Columns.Clear();
+
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -241,7 +235,6 @@ namespace MovieLib
         {
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.SelAllMovies();
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -254,7 +247,6 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             con.DeleteAll();
             DataTable dt = con.SelAllMovies();
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -273,7 +265,6 @@ namespace MovieLib
             String Title = textBox1.Text;
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByTitle(Title);
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
