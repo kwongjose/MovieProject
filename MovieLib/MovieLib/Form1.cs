@@ -75,8 +75,9 @@ namespace MovieLib
         private DataTable ToDatabase(String[] files)
         {
             var form = new Waiting();
-            form.Show();
-
+          //  form.Show();
+            progressBar.Maximum = files.Length;
+            progressBar.Visible = true;
             //Change to Async-Await 
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
                 M_File =>
@@ -85,7 +86,7 @@ namespace MovieLib
                 });
 
 
-            form.Close();
+           // form.Close();
 
             MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
 
@@ -105,13 +106,24 @@ namespace MovieLib
             try
             {
                 FileToDataBase ftb = new FileToDataBase(Files);
-
+                prog++;
+                UpdateBar(prog);
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
 
+        }
+
+        private void UpdateBar(int i)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<int>(UpdateBar), new object[] { i });
+                return;
+            }
+            progressBar.Value = i;
         }
 
         /*
@@ -285,11 +297,15 @@ namespace MovieLib
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                //
-                // The user selected a folder and pressed the OK button.
-                // We print the number of files found.
-                //
-                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };//video file types
+
+                List<String> files = new List<String>();
+
+                foreach (String filter in FilterFile)
+                {
+                    files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
+                }
+
                 ConnectionClass con = new ConnectionClass();
 
                 foreach (String M_File in files)
