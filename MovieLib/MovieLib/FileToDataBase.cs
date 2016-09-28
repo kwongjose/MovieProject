@@ -25,7 +25,9 @@ public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String  Resulution;
-    Stopwatch res, total;
+    Task task;
+    Stopwatch Res, API, Total, work;
+
     public FileToDataBase(String IMDB_Id, int M_Id, String Res)
     {
         //TODO::Make API Call using IMDB ID then call UPDATEROW FROM CONNECTIN CLASS
@@ -51,6 +53,7 @@ public class FileToDataBase
 
     public String MakeAPI(String Fname)
     {
+       
 
         Resulution = "n/a";
        // System.Diagnostics.Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
@@ -64,13 +67,12 @@ public class FileToDataBase
         {
             Resulution = infile.Metadata.VideoData.FrameSize;
             Resulution = Resulution.Replace("x", " X ");
-            
         }
         catch (Exception e)
         {
 
         }
-
+      
 
         Full_Path = Fname;
         Movie_Path = Path.GetFileName(Fname);//movie title (1999).mpg
@@ -88,9 +90,7 @@ public class FileToDataBase
         {
             Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
         }
-        timer.Stop();
-
-        System.Diagnostics.Debug.WriteLine(timer.ElapsedMilliseconds + " thread  in builder" + Thread.CurrentThread.ManagedThreadId);
+       
         ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
         return "";
     }
@@ -122,15 +122,14 @@ public class FileToDataBase
 
     }
     /*
-     * The main constructor for load file
+     * Stand alone method that sets the resulution
+     * using this to see if i can speed up total run time
      * 
      */ 
-    public FileToDataBase(String F_Path)
+    private async Task<String> GetRes(String F)
     {
-        Resulution = "n/a";
-        System.Diagnostics.Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
-        var infile = new MediaFile { Filename = F_Path };
-        using (var engin = new Engine())
+        MediaFile infile = new MediaFile { Filename = F };
+        using (Engine engin = new Engine())
         {
             engin.GetMetadata(infile);
 
@@ -139,13 +138,46 @@ public class FileToDataBase
         {
             Resulution = infile.Metadata.VideoData.FrameSize;
             Resulution = Resulution.Replace("x", " X ");
+            
+            return "";
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-
+            return "";
         }
+    }
+    /*
+     * constructor that preps seperates the file name into movie or movie and title
+     * @pram File Path
+     * 
+     */ 
+    public FileToDataBase(String F_Path)
+    {
        
+        Resulution = "n/a";
 
+        //Thread thread = new Thread(() => GetRes(F_Path) );
+       //  task = new Task(() =>  GetRes(F_Path));
+       // task.Start();
+
+           
+         MediaFile infile = new MediaFile { Filename = F_Path }; //Try to speed this up
+          using (Engine engin = new Engine())
+          {
+              engin.GetMetadata(infile);
+
+          }
+          try
+          {
+              Resulution = infile.Metadata.VideoData.FrameSize;
+              Resulution = Resulution.Replace("x", " X ");
+          }
+          catch(Exception e)
+          {
+
+          }
+          
+        
         Full_Path = F_Path;
         Movie_Path = Path.GetFileName(F_Path);//movie title (1999).mpg
         //does path hold a date
@@ -164,8 +196,6 @@ public class FileToDataBase
         }
 
         ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
-
-        // System.Diagnostics.Debug.WriteLine(j + "test");
     }
     /*
      * Gets Text Between Two subStrings
@@ -224,13 +254,11 @@ public class FileToDataBase
             ApiCall.Append("&plot=full&r=json");
         }
 
-        Stopwatch timers = Stopwatch.StartNew();
         Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()));//I don't know why this works
-        Task.WhenAll(t);
-        
-       ParseJson(t.Result);
-        timers.Stop();
-        System.Diagnostics.Debug.WriteLine(timers.ElapsedMilliseconds + " thread  in API" + Thread.CurrentThread.ManagedThreadId);
+        t.Wait();
+       //Task.WaitAll(task);
+        ParseJson(t.Result);
+       
         return "";
     }
     /*
@@ -239,7 +267,7 @@ public class FileToDataBase
      */
     private async Task<String> CallWebApi(String Call)
     {
-        Stopwatch timers = Stopwatch.StartNew();
+        
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://www.omdbapi.com/");

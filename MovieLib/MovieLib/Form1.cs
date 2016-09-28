@@ -35,7 +35,7 @@ namespace MovieLib
             Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-                      
+
 
         }
 
@@ -53,13 +53,14 @@ namespace MovieLib
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                //
-                // The user selected a folder and pressed the OK button.
-                // We print the number of files found.
-                //
-                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-
-                DataTable dt = ToDatabase(files);
+                String[] FilterFile = { "*.avi",  "*.MP4",   "*.mkv", "*.m4v", "*.mpg"};
+                List<string> files = new List<string>();
+                //string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                foreach(String filter in FilterFile)
+                {
+                    files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
+                }
+                DataTable dt = ToDatabase(files.ToArray());
 
                 Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
@@ -74,17 +75,18 @@ namespace MovieLib
         private DataTable ToDatabase(String[] files)
         {
             var form = new Waiting();
-            form.Show();
-           
+          //  form.Show();
+            progressBar.Maximum = files.Length;
+            progressBar.Visible = true;
             //Change to Async-Await 
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 10 },
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
                 M_File =>
                 {
-                   ToFileTODatabase(M_File);
+                    ToFileTODatabase(M_File);
                 });
-       
 
-            form.Close();
+
+           // form.Close();
 
             MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
 
@@ -93,28 +95,35 @@ namespace MovieLib
             progressBar.Visible = false;
             return dt;
         }
-      
+
         /*
          * method used to call in parralel
          * @parm object. used as string
          * 
          */
-        private void ToFileTODatabase(String a)
+        private void ToFileTODatabase(String Files)
         {
             try
             {
-
-                String Files = a as String;
-                FileToDataBase ftb = new FileToDataBase();
-                ftb.MakeAPI(Files);
-                
-                            
+                FileToDataBase ftb = new FileToDataBase(Files);
+                prog++;
+                UpdateBar(prog);
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
 
+        }
+
+        private void UpdateBar(int i)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<int>(UpdateBar), new object[] { i });
+                return;
+            }
+            progressBar.Value = i;
         }
 
         /*
@@ -127,7 +136,7 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByGernra(Sel_Genre);
 
-           // Movies_Data.Columns.Clear();
+            // Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -158,14 +167,17 @@ namespace MovieLib
             //TODO::DEBUG HANGS ON INSERT IN INSERNEWROW CONCLASS
             int newFiles = 0;
 
+            String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };
+
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                //
-                // The user selected a folder and pressed the OK button.
-                // We print the number of files found.
-                //
-                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                List<String> files = new List<String>();
+                //string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                foreach (String filter in FilterFile)
+                {
+                    files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
+                }
                 var form = new Waiting();
                 form.Show();
                 ConnectionClass con = new ConnectionClass();
@@ -191,7 +203,6 @@ namespace MovieLib
                 ConnectionClass cons = new ConnectionClass();
 
                 DataTable dt = cons.SelAllMovies();
-                Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
                 Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
 
@@ -210,7 +221,6 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByYear(SubYear);
             System.Diagnostics.Debug.WriteLine(SubYear);
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -223,7 +233,7 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByRating(Rating);
 
-            Movies_Data.Columns.Clear();
+
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -241,7 +251,6 @@ namespace MovieLib
         {
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.SelAllMovies();
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -254,7 +263,6 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             con.DeleteAll();
             DataTable dt = con.SelAllMovies();
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -273,7 +281,6 @@ namespace MovieLib
             String Title = textBox1.Text;
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByTitle(Title);
-            Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -290,11 +297,15 @@ namespace MovieLib
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                //
-                // The user selected a folder and pressed the OK button.
-                // We print the number of files found.
-                //
-                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };//video file types
+
+                List<String> files = new List<String>();
+
+                foreach (String filter in FilterFile)
+                {
+                    files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
+                }
+
                 ConnectionClass con = new ConnectionClass();
 
                 foreach (String M_File in files)
