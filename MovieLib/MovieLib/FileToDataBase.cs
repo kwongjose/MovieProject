@@ -25,7 +25,7 @@ public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String  Resulution;
-
+    Stopwatch res, total;
     public FileToDataBase(String IMDB_Id, int M_Id, String Res)
     {
         //TODO::Make API Call using IMDB ID then call UPDATEROW FROM CONNECTIN CLASS
@@ -51,7 +51,6 @@ public class FileToDataBase
 
     public String MakeAPI(String Fname)
     {
-        Stopwatch timer = Stopwatch.StartNew();
 
         Resulution = "n/a";
        // System.Diagnostics.Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
@@ -65,6 +64,7 @@ public class FileToDataBase
         {
             Resulution = infile.Metadata.VideoData.FrameSize;
             Resulution = Resulution.Replace("x", " X ");
+            
         }
         catch (Exception e)
         {
@@ -121,7 +121,10 @@ public class FileToDataBase
 
 
     }
-
+    /*
+     * The main constructor for load file
+     * 
+     */ 
     public FileToDataBase(String F_Path)
     {
         Resulution = "n/a";
