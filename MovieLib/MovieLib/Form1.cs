@@ -53,13 +53,14 @@ namespace MovieLib
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                //
-                // The user selected a folder and pressed the OK button.
-                // We print the number of files found.
-                //
-                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-
-                DataTable dt = ToDatabase(files);
+                String[] FilterFile = { "*.avi",  "*.MP4",   "*.mkv", "*.m4v", "*.mpg"};
+                List<string> files = new List<string>();
+                //string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                foreach(String filter in FilterFile)
+                {
+                    files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
+                }
+                DataTable dt = ToDatabase(files.ToArray());
 
                 Movies_Data.Columns.Clear();
                 Movies_Data.DataSource = dt;
@@ -154,14 +155,17 @@ namespace MovieLib
             //TODO::DEBUG HANGS ON INSERT IN INSERNEWROW CONCLASS
             int newFiles = 0;
 
+            String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };
+
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                //
-                // The user selected a folder and pressed the OK button.
-                // We print the number of files found.
-                //
-                string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                List<String> files = new List<String>();
+                //string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                foreach (String filter in FilterFile)
+                {
+                    files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
+                }
                 var form = new Waiting();
                 form.Show();
                 ConnectionClass con = new ConnectionClass();
