@@ -504,6 +504,7 @@ public class ConnectionClass
         {
 
             Insert.ExecuteNonQuery();
+            Insert.Dispose();
             con.Close();
             con.Dispose();
         }

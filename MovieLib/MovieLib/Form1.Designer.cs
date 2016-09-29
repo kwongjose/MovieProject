@@ -48,6 +48,7 @@
             this.NRow = new System.Windows.Forms.Button();
             this.DelBtn = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.working = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.SuspendLayout();
@@ -269,16 +270,27 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(156, 24);
+            this.progressBar.Location = new System.Drawing.Point(81, 34);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(357, 23);
             this.progressBar.TabIndex = 14;
+            // 
+            // working
+            // 
+            this.working.AutoSize = true;
+            this.working.Location = new System.Drawing.Point(211, 11);
+            this.working.Name = "working";
+            this.working.Size = new System.Drawing.Size(107, 13);
+            this.working.TabIndex = 15;
+            this.working.Text = "Working Please Wait";
+            this.working.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 662);
+            this.Controls.Add(this.working);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.DelBtn);
             this.Controls.Add(this.NRow);
@@ -324,6 +336,7 @@
         private System.Windows.Forms.Button NRow;
         private System.Windows.Forms.Button DelBtn;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label working;
     }
 }
 

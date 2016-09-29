@@ -25,8 +25,6 @@ public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String  Resulution;
-    Task task;
-    Stopwatch Res, API, Total, work;
 
     public FileToDataBase(String IMDB_Id, int M_Id, String Res)
     {

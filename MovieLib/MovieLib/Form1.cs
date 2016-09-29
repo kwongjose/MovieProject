@@ -17,10 +17,8 @@ namespace MovieLib
     public partial class Form1 : Form
     {
         public List<String> BadFile = new List<string>();
-        BackgroundWorker worker;
+        int Total_Files;
         int prog = 0;
-        int fn;
-        // ProgressBar bar;
         /*
          * 
          */
@@ -55,45 +53,55 @@ namespace MovieLib
             {
                 String[] FilterFile = { "*.avi",  "*.MP4",   "*.mkv", "*.m4v", "*.mpg"};
                 List<string> files = new List<string>();
-                //string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+
                 foreach(String filter in FilterFile)
                 {
                     files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
                 }
-                DataTable dt = ToDatabase(files.ToArray());
 
-                Movies_Data.Columns.Clear();
-                Movies_Data.DataSource = dt;
-                Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-
+                progressBar.Maximum = files.Count;
+                Total_Files = files.Count;
+                progressBar.Visible = true;
+                progressBar.Value = 0;
+                working.Visible = true;
+                Thread thread = new Thread(() => ProccessFiles(files.ToArray()));
+                thread.Start();
             }
         }
-        /*
-         * Takes a Array of file names and processes them into the database
-         * 
-         */
-        private DataTable ToDatabase(String[] files)
+     
+
+        private void ProccessFiles(String[] files)
         {
-            var form = new Waiting();
-          //  form.Show();
-            progressBar.Maximum = files.Length;
-            progressBar.Visible = true;
-            //Change to Async-Await 
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
-                M_File =>
-                {
-                    ToFileTODatabase(M_File);
-                });
+              M_File =>
+              {
+                  ToFileTODatabase(M_File);
+                  prog++;
+                  UpdateBar(prog);
+              });
 
+            // form.Close();
 
-           // form.Close();
+            UpdateTable(files.Length);
+        }
 
-            MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
+        private void UpdateTable(int x)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new MethodInvoker(() => UpdateTable(x)));
+                return;
+            }
+                        
+            MessageBox.Show("Files found: " + x, "Message");
 
+            working.Visible = false;
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.SelAllMovies();
             progressBar.Visible = false;
-            return dt;
+            Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
 
         /*
@@ -105,9 +113,9 @@ namespace MovieLib
         {
             try
             {
+                
                 FileToDataBase ftb = new FileToDataBase(Files);
-                prog++;
-                UpdateBar(prog);
+                
             }
             catch (Exception e)
             {
@@ -118,12 +126,16 @@ namespace MovieLib
 
         private void UpdateBar(int i)
         {
+            
             if (InvokeRequired)
             {
                 BeginInvoke(new Action<int>(UpdateBar), new object[] { i });
                 return;
             }
-            progressBar.Value = i;
+            if (i < Total_Files)
+            {
+                progressBar.Value = i;
+            }
         }
 
         /*

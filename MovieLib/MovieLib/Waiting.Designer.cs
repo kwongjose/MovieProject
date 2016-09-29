@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.bar = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // bar
@@ -38,21 +39,33 @@
             this.bar.Size = new System.Drawing.Size(260, 23);
             this.bar.TabIndex = 1;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(87, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Working Please Wait";
+            // 
             // Waiting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 72);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.bar);
             this.Name = "Waiting";
             this.Text = "Waiting";
             this.Load += new System.EventHandler(this.Waiting_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ProgressBar bar;
+        public System.Windows.Forms.ProgressBar bar;
+        private System.Windows.Forms.Label label1;
     }
 }
