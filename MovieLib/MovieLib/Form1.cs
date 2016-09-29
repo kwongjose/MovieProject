@@ -202,8 +202,7 @@ namespace MovieLib
                 {
                     files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
                 }
-                var form = new Waiting();
-                form.Show();
+
                 ConnectionClass con = new ConnectionClass();
                 List<String> FilesToInsert = new List<String>();
 
@@ -215,22 +214,17 @@ namespace MovieLib
                         FilesToInsert.Add(M_File);
                         newFiles++;
                     }
-                    //FileToDataBase ftb = new FileToDataBase(M_File);
 
                 }
-                foreach (String path in FilesToInsert)
-                {
-                    FileToDataBase ftb = new FileToDataBase(path);
-                }
-                form.Close();
-                MessageBox.Show("Files found: " + newFiles.ToString(), "Message");
-                ConnectionClass cons = new ConnectionClass();
 
-                DataTable dt = cons.SelAllMovies();
-                Movies_Data.DataSource = dt;
-                Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-
-
+                progressBar.Maximum = FilesToInsert.Count;
+                Total_Files = FilesToInsert.Count;
+                progressBar.Visible = true;
+                progressBar.Value = 0;
+                working.Visible = true;
+                Thread thread = new Thread(() => ProccessFiles(FilesToInsert.ToArray()));
+                thread.Start();
+                             
             }
         }
         /*
