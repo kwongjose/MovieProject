@@ -69,7 +69,11 @@ namespace MovieLib
             }
         }
      
-
+        /*
+         * Method that makes a parralle call to filetodatabase 
+         * @pram an string array of file paths
+         * 
+         */ 
         private void ProccessFiles(String[] files)
         {
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
@@ -84,7 +88,11 @@ namespace MovieLib
 
             UpdateTable(files.Length);
         }
-
+        /*
+         * Updates the datagridview and changes visability of working lable and progressbar
+         * @parm an int representing the number of files to insert
+         * 
+         */ 
         private void UpdateTable(int x)
         {
             if (InvokeRequired)
@@ -123,7 +131,11 @@ namespace MovieLib
             }
 
         }
-
+        /*
+         * Updates the Progressbar in the main window
+         * @pram an int representing the value of the progress bar 
+         * 
+         */ 
         private void UpdateBar(int i)
         {
             
