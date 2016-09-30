@@ -49,8 +49,10 @@
             this.DelBtn = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.working = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -270,7 +272,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(438, 307);
+            this.progressBar.Location = new System.Drawing.Point(56, 67);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(357, 23);
             this.progressBar.TabIndex = 14;
@@ -279,20 +281,29 @@
             // 
             this.working.AutoSize = true;
             this.working.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.working.Location = new System.Drawing.Point(556, 278);
+            this.working.Location = new System.Drawing.Point(154, 34);
             this.working.Name = "working";
             this.working.Size = new System.Drawing.Size(155, 20);
             this.working.TabIndex = 15;
             this.working.Text = "Working Please Wait";
             this.working.Visible = false;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.progressBar);
+            this.panel1.Controls.Add(this.working);
+            this.panel1.Location = new System.Drawing.Point(376, 268);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(457, 130);
+            this.panel1.TabIndex = 16;
+            this.panel1.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1254, 662);
-            this.Controls.Add(this.working);
-            this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.DelBtn);
             this.Controls.Add(this.NRow);
             this.Controls.Add(this.Edit);
@@ -311,6 +322,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,6 +351,7 @@
         private System.Windows.Forms.Button DelBtn;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label working;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
