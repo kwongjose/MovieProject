@@ -25,7 +25,7 @@ namespace MovieLib
         public Form1()
         {
             InitializeComponent();
-            progressBar.Visible = false;
+             progressBar.Visible = false;
             //call database and load table
             ConnectionClass con = new ConnectionClass();
             con.NewDataBase();
