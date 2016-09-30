@@ -270,7 +270,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(81, 34);
+            this.progressBar.Location = new System.Drawing.Point(438, 307);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(357, 23);
             this.progressBar.TabIndex = 14;
@@ -278,9 +278,10 @@
             // working
             // 
             this.working.AutoSize = true;
-            this.working.Location = new System.Drawing.Point(211, 11);
+            this.working.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.working.Location = new System.Drawing.Point(556, 278);
             this.working.Name = "working";
-            this.working.Size = new System.Drawing.Size(107, 13);
+            this.working.Size = new System.Drawing.Size(155, 20);
             this.working.TabIndex = 15;
             this.working.Text = "Working Please Wait";
             this.working.Visible = false;
@@ -306,7 +307,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "My Movie Library";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).EndInit();

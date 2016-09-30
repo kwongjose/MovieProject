@@ -51,14 +51,15 @@ namespace MovieLib
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                String[] FilterFile = { "*.avi",  "*.MP4",   "*.mkv", "*.m4v", "*.mpg"};
+                String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };
                 List<string> files = new List<string>();
 
-                foreach(String filter in FilterFile)
+                foreach (String filter in FilterFile)
                 {
                     files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
                 }
-
+                DisableContol(this);
+                
                 progressBar.Maximum = files.Count;
                 Total_Files = files.Count;
                 progressBar.Visible = true;
@@ -68,12 +69,12 @@ namespace MovieLib
                 thread.Start();
             }
         }
-     
+
         /*
          * Method that makes a parralle call to filetodatabase 
          * @pram an string array of file paths
          * 
-         */ 
+         */
         private void ProccessFiles(String[] files)
         {
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
@@ -92,7 +93,7 @@ namespace MovieLib
          * Updates the datagridview and changes visability of working lable and progressbar
          * @parm an int representing the number of files to insert
          * 
-         */ 
+         */
         private void UpdateTable(int x)
         {
             if (InvokeRequired)
@@ -100,7 +101,7 @@ namespace MovieLib
                 BeginInvoke(new MethodInvoker(() => UpdateTable(x)));
                 return;
             }
-                        
+
             MessageBox.Show("Files found: " + x, "Message");
 
             working.Visible = false;
@@ -110,6 +111,8 @@ namespace MovieLib
             Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+
+            EnableContol(this);
         }
 
         /*
@@ -121,9 +124,9 @@ namespace MovieLib
         {
             try
             {
-                
+
                 FileToDataBase ftb = new FileToDataBase(Files);
-                
+
             }
             catch (Exception e)
             {
@@ -135,10 +138,10 @@ namespace MovieLib
          * Updates the Progressbar in the main window
          * @pram an int representing the value of the progress bar 
          * 
-         */ 
+         */
         private void UpdateBar(int i)
         {
-            
+
             if (InvokeRequired)
             {
                 BeginInvoke(new Action<int>(UpdateBar), new object[] { i });
@@ -198,10 +201,13 @@ namespace MovieLib
             {
                 List<String> files = new List<String>();
                 //string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
+                
                 foreach (String filter in FilterFile)
                 {
                     files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
                 }
+
+                DisableContol(this);
 
                 ConnectionClass con = new ConnectionClass();
                 List<String> FilesToInsert = new List<String>();
@@ -224,7 +230,7 @@ namespace MovieLib
                 working.Visible = true;
                 Thread thread = new Thread(() => ProccessFiles(FilesToInsert.ToArray()));
                 thread.Start();
-                             
+
             }
         }
         /*
@@ -410,6 +416,33 @@ namespace MovieLib
         private void findDuplicatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
+        }
+        /*
+         * Disables all controles on the form. 
+         * @pram a controle
+         * 
+         */
+        private void DisableContol(Control c)
+        {
+            foreach (Control con in c.Controls)
+            {
+                DisableContol(con);
+            }
+            c.Enabled = false;
+        }
+
+        /*
+         * Enables all controls on the form
+         * @pram a control
+         * 
+         */
+        private void EnableContol(Control c)
+        {
+            foreach(Control con in c.Controls)
+            {
+                EnableContol(con);
+            }
+            c.Enabled = true;
         }
     }
 }
