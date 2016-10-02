@@ -59,6 +59,7 @@ namespace MovieLib
                 {
                     files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
                 }
+
                 DisableContol(this);
                 
                 progressBar.Maximum = files.Count;
@@ -450,7 +451,11 @@ namespace MovieLib
             {
                 DisableContol(con);
             }
-            c.Enabled = false;
+            if( c.GetType() == typeof(MenuStrip) | c.GetType() == typeof(ComboBox) | c.GetType() == typeof(Button) | c.GetType() == typeof(TextBox) )
+            {
+                c.Enabled = false;
+            }
+            
         }
 
         /*
