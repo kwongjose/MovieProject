@@ -271,7 +271,7 @@ namespace MovieLib
            // ConnectionClass con = new ConnectionClass();
           //  DataTable dt = con.GetMovieByRating(Rating);
             DataTable dt = (DataTable)(Movies_Data.DataSource);
-            DataRow[] dr = dt.Select("Rating LIKE '" + Rating + "%' ");
+            DataRow[] dr = dt.Select("Rating > '" + Rating + "%' ");
            
             if(dr.Length > 0)
             {
