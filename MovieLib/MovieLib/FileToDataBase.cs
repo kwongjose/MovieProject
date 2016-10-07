@@ -2,9 +2,7 @@
 using MediaToolkit.Model;
 using MovieLib;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -25,7 +23,11 @@ public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String  Resulution;
-
+    /*
+     * constructor for updateing movie info in table using and IMdb title ID
+     * @pram An IMdb title ID, the RowID of movie to update, the resulution of the movie
+     * 
+     */ 
     public FileToDataBase(String IMDB_Id, int M_Id, String Res)
     {
         //TODO::Make API Call using IMDB ID then call UPDATEROW FROM CONNECTIN CLASS
@@ -43,12 +45,19 @@ public class FileToDataBase
         ConnectionClass con = new ConnectionClass();
         con.UpDateRow(M_Id, Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Plot, Res);
     }
-    
+    /*
+     * empty constructor
+     * 
+     */ 
     public FileToDataBase()
     {
 
     }
-
+    /*
+     * makes an API call 
+     * @pram a file path to use to make the api call
+     * 
+     */ 
     public String MakeAPI(String Fname)
     {
        
@@ -92,7 +101,11 @@ public class FileToDataBase
         ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
         return "";
     }
-
+    /*
+     * A constructor for adding a row to the database
+     * @parm and IMdb title ID, the Path of the file to use
+     * 
+     */ 
     public FileToDataBase(String IMDB_Id, String Path)
     {
         

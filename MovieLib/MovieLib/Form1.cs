@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -25,7 +21,8 @@ namespace MovieLib
         public Form1()
         {
             InitializeComponent();
-            progressBar.Visible = false;
+             progressBar.Visible = false;
+            panel1.Visible = false;
             //call database and load table
             ConnectionClass con = new ConnectionClass();
             con.NewDataBase();
@@ -58,6 +55,7 @@ namespace MovieLib
                 {
                     files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
                 }
+
                 DisableContol(this);
                 
                 progressBar.Maximum = files.Count;
@@ -65,6 +63,7 @@ namespace MovieLib
                 progressBar.Visible = true;
                 progressBar.Value = 0;
                 working.Visible = true;
+                panel1.Visible = true;
                 Thread thread = new Thread(() => ProccessFiles(files.ToArray()));
                 thread.Start();
             }
@@ -108,6 +107,7 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.SelAllMovies();
             progressBar.Visible = false;
+            panel1.Visible = false;
             Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
@@ -160,8 +160,15 @@ namespace MovieLib
         {
             String Sel_Genre = Sort_Genres.Text;
             System.Diagnostics.Debug.WriteLine(Sort_Genres.Text);
-            ConnectionClass con = new ConnectionClass();
-            DataTable dt = con.GetMovieByGernra(Sel_Genre);
+            // ConnectionClass con = new ConnectionClass();
+            //DataTable dt = con.GetMovieByGernra(Sel_Genre);
+            DataTable dt = (DataTable)(Movies_Data.DataSource);
+            DataRow[] dr = dt.Select("Gernra LIKE '%" + Sel_Genre + "%' ");
+
+            if (dr.Length > 0)
+            {
+                dt = dr.CopyToDataTable();
+            }
 
             // Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
@@ -228,6 +235,7 @@ namespace MovieLib
                 progressBar.Visible = true;
                 progressBar.Value = 0;
                 working.Visible = true;
+                panel1.Visible = true;
                 Thread thread = new Thread(() => ProccessFiles(FilesToInsert.ToArray()));
                 thread.Start();
 
@@ -242,9 +250,15 @@ namespace MovieLib
             String Year = Sort_Year.SelectedItem.ToString();
             String SubYear = Year.Substring(0, 3);
 
-            ConnectionClass con = new ConnectionClass();
-            DataTable dt = con.GetMovieByYear(SubYear);
-            System.Diagnostics.Debug.WriteLine(SubYear);
+            // ConnectionClass con = new ConnectionClass();
+            // DataTable dt = con.GetMovieByYear(SubYear);
+            DataTable dt = (DataTable)(Movies_Data.DataSource);
+            DataRow[] dr = dt.Select("Year LIKE '" + SubYear + "%' ");
+
+            if (dr.Length > 0)
+            {
+                dt = dr.CopyToDataTable();
+            }
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -254,20 +268,18 @@ namespace MovieLib
         private void Sort_Rating_SelectedIndexChanged(object sender, EventArgs e)
         {
             String Rating = Sort_Rating.SelectedItem.ToString();
-            ConnectionClass con = new ConnectionClass();
-            DataTable dt = con.GetMovieByRating(Rating);
-
-            DataTable Data_Table = (DataTable)Movies_Data.DataSource;
-            DataRow[] DR =   Data_Table.Select("Rating like '%" + Rating + "%'");
-            DataTable NewTable = new DataTable();
-            if (DR.Length > 0)
+           // ConnectionClass con = new ConnectionClass();
+          //  DataTable dt = con.GetMovieByRating(Rating);
+            DataTable dt = (DataTable)(Movies_Data.DataSource);
+            DataRow[] dr = dt.Select("Rating > '" + Rating + "%' ");
+           
+            if(dr.Length > 0)
             {
-                NewTable = DR.CopyToDataTable();
-                Movies_Data.DataSource = Data_Table;
-                // Movies_Data.DataSource = dt;
+                dt = dr.CopyToDataTable();
             }
-                Movies_Data.DataSource = NewTable;
-                Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+            
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
         * 
@@ -357,7 +369,6 @@ namespace MovieLib
 
                 MessageBox.Show("Files found: " + BadFiles.ToString(), "Message");
 
-
             }
         }
         /*
@@ -436,7 +447,11 @@ namespace MovieLib
             {
                 DisableContol(con);
             }
-            c.Enabled = false;
+            if( c.GetType() == typeof(MenuStrip) | c.GetType() == typeof(ComboBox) | c.GetType() == typeof(Button) | c.GetType() == typeof(TextBox) )
+            {
+                c.Enabled = false;
+            }
+            
         }
 
         /*

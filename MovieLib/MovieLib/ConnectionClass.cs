@@ -262,8 +262,8 @@ public class ConnectionClass
         dt.Columns.Add("ID");
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        String Rate = '"' + R + "%" + '"';
-        SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Rating LIke " + Rate, con);
+        String Rate = '"' + R  + '"';
+        SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Rating < " + R, con);
         try
         {
             SQLiteDataReader r = com.ExecuteReader();
