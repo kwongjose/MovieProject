@@ -55,7 +55,7 @@
     <ManifestCertificateThumbprint>B8EF9F8E2F8B34C37BF2FB38BC3549E316BD0C4B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MovieLib_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile></ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>

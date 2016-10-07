@@ -257,9 +257,17 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByRating(Rating);
 
-
-            Movies_Data.DataSource = dt;
-            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+            DataTable Data_Table = (DataTable)Movies_Data.DataSource;
+            DataRow[] DR =   Data_Table.Select("Rating like '%" + Rating + "%'");
+            DataTable NewTable = new DataTable();
+            if (DR.Length > 0)
+            {
+                NewTable = DR.CopyToDataTable();
+                Movies_Data.DataSource = Data_Table;
+                // Movies_Data.DataSource = dt;
+            }
+                Movies_Data.DataSource = NewTable;
+                Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
         * 

@@ -15,5 +15,6 @@ using System.Threading.Tasks;
         public String imdbRating { get; set; }
         public String Runtime { get; set; }
         public String Response { get; set; }
+        public String Path { get; set; }
     }
 
