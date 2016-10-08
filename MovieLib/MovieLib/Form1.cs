@@ -413,8 +413,8 @@ namespace MovieLib
                 DialogResult dialogResult = MessageBox.Show("Do You Also Want to Delete The File", "", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    String[] Data = con.GetMovieData(M_int);
-                    File.Delete(Data[7]);
+                    Movie mov = con.GetMovieData(M_int);
+                    File.Delete(mov.Path);
                 }
                 else if (dialogResult == DialogResult.No)
                 {

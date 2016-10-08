@@ -448,36 +448,39 @@ public class ConnectionClass
      * @Pram the RowID of a Movie as an in
      * @Return All columns for that RowId
      */
-    public String[] GetMovieData(int Mid)
+    public Movie GetMovieData(int Mid)
     {
         String[] data = new String[10];
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand("SELECT * FROM Movies WHERE Rowid = " + Mid, con);
+        Movie mov = new Movie();
         try
         {
             SQLiteDataReader r = com.ExecuteReader();
             while (r.Read())
             {
-                data[0] = (String)r["Title"];
-                data[1] = (String)r["Year"];
-                data[2] = (String)r["Gerna"];
-                data[3] = (String)r["Rating"];
-                data[4] = (String)r["Length"];
-                data[5] = (String)r["Resolution"];
-                data[6] = (String)r["Plot"];
-                data[7] = (String)r["Path"];
+                
+                mov.Title = (String)r["Title"];
+                mov.Year = (String)r["Year"];
+                mov.Genre = (String)r["Gerna"];
+                mov.imdbRating = (String)r["Rating"];
+                mov.Runtime = (String)r["Length"];
+                mov.Res = (String)r["Resolution"];
+                mov.Plot = (String)r["Plot"];
+                mov.Path = (String)r["Path"];
+                
             }
             r.Close();
             con.Close();
             con.Dispose();
-            return data;
+            return mov;
 
         }
         catch (Exception e)
         {
             System.Diagnostics.Debug.WriteLine(e.Message);
-            return data;
+            return mov;
         }
     }
     /*

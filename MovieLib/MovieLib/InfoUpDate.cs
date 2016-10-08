@@ -18,15 +18,15 @@ namespace MovieLib
             InitializeComponent();
             M_Id = Mid;
             ConnectionClass con = new ConnectionClass();
-            String[] paths = con.GetMovieData(Mid);
-            Title.Text = paths[0];
-            Year.Text = paths[1];
-            Genra.Text = paths[2];
-            Rating.Text = paths[3];
-            Length.Text = paths[4];
-            Nres.Text = paths[5];
-            Plot.Text = paths[6];
-            Tpath.Text = paths[7];
+            Movie mov = con.GetMovieData(Mid);
+            Title.Text = mov.Title;
+            Year.Text = mov.Year;
+            Genra.Text = mov.Genre;
+            Rating.Text = mov.imdbRating;
+            Length.Text = mov.Runtime;
+            Nres.Text = mov.Res;
+            Plot.Text = mov.Plot;
+            Tpath.Text = mov.Path;
         }
 
         private void Form2_Load(object sender, EventArgs e)
