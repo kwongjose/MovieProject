@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 
    public class Movie
-{
+    {
         public String Title { get; set; }
         public String Year { get; set; }
         public String Genre { get; set; }
@@ -16,7 +16,6 @@ using System.Threading.Tasks;
         public String Runtime { get; set; }
         public String Response { get; set; }
         public String Path { get; set; }
-        public String Res { get; set; }
-        
+        public String Actors { get; set; }
     }
 
