@@ -17,5 +17,6 @@ using System.Threading.Tasks;
         public String Response { get; set; }
         public String Path { get; set; }
         public String Res { get; set; }
+        public String Poster { get; set; }
     }
 
