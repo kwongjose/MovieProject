@@ -18,5 +18,6 @@ using System.Threading.Tasks;
         public String Path { get; set; }
         public String Actors { get; set; }
         public String Poster { get; set; }
+        public String Res { get; set; }
 }
 

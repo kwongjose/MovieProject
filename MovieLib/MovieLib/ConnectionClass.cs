@@ -5,7 +5,7 @@ using System.IO;
 /*
  * This Class handels all interaction with the SQLite database
  * 
- */ 
+ */
 public class ConnectionClass
 {
     String ConString = "Data Source=MyMovies.sqlite;Version=3;";
@@ -39,6 +39,18 @@ public class ConnectionClass
 
             SQLiteCommand command = new SQLiteCommand(MakeTable, m_dbConnection);
             command.ExecuteNonQuery();
+            //Make Actor Table
+
+            String Actor = "Create Table IF NOT EXISTS ACTOR (AID INTEGER PRIMARY KEY AUTOINCREMENT, Name Text)";
+             command = new SQLiteCommand(Actor, m_dbConnection);
+            command.ExecuteNonQuery();
+
+            //Make Relation
+            String MovieActor = "Create Table IF NOT EXISTS MovieActor (MovieID INTEGER, ActorID INTEGER, FOREIGN KEY(MovieID) REFERENCES Movies(RowID), FOREIGN KEY(ActorID) REFERENCES ACTOR(AID) )";
+            command = new SQLiteCommand(MovieActor, m_dbConnection);
+            command.ExecuteNonQuery();
+            
+
             m_dbConnection.Close();
         }
         catch (SQLiteException e)
@@ -46,6 +58,64 @@ public class ConnectionClass
 
         }
     }
+
+    /*
+     * Inserts a new Actor into the Actor Table
+     * @Parm Actor name String
+     * 
+     */
+     public bool InsertNewActor(String Actor)
+    {
+        try
+        {
+            String insert = "INSERT INTO ACTOR (Name) SELECT @AName  WHERE NOT EXISTS (SELECT * FROM ACTOR WHERE Name = @AName) ";
+            SQLiteConnection con = new SQLiteConnection(ConString);
+            SQLiteCommand com = new SQLiteCommand(insert, con);
+
+            com.Parameters.AddWithValue("@AName", Actor);
+            com.ExecuteNonQuery();
+
+            com.Dispose();
+            con.Close();
+            con.Dispose();
+
+            return true;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+    }
+
+    /*
+     * Inserts a row into the MovieActor Relation
+     * @Parm RowID Integer (id for movie) AID Integer (ID for an Actor)
+     * 
+     */
+     public bool Insert_MovieActor(int RowID, int AID)
+    {
+        try
+        {
+            String insert = "INSERT INTO MovieActor (MovieID, ActorID) SELECT @MID, @ActID WHERE NOT EXISTS (SELECT * FROM MovieActor WHERE MovieID = @MID AND ActorID = @ActID)";
+
+            SQLiteConnection con = new SQLiteConnection(ConString);
+            SQLiteCommand com = new SQLiteCommand(insert, con);
+            com.Parameters.AddWithValue("@MID", RowID);
+            com.Parameters.AddWithValue("@ActID", AID);
+
+            com.ExecuteNonQuery();
+
+            com.Dispose();
+            con.Close();
+            con.Dispose();
+
+            return true;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+    } 
     /*
      * Inserts a new Movie Row into the Database
      * @pram String title, String Year, String Gernas, String Rating, String Length, String Resoulution, 
@@ -474,7 +544,7 @@ public class ConnectionClass
             r.Close();
             con.Close();
             con.Dispose();
-            return mov;
+            return mov; 
 
         }
         catch (Exception e)
