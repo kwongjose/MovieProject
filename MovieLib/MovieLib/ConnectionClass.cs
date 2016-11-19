@@ -34,7 +34,7 @@ public class ConnectionClass
             SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=MyMovies.sqlite;Version=3;");
             m_dbConnection.Open();
 
-            String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT )";
+            String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT, Poster TEXT )";
 
 
             SQLiteCommand command = new SQLiteCommand(MakeTable, m_dbConnection);
@@ -70,11 +70,12 @@ public class ConnectionClass
         {
             String insert = "INSERT INTO ACTOR (Name) SELECT @AName  WHERE NOT EXISTS (SELECT * FROM ACTOR WHERE Name = @AName) ";
             SQLiteConnection con = new SQLiteConnection(ConString);
+            con.Open();
             SQLiteCommand com = new SQLiteCommand(insert, con);
 
             com.Parameters.AddWithValue("@AName", Actor);
             com.ExecuteNonQuery();
-
+           
             com.Dispose();
             con.Close();
             con.Dispose();
@@ -99,6 +100,8 @@ public class ConnectionClass
             String insert = "INSERT INTO MovieActor (MovieID, ActorID) SELECT @MID, @ActID WHERE NOT EXISTS (SELECT * FROM MovieActor WHERE MovieID = @MID AND ActorID = @ActID)";
 
             SQLiteConnection con = new SQLiteConnection(ConString);
+            con.Open();
+            System.Diagnostics.Debug.WriteLine(AID);
             SQLiteCommand com = new SQLiteCommand(insert, con);
             com.Parameters.AddWithValue("@MID", RowID);
             com.Parameters.AddWithValue("@ActID", AID);
@@ -502,8 +505,15 @@ public class ConnectionClass
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand("DELETE  FROM MOVIES", con);
+        string MovieActor = "DELETE  FROM MovieActor";
+        string actor = "DELETE FROM Actor ";
         try
         {
+            
+            com.ExecuteNonQuery();
+            com.CommandText = MovieActor;
+            com.ExecuteNonQuery();
+            com.CommandText = actor;
             com.ExecuteNonQuery();
             con.Close();
             con.Dispose();
@@ -520,7 +530,7 @@ public class ConnectionClass
      */
     public Movie GetMovieData(int Mid)
     {
-        String[] data = new String[10];
+       
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand("SELECT * FROM Movies WHERE Rowid = " + Mid, con);
@@ -539,6 +549,8 @@ public class ConnectionClass
                 mov.Res = (String)r["Resolution"];
                 mov.Plot = (String)r["Plot"];
                 mov.Path = (String)r["Path"];
+                mov.Poster = (String)r["Poster"];
+
                 
             }
             r.Close();
@@ -553,15 +565,49 @@ public class ConnectionClass
             return mov;
         }
     }
+
+    /*
+     * returns the RowID from a movie 
+     * @parm path @return rowID
+     * 
+     */
+     public int GetRowID(string Path)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        string temp = '"' + Path + '"';
+        SQLiteCommand com = new SQLiteCommand("SELECT ROWID FROM MOVIES WHERE Path = " +  temp, con);
+
+        try
+        {
+           SQLiteDataReader dr = com.ExecuteReader();
+            if (dr.HasRows )
+            {
+                dr.Read();
+                System.Diagnostics.Debug.WriteLine("GET THE ID :");
+                int id = int.Parse ( dr["RowID"].ToString() );
+                System.Diagnostics.Debug.WriteLine(id);
+                dr.Close();
+                con.Close();
+                return id;
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        con.Close();
+        return 0;
+    } 
     /*
      * Inserts only if row data is not in table
      * @Pram movie title, movie year, gerna, rating, length, res, plot and path
      * 
      */ 
-    public void TestInsertNewRow(String M_Title, String M_Year, String M_Gernas, String M_Rating, String M_Length, String M_Res, String M_Plot, String M_Path)
+    public void TestInsertNewRow(String M_Title, String M_Year, String M_Gernas, String M_Rating, String M_Length, String M_Res, String M_Plot, String M_Path, String M_Poster)
     {
         String p = '"' + M_Path + '"';
-        String SqlInsert = "INSERT INTO Movies ( Title, Year, Gerna, Rating, Length, Resolution, Plot, Path) SELECT @Title,@Year,@Gerna,@Rating,@Length,@Resolution,@Plot,@Path WHERE NOT EXISTS (SELECT Path FROM Movies WHERE Path = @Path)";
+        String SqlInsert = "INSERT INTO Movies ( Title, Year, Gerna, Rating, Length, Resolution, Plot, Path, Poster) SELECT @Title,@Year,@Gerna,@Rating,@Length,@Resolution,@Plot,@Path, @Poster WHERE NOT EXISTS (SELECT Path FROM Movies WHERE Path = @Path)";
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand Insert = new SQLiteCommand(SqlInsert, con);
@@ -573,6 +619,7 @@ public class ConnectionClass
         Insert.Parameters.AddWithValue("@Resolution", M_Res);
         Insert.Parameters.AddWithValue("@Plot", M_Plot);
         Insert.Parameters.AddWithValue("@Path", M_Path);
+        Insert.Parameters.AddWithValue("@Poster", M_Poster);
         try
         {
 
@@ -599,9 +646,49 @@ public class ConnectionClass
 
         com.ExecuteNonQuery();
 
+        com.CommandText = "DELETE FROM MovieActor WHERE MovieID = " + M_Id;
+        com.ExecuteNonQuery();
+
         con.Clone();
         con.Dispose();
         com.Dispose();
     }
+
+    /*
+     * gets the AID for a given actor
+     * @parm actor name @return AID
+     * 
+     */
+    public int GetActorID(string aname)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        string temp = '"' + aname + '"';
+        SQLiteCommand com = new SQLiteCommand("Select AID FROM ACTOR Where Name = " + temp , con);
+        try
+        {
+            SQLiteDataReader dr = com.ExecuteReader();
+            if (dr.HasRows)
+            {
+                
+                dr.Read();
+                int id =  int.Parse( dr["AID"].ToString() );
+                dr.Close();
+                con.Close();
+                con.Dispose();
+                return id;
+            }
+
+        }
+        catch(Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.Message);
+        }
+        con.Close();
+        con.Dispose();
+        return 0;
+        }
+
+    
     
 }

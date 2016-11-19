@@ -37,13 +37,16 @@ public class FileToDataBase
         ApiCall.Append("&plot=full&r=json");
 
         Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
-        Task.WhenAll(t);   
-
-        Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(t.Result);
+        Task.WhenAll(t);
+        Resulution = Res;
+      //  Movie Curent_Movie = JsonConvert.DeserializeObject<Movie>(t.Result);
 
 
         ConnectionClass con = new ConnectionClass();
-        con.UpDateRow(M_Id, Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Plot, Res);
+        con.DeleteByID(M_Id);//delete old data 
+                             // con.UpDateRow(M_Id, Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Plot, Res);
+
+        ParseJson(t.Result);
     }
     /*
      * empty constructor
@@ -316,12 +319,44 @@ public class FileToDataBase
         if (Curent_Movie.Response == "True")
         {
             ConnectionClass con = new ConnectionClass();
-            con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path);
+            con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path, Curent_Movie.Poster);
+
+            String[] act = Curent_Movie.Actors.Split(',').ToArray();
+            InsertActors(act);
+            int Mid = con.GetRowID(Full_Path);
+          
+            InsertMovieActor(Mid, act);
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    private void InsertActors(String[] actors)
+    {
+        
+        ConnectionClass con = new ConnectionClass();
+
+        foreach(string name in actors)
+        {
+            
+            con.InsertNewActor(name.Trim());
+        }
+   }
+    /*
+     * inserts a row in the movie actor table
+     * 
+     */ 
+    private void InsertMovieActor(int Mid, string[] actors)
+    {
+        ConnectionClass con = new ConnectionClass();
+        foreach(String name in actors)
+        {
+            int Aid = con.GetActorID(name.Trim());
+            System.Diagnostics.Debug.WriteLine("AID " + Mid + " : " + Aid);
+            con.Insert_MovieActor(Mid, Aid);
         }
     }
 }
