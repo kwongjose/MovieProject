@@ -72,7 +72,7 @@ public class ConnectionClass
             SQLiteConnection con = new SQLiteConnection(ConString);
             con.Open();
             SQLiteCommand com = new SQLiteCommand(insert, con);
-
+            System.Diagnostics.Debug.WriteLine("I AM IN INSET NEW ACTOR");
             com.Parameters.AddWithValue("@AName", Actor);
             com.ExecuteNonQuery();
            
@@ -642,13 +642,19 @@ public class ConnectionClass
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand("DELETE  FROM Movies WHERE Rowid = " + M_Id, con);
+        try
+        {
 
-
-        com.ExecuteNonQuery();
-
-        com.CommandText = "DELETE FROM MovieActor WHERE MovieID = " + M_Id;
-        com.ExecuteNonQuery();
-
+            com.ExecuteNonQuery();
+            System.Diagnostics.Debug.WriteLine("DELTE FROM MOVIE");
+            com.CommandText = "DELETE FROM MovieActor WHERE MovieID = " + M_Id;
+            com.ExecuteNonQuery();
+            System.Diagnostics.Debug.WriteLine("DELTE FOM MOVIEACTOR");
+        }
+        catch(Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.Message);
+        }
         con.Clone();
         con.Dispose();
         com.Dispose();
@@ -663,7 +669,7 @@ public class ConnectionClass
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        string temp = '%' + aname + '"';
+        string temp = '"' + aname + '"';
         SQLiteCommand com = new SQLiteCommand("Select AID FROM ACTOR Where Name = " + temp , con);
         try
         {
@@ -715,6 +721,7 @@ public class ConnectionClass
         try
         {
             SQLiteDataReader dr = com.ExecuteReader();
+            System.Diagnostics.Debug.WriteLine("GETING MOVIEACTO");
             while(dr.Read())
             {
                 DataRow drt = dt.NewRow();

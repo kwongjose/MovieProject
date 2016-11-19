@@ -336,7 +336,7 @@ namespace MovieLib
             else
             {
                 DataTable tr = new DataTable();
-                Movies_Data.DataSource = tr;
+
             }
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window

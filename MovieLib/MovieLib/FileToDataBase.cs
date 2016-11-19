@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Timers;
 using System.Diagnostics;
+using System.Data;
 
 /*
  * Class takes in a File Path Seperates it into a Title with or without year
@@ -35,7 +36,7 @@ public class FileToDataBase
         ApiCall.Append("?i=");
         ApiCall.Append(IMDB_Id);
         ApiCall.Append("&plot=full&r=json");
-
+       
         Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
         Task.WhenAll(t);
         Resulution = Res;
@@ -43,9 +44,10 @@ public class FileToDataBase
 
 
         ConnectionClass con = new ConnectionClass();
+        Movie mov = con.GetMovieData(M_Id);
         con.DeleteByID(M_Id);//delete old data 
                              // con.UpDateRow(M_Id, Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Plot, Res);
-
+        Full_Path = mov.Path;
         ParseJson(t.Result);
     }
     /*
