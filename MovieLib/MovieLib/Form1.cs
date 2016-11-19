@@ -325,6 +325,19 @@ namespace MovieLib
             String Title = textBox1.Text;
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByTitle(Title);
+            if(dt.Rows.Count < 1){
+               dt = con.GetActorMovies(Title);
+                if(dt.Rows.Count > 0)
+                {
+                    Movies_Data.DataSource = dt;
+                }
+
+            }
+            else
+            {
+                DataTable tr = new DataTable();
+                Movies_Data.DataSource = tr;
+            }
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }

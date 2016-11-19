@@ -663,7 +663,7 @@ public class ConnectionClass
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        string temp = '"' + aname + '"';
+        string temp = '%' + aname + '"';
         SQLiteCommand com = new SQLiteCommand("Select AID FROM ACTOR Where Name = " + temp , con);
         try
         {
@@ -688,6 +688,56 @@ public class ConnectionClass
         con.Dispose();
         return 0;
         }
+
+    /*
+     * retruns rows for a given actor
+     * @parm name @return table of movies
+     * 
+     */
+     public DataTable GetActorMovies(string name)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Title");
+        dt.Columns.Add("Year");
+        dt.Columns.Add("Gernra");
+        dt.Columns.Add("Rating");
+        dt.Columns.Add("Length");
+        dt.Columns.Add("Resolution");
+        dt.Columns.Add("ID");
+
+        string temp = '"' + "%" + name + "%" + '"';
+        SQLiteCommand com = new SQLiteCommand("Select * from movies join MovieActor on movies.RowID = MovieActor.MovieID WHERE MovieActor.ActorID in (SELECT AID FROM Actor WHERE Name LIKE " + temp + ")", con);
+      //  com.Parameters.AddWithValue("@Aname", temp);
+
+        try
+        {
+            SQLiteDataReader dr = com.ExecuteReader();
+            while(dr.Read())
+            {
+                DataRow drt = dt.NewRow();
+                drt["Title"] = (String)dr["Title"];
+                drt["Year"] = (String)dr["Year"];
+                drt["Gernra"] = (String)dr["Gerna"];
+                drt["Rating"] = (String)dr["Rating"];
+                drt["Length"] = (String)dr["Length"];
+                drt["Resolution"] = (String)dr["Resolution"];
+                drt["ID"] = dr["RowId"].ToString();
+                //add row to datatable
+                System.Diagnostics.Debug.WriteLine((string)dr["Title"]);
+                dt.Rows.Add(drt);
+                dr.Read();
+            }
+            return dt;
+        }
+        catch(Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.Message);
+        }
+        return dt;
+    } 
 
     
     

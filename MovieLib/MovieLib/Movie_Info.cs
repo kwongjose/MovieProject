@@ -27,10 +27,11 @@ namespace MovieLib
         {
             InitializeComponent();
             ConnectionClass con = new ConnectionClass();
-            String[] Movie_info = con.GetMoiveByID(ID);
-            Movie_Name = Movie_info[0];
-            Movie_Plot = Movie_info[1];
-            File_Path = Movie_info[2];
+            // String[] Movie_info = con.GetMoiveByID(ID);
+            Movie mov = con.GetMovieData(ID);
+            Movie_Name = mov.Title;
+            Movie_Plot = mov.Plot;
+            File_Path = mov.Path;
             M_Title.Font = new Font(M_Title.Font.FontFamily, 16);
             M_Title.Text = Movie_Name;
             M_Plot.Font = new Font(M_Plot.Font.FontFamily, 12);
