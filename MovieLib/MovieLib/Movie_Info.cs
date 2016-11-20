@@ -23,19 +23,40 @@ namespace MovieLib
 
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public Movie_Info(int ID)
         {
             InitializeComponent();
             ConnectionClass con = new ConnectionClass();
             // String[] Movie_info = con.GetMoiveByID(ID);
+            List<string> actors = con.GetActorsFromMovie(ID);
             Movie mov = con.GetMovieData(ID);
             Movie_Name = mov.Title;
             Movie_Plot = mov.Plot;
             File_Path = mov.Path;
-            M_Title.Font = new Font(M_Title.Font.FontFamily, 16);
-            M_Title.Text = Movie_Name;
+            Title_Lable.Font = new Font(Title_Lable.Font.FontFamily, 16);
+            Title_Lable.Text = Movie_Name;
             M_Plot.Font = new Font(M_Plot.Font.FontFamily, 12);
             M_Plot.Text = Movie_Plot;
+            Genre_Lable.Text = mov.Genre;
+            Year_Lable.Text = mov.Year;
+            Rating_Lable.Text = mov.imdbRating;
+            // Actors_Lable.Text = actors;
+            actors.ForEach(i => Actors_Lable.Text += i + ",");//I Like this line
+            Actors_Lable.Text.TrimEnd(',');
+            Res_Lable.Text = mov.Res;
+            runtime_Lable.Text = mov.Runtime;
+
+            if (mov.Poster != null)
+            {
+                //NEED CODE FOR WHEN NO NETWORK
+                Movie_Poster.LoadAsync(mov.Poster);
+                Movie_Poster.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
         }
 
         private void Watch_Movie_Click(object sender, EventArgs e)

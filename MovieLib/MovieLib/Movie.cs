@@ -19,5 +19,6 @@ using System.Threading.Tasks;
         public String Actors { get; set; }
         public String Poster { get; set; }
         public String Res { get; set; }
+        public String Rated { get; set; }
 }
 

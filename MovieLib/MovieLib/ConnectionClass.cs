@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -34,7 +35,7 @@ public class ConnectionClass
             SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=MyMovies.sqlite;Version=3;");
             m_dbConnection.Open();
 
-            String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT, Poster TEXT )";
+            String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rated Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT, Poster TEXT )";
 
 
             SQLiteCommand command = new SQLiteCommand(MakeTable, m_dbConnection);
@@ -538,7 +539,7 @@ public class ConnectionClass
         try
         {
             SQLiteDataReader r = com.ExecuteReader();
-            while (r.Read())
+            if (r.Read())
             {
                 
                 mov.Title = (String)r["Title"];
@@ -550,9 +551,11 @@ public class ConnectionClass
                 mov.Plot = (String)r["Plot"];
                 mov.Path = (String)r["Path"];
                 mov.Poster = (String)r["Poster"];
+                mov.Rated = (String)r["Rated"];
 
                 
             }
+            
             r.Close();
             con.Close();
             con.Dispose();
@@ -604,10 +607,10 @@ public class ConnectionClass
      * @Pram movie title, movie year, gerna, rating, length, res, plot and path
      * 
      */ 
-    public void TestInsertNewRow(String M_Title, String M_Year, String M_Gernas, String M_Rating, String M_Length, String M_Res, String M_Plot, String M_Path, String M_Poster)
+    public void TestInsertNewRow(String M_Title, String M_Year, String M_Gernas, String M_Rating, String M_Length, String M_Res, String M_Plot, String M_Path, String M_Poster, String M_Rated)
     {
         String p = '"' + M_Path + '"';
-        String SqlInsert = "INSERT INTO Movies ( Title, Year, Gerna, Rating, Length, Resolution, Plot, Path, Poster) SELECT @Title,@Year,@Gerna,@Rating,@Length,@Resolution,@Plot,@Path, @Poster WHERE NOT EXISTS (SELECT Path FROM Movies WHERE Path = @Path)";
+        String SqlInsert = "INSERT INTO Movies ( Title, Year, Gerna, Rated, Rating, Length, Resolution, Plot, Path, Poster) SELECT @Title,@Year,@Gerna,@Rated,@Rating,@Length,@Resolution,@Plot,@Path, @Poster WHERE NOT EXISTS (SELECT Path FROM Movies WHERE Path = @Path)";
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand Insert = new SQLiteCommand(SqlInsert, con);
@@ -620,6 +623,7 @@ public class ConnectionClass
         Insert.Parameters.AddWithValue("@Plot", M_Plot);
         Insert.Parameters.AddWithValue("@Path", M_Path);
         Insert.Parameters.AddWithValue("@Poster", M_Poster);
+        Insert.Parameters.AddWithValue("@Rated", M_Rated);
         try
         {
 
@@ -735,7 +739,7 @@ public class ConnectionClass
                 //add row to datatable
                 System.Diagnostics.Debug.WriteLine((string)dr["Title"]);
                 dt.Rows.Add(drt);
-                dr.Read();
+                
             }
             return dt;
         }
@@ -746,6 +750,42 @@ public class ConnectionClass
         return dt;
     } 
 
+    /*
+     * returns a list of actors in a movie
+     * @parm MID @return List of actors
+     * ]
+     */
+     public List<String> GetActorsFromMovie(int Mid)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("SELECT Name FROM ACTOR WHERE AID in (SELECT AID FROM MovieActor join Movies on movies.RowID = MovieActor.MovieID WHERE RowID = @MID)", con);
+        com.Parameters.AddWithValue("@MID", Mid);
+        List<string> Actors = new List<string>();
+        try
+        {
+            SQLiteDataReader dr = com.ExecuteReader();
+            int i = 0;
+            while (dr.Read() &&  i < 3)
+            {
+                Actors.Add((string)dr["Name"]);
+                
+                i++;
+            }
+            
+            dr.Close();
+            con.Close();
+            con.Dispose();
+            return Actors;
+        }//try
+        catch(Exception e)
+        {
+
+        }
+        con.Close();
+        con.Dispose();
+        return null;
+    } 
     
     
 }

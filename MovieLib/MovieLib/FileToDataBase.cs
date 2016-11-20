@@ -321,7 +321,7 @@ public class FileToDataBase
         if (Curent_Movie.Response == "True")
         {
             ConnectionClass con = new ConnectionClass();
-            con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path, Curent_Movie.Poster);
+            con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Resulution, Curent_Movie.Plot, Full_Path, Curent_Movie.Poster, Curent_Movie.Rated);
 
             String[] act = Curent_Movie.Actors.Split(',').ToArray();
             InsertActors(act);
