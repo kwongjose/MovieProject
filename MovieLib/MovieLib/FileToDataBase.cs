@@ -242,29 +242,23 @@ public class FileToDataBase
         
 
         StringBuilder ApiCall = new StringBuilder();
+        String[] M_Parts = M_Title.Split(' ');
+        ApiCall.Append("?t=");
+        ApiCall.Append(M_Parts[0]);
+        for (int i = 1; i < M_Parts.Length; i++)///change to foreach
+        {
+            ApiCall.Append("+");
+            ApiCall.Append(M_Parts[i]);
+        }
 
         if (M_Year == null)//Call API using Title Only
         {
-            String[] M_Parts = M_Title.Split(' ');
-            ApiCall.Append("?t=");
-            ApiCall.Append(M_Parts[0]);
-            for (int i = 1; i < M_Parts.Length; i++)
-            {
-                ApiCall.Append("+");
-                ApiCall.Append(M_Parts[i]);
-            }
+         
             ApiCall.Append("&y=&plot=full&r=json");
         }
         else//Call API using Title and Year
         {
-            String[] M_Parts = M_Title.Split(' ');
-            ApiCall.Append("?t=");
-            ApiCall.Append(M_Parts[0]);
-            for (int i = 1; i < M_Parts.Length; i++)
-            {
-                ApiCall.Append("+");
-                ApiCall.Append(M_Parts[i]);
-            }
+          
             ApiCall.Append("&y=");
             ApiCall.Append(M_Year);
             ApiCall.Append("&plot=full&r=json");
@@ -335,7 +329,10 @@ public class FileToDataBase
             return false;
         }
     }
-
+    /*
+     * inserts an array of actors into the actor table
+     * @parm array of actor names
+     */ 
     private void InsertActors(String[] actors)
     {
         
@@ -357,7 +354,6 @@ public class FileToDataBase
         foreach(String name in actors)
         {
             int Aid = con.GetActorID(name.Trim());
-            System.Diagnostics.Debug.WriteLine("AID " + Mid + " : " + Aid);
             con.Insert_MovieActor(Mid, Aid);
         }
     }

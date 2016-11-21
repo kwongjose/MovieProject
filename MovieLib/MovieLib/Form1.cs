@@ -326,7 +326,7 @@ namespace MovieLib
             String Title = textBox1.Text;
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.GetMovieByTitle(Title);
-            if(dt.Rows.Count < 1){
+            if(dt.Rows.Count < 1){//might change to show both movie/actor 
                dt = con.GetActorMovies(Title);
                 if(dt.Rows.Count > 0)
                 {
