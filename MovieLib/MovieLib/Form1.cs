@@ -179,15 +179,16 @@ namespace MovieLib
         */
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("Method RUn");
             var senderGrid = (DataGridView)sender;
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow r = senderGrid.Rows[e.RowIndex];
                 if (e.ColumnIndex == 0)
                 {
-
+                    System.Diagnostics.Debug.WriteLine("Method get ID");
                     int M_ID = int.Parse(r.Cells[6].Value.ToString());
-
+                    System.Diagnostics.Debug.WriteLine(M_ID);
                     var form = new Movie_Info(M_ID);
                     form.Show(this);
                 }

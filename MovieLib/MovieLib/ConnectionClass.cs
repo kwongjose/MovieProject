@@ -759,7 +759,7 @@ public class ConnectionClass
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        SQLiteCommand com = new SQLiteCommand("SELECT Name FROM ACTOR WHERE AID in (SELECT AID FROM MovieActor join Movies on movies.RowID = MovieActor.MovieID WHERE RowID = @MID)", con);
+        SQLiteCommand com = new SQLiteCommand("SELECT Name FROM ACTOR WHERE AID in (SELECT ActorID FROM MovieActor join Movies on movies.RowID = MovieActor.MovieID WHERE RowID = @MID)", con);
         com.Parameters.AddWithValue("@MID", Mid);
         List<string> Actors = new List<string>();
         try

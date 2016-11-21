@@ -45,7 +45,7 @@ namespace MovieLib
             Genre_Lable.Text = mov.Genre;
             Year_Lable.Text = mov.Year;
             Rating_Lable.Text = mov.imdbRating;
-            // Actors_Lable.Text = actors;
+            Actors_Lable.Text = "";
             actors.ForEach(i => Actors_Lable.Text += i + ",");//I Like this line
             Actors_Lable.Text.TrimEnd(',');
             Res_Lable.Text = mov.Res;
