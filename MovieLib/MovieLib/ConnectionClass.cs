@@ -73,7 +73,6 @@ public class ConnectionClass
             SQLiteConnection con = new SQLiteConnection(ConString);
             con.Open();
             SQLiteCommand com = new SQLiteCommand(insert, con);
-            System.Diagnostics.Debug.WriteLine("I AM IN INSET NEW ACTOR");
             com.Parameters.AddWithValue("@AName", Actor);
             com.ExecuteNonQuery();
            
@@ -102,7 +101,6 @@ public class ConnectionClass
 
             SQLiteConnection con = new SQLiteConnection(ConString);
             con.Open();
-            System.Diagnostics.Debug.WriteLine(AID);
             SQLiteCommand com = new SQLiteCommand(insert, con);
             com.Parameters.AddWithValue("@MID", RowID);
             com.Parameters.AddWithValue("@ActID", AID);
@@ -132,9 +130,7 @@ public class ConnectionClass
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand Insert = new SQLiteCommand(SqlInsert, con);
-        System.Diagnostics.Debug.WriteLine("somthing is wrong");
         Insert.Parameters.AddWithValue("@Title", M_Title);
-        System.Diagnostics.Debug.WriteLine("somthing is sdafwrong");
         Insert.Parameters.AddWithValue("@Year", M_Year);
         Insert.Parameters.AddWithValue("@Gerna", M_Gernas);
         Insert.Parameters.AddWithValue("@Rating", M_Rating);
@@ -142,7 +138,6 @@ public class ConnectionClass
         Insert.Parameters.AddWithValue("@Resolution", M_Res);
         Insert.Parameters.AddWithValue("@Plot", M_Plot);
         Insert.Parameters.AddWithValue("@Path", M_Path);
-        System.Diagnostics.Debug.WriteLine("somthing isasdfasd wrong");
         try
         {
 
@@ -152,7 +147,6 @@ public class ConnectionClass
         }
         catch (SQLiteException e)
         {
-            System.Diagnostics.Debug.WriteLine("somthing is wrong");
             throw new Exception(e.Message);
         }
     }
@@ -290,7 +284,6 @@ public class ConnectionClass
         SQLiteCommand sql = new SQLiteCommand("SELECT * FROM MOVIES WHERE Gerna LIKE " + temp, con);
 
         //    sql.Parameters.AddWithValue("@Gern", temp);
-        System.Diagnostics.Debug.WriteLine(temp);
         try
         {
             SQLiteDataReader r = sql.ExecuteReader();
@@ -587,9 +580,7 @@ public class ConnectionClass
             if (dr.HasRows )
             {
                 dr.Read();
-                System.Diagnostics.Debug.WriteLine("GET THE ID :");
                 int id = int.Parse ( dr["RowID"].ToString() );
-                System.Diagnostics.Debug.WriteLine(id);
                 dr.Close();
                 con.Close();
                 return id;
@@ -650,10 +641,8 @@ public class ConnectionClass
         {
 
             com.ExecuteNonQuery();
-            System.Diagnostics.Debug.WriteLine("DELTE FROM MOVIE");
             com.CommandText = "DELETE FROM MovieActor WHERE MovieID = " + M_Id;
             com.ExecuteNonQuery();
-            System.Diagnostics.Debug.WriteLine("DELTE FOM MOVIEACTOR");
         }
         catch(Exception e)
         {
@@ -725,7 +714,6 @@ public class ConnectionClass
         try
         {
             SQLiteDataReader dr = com.ExecuteReader();
-            System.Diagnostics.Debug.WriteLine("GETING MOVIEACTO");
             while(dr.Read())
             {
                 DataRow drt = dt.NewRow();
@@ -737,7 +725,6 @@ public class ConnectionClass
                 drt["Resolution"] = (String)dr["Resolution"];
                 drt["ID"] = dr["RowId"].ToString();
                 //add row to datatable
-                System.Diagnostics.Debug.WriteLine((string)dr["Title"]);
                 dt.Rows.Add(drt);
                 
             }
@@ -785,7 +772,27 @@ public class ConnectionClass
         con.Close();
         con.Dispose();
         return null;
-    } 
+    }
     
+    /*
+     *finds all titles that are duplicates
+     * @return List<String>
+     */  
+    public List<String> FindDubs()
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("SELECT TITLE, COUNT(*) c FROM Movies GROUP BY TITle HAVING c > 1", con);
+        List<String> Dubs = new List<string>();
+        SQLiteDataReader dr = com.ExecuteReader();
+        while (dr.Read())
+        {
+            Dubs.Add((String)dr["Title"]);
+        }
+        dr.Close();
+        con.Close();
+        con.Dispose();
+        return Dubs;
+    }
     
 }

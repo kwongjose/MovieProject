@@ -35,6 +35,7 @@
             this.startOverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastChanchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findBadNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Sort_Genres = new System.Windows.Forms.ComboBox();
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
@@ -50,6 +51,7 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.working = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.panel1.SuspendLayout();
@@ -71,7 +73,8 @@
             this.Load_Files,
             this.Rescan_Folder,
             this.startOverToolStripMenuItem,
-            this.findBadNamesToolStripMenuItem});
+            this.findBadNamesToolStripMenuItem,
+            this.findDuplicatesToolStripMenuItem});
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
@@ -112,6 +115,13 @@
             this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
             this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
+            // 
+            // findDuplicatesToolStripMenuItem
+            // 
+            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates";
+            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click_1);
             // 
             // Sort_Genres
             // 
@@ -220,7 +230,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(230, 20);
             this.textBox1.TabIndex = 8;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.TextChanged += new System.EventHandler(this.Search_Click);
             // 
             // Search
             // 
@@ -290,6 +300,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.progressBar);
             this.panel1.Controls.Add(this.working);
             this.panel1.Location = new System.Drawing.Point(376, 268);
@@ -297,6 +308,15 @@
             this.panel1.Size = new System.Drawing.Size(457, 130);
             this.panel1.TabIndex = 16;
             this.panel1.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(208, 93);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "label1";
             // 
             // Form1
             // 
@@ -352,6 +372,8 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label working;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem findDuplicatesToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }
 

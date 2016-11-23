@@ -36,7 +36,7 @@ namespace MovieLib
 
         private void Sorter(object sender, DataGridViewSortCompareEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("test");
+           
         }
 
         /*
@@ -150,6 +150,7 @@ namespace MovieLib
             if (i < Total_Files)
             {
                 progressBar.Value = i;
+                label1.Text = i + "/" + Total_Files;
             }
         }
 
@@ -159,7 +160,6 @@ namespace MovieLib
         private void Sort_Genres_SelectedIndexChanged(object sender, EventArgs e)
         {
             String Sel_Genre = Sort_Genres.Text;
-            System.Diagnostics.Debug.WriteLine(Sort_Genres.Text);
             // ConnectionClass con = new ConnectionClass();
             //DataTable dt = con.GetMovieByGernra(Sel_Genre);
             DataTable dt = (DataTable)(Movies_Data.DataSource);
@@ -179,16 +179,13 @@ namespace MovieLib
         */
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Method RUn");
             var senderGrid = (DataGridView)sender;
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow r = senderGrid.Rows[e.RowIndex];
                 if (e.ColumnIndex == 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("Method get ID");
                     int M_ID = int.Parse(r.Cells[6].Value.ToString());
-                    System.Diagnostics.Debug.WriteLine(M_ID);
                     var form = new Movie_Info(M_ID);
                     form.Show(this);
                 }
@@ -311,10 +308,16 @@ namespace MovieLib
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        /*
+         * key listener for enter press
+         * 
+         */ 
+        private void textBox1_TextChanged(object sender, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Enter)
+            {
+                Search_Click(this, new EventArgs());
+            }
         }
         /*
          * gets the text from textbox1 
@@ -325,21 +328,11 @@ namespace MovieLib
         {
             String Title = textBox1.Text;
             ConnectionClass con = new ConnectionClass();
-            DataTable dt = con.GetMovieByTitle(Title);
-            if(dt.Rows.Count < 1){//might change to show both movie/actor 
-               dt = con.GetActorMovies(Title);
-                if(dt.Rows.Count > 0)
-                {
-                    Movies_Data.DataSource = dt;
-                }
+            DataTable mt = con.GetMovieByTitle(Title);
 
-            }
-            else
-            {
-                DataTable tr = new DataTable();
-
-            }
-            Movies_Data.DataSource = dt;
+            mt.Merge( con.GetActorMovies(Title) );
+            DataTable rd = mt.DefaultView.ToTable(true); //might need to improve this
+            Movies_Data.DataSource = rd;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
@@ -480,6 +473,15 @@ namespace MovieLib
                 EnableContol(con);
             }
             c.Enabled = true;
+        }
+        /*
+         * Shows duplicates titles
+         */ 
+        private void findDuplicatesToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            ConnectionClass con = new ConnectionClass();
+            Form form = new FileInfo(con.FindDubs());
+            form.Show();
         }
     }
 }
