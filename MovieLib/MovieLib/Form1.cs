@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using System.Linq;
 
 namespace MovieLib
 {    /*
@@ -15,6 +16,7 @@ namespace MovieLib
         public List<String> BadFile = new List<string>();
         int Total_Files;
         int prog = 0;
+        public Queue<Movie> Movies = new Queue<Movie>();
         /*
          * 
          */
@@ -85,7 +87,7 @@ namespace MovieLib
               });
 
             // form.Close();
-
+            
             UpdateTable(files.Length);
         }
         /*
@@ -98,10 +100,14 @@ namespace MovieLib
             if (InvokeRequired)
             {
                 BeginInvoke(new MethodInvoker(() => UpdateTable(x)));
+                
                 return;
             }
+            int found = Movies.Count;
+            progressBar.Maximum = found;
+            Insert();
 
-            MessageBox.Show("Files found: " + x, "Message");
+            MessageBox.Show("Files found: " + found + "/" + x, "Message");
 
             working.Visible = false;
             ConnectionClass con = new ConnectionClass();
@@ -111,9 +117,40 @@ namespace MovieLib
             Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-
+            
             EnableContol(this);
         }
+
+        /*
+         * inserts into DB from Que
+         * 
+         */
+         private void Insert()
+        {
+            
+            ConnectionClass con = new ConnectionClass();
+            int size = Movies.Count;
+            for(var i = 0; i < size; i++)
+            {
+                progressBar.Value = i;
+                Movie Curent_Movie = Movies.Dequeue();
+                con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Res, Curent_Movie.Plot, Curent_Movie.Path, Curent_Movie.Poster, Curent_Movie.Rated);
+
+                String[] act = Curent_Movie.Actors.Split(',').ToArray();
+                int Mid = con.GetRowID(Curent_Movie.Path);
+
+                foreach(string name in act)
+                {
+                    con.InsertNewActor(name.Trim());
+                }//end 
+                foreach(string name in act)
+                {
+                    int aid = con.GetActorID(name.Trim() );
+                    con.Insert_MovieActor(Mid, aid);
+                }//end
+
+            }//end for
+        } 
 
         /*
          * method used to call in parralel
@@ -125,7 +162,7 @@ namespace MovieLib
             try
             {
 
-                FileToDataBase ftb = new FileToDataBase(Files);
+                FileToDataBase ftb = new FileToDataBase(Files, this);
 
             }
             catch (Exception e)
@@ -151,6 +188,10 @@ namespace MovieLib
             {
                 progressBar.Value = i;
                 label1.Text = i + "/" + Total_Files;
+            }
+            if(i == Total_Files - 1)
+            {
+                label1.Text = "Inserting";
             }
         }
 
@@ -331,8 +372,8 @@ namespace MovieLib
             DataTable mt = con.GetMovieByTitle(Title);
 
             mt.Merge( con.GetActorMovies(Title) );
-            DataTable rd = mt.DefaultView.ToTable(true); //might need to improve this
-            Movies_Data.DataSource = rd;
+          //  DataTable rd = mt.DefaultView.ToTable(true); //might need to improve this
+            Movies_Data.DataSource = con.GetActorMovies(Title);
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
@@ -389,7 +430,7 @@ namespace MovieLib
             try
             {
                 int M_int = int.Parse(textBox2.Text);
-                var form = new UpdateRow(M_int);
+                var form = new UpdateRow(M_int, this);
                 form.Show(this);
             }
             catch (Exception t)

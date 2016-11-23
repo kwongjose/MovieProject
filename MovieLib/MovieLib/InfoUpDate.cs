@@ -13,10 +13,12 @@ namespace MovieLib
     public partial class UpdateRow : Form
     {
         private int M_Id;
-        public UpdateRow(int Mid)
+        private Form1 form;
+        public UpdateRow(int Mid, Form1 forms)
         {
             InitializeComponent();
             M_Id = Mid;
+            form = forms;
             ConnectionClass con = new ConnectionClass();
             Movie mov = con.GetMovieData(Mid);
             Title.Text = mov.Title;

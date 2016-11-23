@@ -24,6 +24,7 @@ public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String  Resulution;
+    Form1 form;
     /*
      * constructor for updateing movie info in table using and IMdb title ID
      * @pram An IMdb title ID, the RowID of movie to update, the resulution of the movie
@@ -31,6 +32,7 @@ public class FileToDataBase
      */ 
     public FileToDataBase(String IMDB_Id, int M_Id, String Res)
     {
+        
         //TODO::Make API Call using IMDB ID then call UPDATEROW FROM CONNECTIN CLASS
         StringBuilder ApiCall = new StringBuilder();
         ApiCall.Append("?i=");
@@ -167,9 +169,9 @@ public class FileToDataBase
      * @pram File Path
      * 
      */ 
-    public FileToDataBase(String F_Path)
+    public FileToDataBase(String F_Path, Form1 forms)
     {
-       
+        form = forms;
         Resulution = "n/a";
 
         //Thread thread = new Thread(() => GetRes(F_Path) );
@@ -266,9 +268,18 @@ public class FileToDataBase
 
         Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()));//I don't know why this works
         t.Wait();
-       //Task.WaitAll(task);
-        ParseJson(t.Result);
+        //Task.WaitAll(task);
+        // ParseJson(t.Result);
+        String respon = t.Result;
+        Movie mov = JsonConvert.DeserializeObject<Movie>(respon);
        
+        if(mov.Response == "True")
+        {
+            mov.Res = Resulution;
+            mov.Path = Full_Path;
+            form.Movies.Enqueue(mov); 
+        }
+        
         return "";
     }
     /*

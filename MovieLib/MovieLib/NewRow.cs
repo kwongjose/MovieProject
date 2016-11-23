@@ -12,10 +12,12 @@ namespace MovieLib
 {
     public partial class NewRow : Form
     {
+        Form1 form;
         public NewRow()
         {
            
             InitializeComponent();
+           
         }
         /*
          * inserts a new row into the database
