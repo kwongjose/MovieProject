@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Movie_Info));
             this.Movie_Title = new System.Windows.Forms.Label();
             this.M_Plot = new System.Windows.Forms.TextBox();
             this.Watch_Movie = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@
             this.M_Plot.ReadOnly = true;
             this.M_Plot.Size = new System.Drawing.Size(566, 152);
             this.M_Plot.TabIndex = 1;
-            this.M_Plot.TextChanged += new System.EventHandler(this.M_Plot_TextChanged);
             // 
             // Watch_Movie
             // 
@@ -106,7 +106,6 @@
             this.Genre_Lable.Size = new System.Drawing.Size(35, 13);
             this.Genre_Lable.TabIndex = 6;
             this.Genre_Lable.Text = "label2";
-            this.Genre_Lable.Click += new System.EventHandler(this.label2_Click);
             // 
             // Res_Lable
             // 
@@ -127,9 +126,12 @@
             // 
             // Movie_Poster
             // 
+            this.Movie_Poster.ErrorImage = ((System.Drawing.Image)(resources.GetObject("Movie_Poster.ErrorImage")));
+            this.Movie_Poster.InitialImage = null;
             this.Movie_Poster.Location = new System.Drawing.Point(423, 76);
             this.Movie_Poster.Name = "Movie_Poster";
             this.Movie_Poster.Size = new System.Drawing.Size(169, 208);
+            this.Movie_Poster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Movie_Poster.TabIndex = 9;
             this.Movie_Poster.TabStop = false;
             // 

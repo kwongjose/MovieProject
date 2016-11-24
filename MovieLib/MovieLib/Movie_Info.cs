@@ -18,15 +18,7 @@ namespace MovieLib
     {
         public String File_Path, Movie_Name, Movie_Plot;
 
-        private void M_Plot_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         public Movie_Info(int ID)
         {
@@ -54,7 +46,10 @@ namespace MovieLib
             if (mov.Poster != null)
             {
                 //NEED CODE FOR WHEN NO NETWORK
-                Movie_Poster.LoadAsync(mov.Poster);
+               
+                    Movie_Poster.LoadAsync(mov.Poster);
+                         
+              
                 Movie_Poster.SizeMode = PictureBoxSizeMode.StretchImage;
             }
         }
@@ -63,5 +58,7 @@ namespace MovieLib
         {
             System.Diagnostics.Process.Start(@File_Path);//open selected movie
         }
+
+        
     }
 }

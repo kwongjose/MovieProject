@@ -12,7 +12,6 @@ namespace MovieLib
 {
     public partial class NewRow : Form
     {
-        Form1 form;
         public NewRow()
         {
            
@@ -27,7 +26,6 @@ namespace MovieLib
         {
             if (Imdb.Checked)
             {
-                System.Diagnostics.Debug.WriteLine("I AM HERE");
                 FileToDataBase ftb = new FileToDataBase(ImdbId.Text, Path.Text);
             }
             else

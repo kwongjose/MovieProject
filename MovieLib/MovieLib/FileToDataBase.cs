@@ -24,6 +24,7 @@ public class FileToDataBase
 {
     String Movie_Path, Movie_Year, Movie_Title, Full_Path;
     String  Resulution;
+    Task task;
     Form1 form;
     /*
      * constructor for updateing movie info in table using and IMdb title ID
@@ -134,7 +135,7 @@ public class FileToDataBase
         Resulution = Resulution.Replace("x", " X ");
 
         Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
-        Task.WhenAll(t);
+        Task.WaitAll(t);
         ParseJson(t.Result);
 
 
@@ -144,20 +145,18 @@ public class FileToDataBase
      * using this to see if i can speed up total run time
      * 
      */ 
-    private async Task<String> GetRes(String F)
+    private String GetRes(String F)
     {
         MediaFile infile = new MediaFile { Filename = F };
         using (Engine engin = new Engine())
         {
             engin.GetMetadata(infile);
-
         }
         try
         {
-            Resulution = infile.Metadata.VideoData.FrameSize;
+            Resulution =  infile.Metadata.VideoData.FrameSize;
             Resulution = Resulution.Replace("x", " X ");
-            
-            return "";
+            return Resulution;
         }
         catch (Exception e)
         {
@@ -175,8 +174,8 @@ public class FileToDataBase
         Resulution = "n/a";
 
         //Thread thread = new Thread(() => GetRes(F_Path) );
-       //  task = new Task(() =>  GetRes(F_Path));
-       // task.Start();
+      //  task = new Task( () =>  GetRes(F_Path) );
+      //  task.Start();
 
            
          MediaFile infile = new MediaFile { Filename = F_Path }; //Try to speed this up
@@ -268,6 +267,7 @@ public class FileToDataBase
 
         Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()));//I don't know why this works
         t.Wait();
+       // task.Wait();
         //Task.WaitAll(task);
         // ParseJson(t.Result);
         String respon = t.Result;

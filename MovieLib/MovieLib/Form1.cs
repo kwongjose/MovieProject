@@ -130,7 +130,7 @@ namespace MovieLib
             
             ConnectionClass con = new ConnectionClass();
             int size = Movies.Count;
-            for(var i = 0; i < size; i++)
+            for(int i = 0; i < size; i++)
             {
                 progressBar.Value = i;
                 Movie Curent_Movie = Movies.Dequeue();
@@ -372,9 +372,8 @@ namespace MovieLib
             DataTable mt = con.GetMovieByTitle(Title);
 
             mt.Merge( con.GetActorMovies(Title) );
-          //  DataTable rd = mt.DefaultView.ToTable(true); //might need to improve this
-            Movies_Data.DataSource = con.GetActorMovies(Title);
-            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+           DataTable rd = mt.DefaultView.ToTable(true); //might need to improve this, not sure why it works
+            Movies_Data.DataSource = rd;
         }
         /*
          * finds files that are not in the DataBase
@@ -431,7 +430,7 @@ namespace MovieLib
             {
                 int M_int = int.Parse(textBox2.Text);
                 var form = new UpdateRow(M_int, this);
-                form.Show(this);
+                form.Show();
             }
             catch (Exception t)
             {
@@ -445,7 +444,7 @@ namespace MovieLib
         private void NRow_Click(object sender, EventArgs e)
         {
             var form = new NewRow();
-            form.Show(this);
+            form.Show();
         }
         /*
          * delete a row 
@@ -476,14 +475,8 @@ namespace MovieLib
                 MessageBox.Show("Check Input", "Message");
             }
         }
-        /*
-         * Shows a list of duplicate TITLES in the Database
-         * 
-         */
-        private void findDuplicatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConnectionClass con = new ConnectionClass();
-        }
+       
+       
         /*
          * Disables all controles on the form. 
          * @pram a controle
