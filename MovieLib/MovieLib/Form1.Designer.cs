@@ -81,7 +81,6 @@ namespace MovieLib
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
-          
             // 
             // Load_Files
             // 
@@ -144,6 +143,8 @@ namespace MovieLib
             "History",
             "Horror",
             "Music",
+            "Marvel",
+            "DC",
             "Musical",
             "Mystery",
             "Romance",
@@ -216,10 +217,7 @@ namespace MovieLib
             this.Movies_Data.Size = new System.Drawing.Size(1230, 457);
             this.Movies_Data.TabIndex = 6;
             this.Movies_Data.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
-            this.Movies_Data.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(Sorter);
-        
-            
-            
+            this.Movies_Data.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Sorter);
             // 
             // Default
             // 

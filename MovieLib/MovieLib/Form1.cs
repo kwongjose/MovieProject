@@ -40,15 +40,20 @@ namespace MovieLib
          */ 
         private void Sorter(object sender, DataGridViewCellMouseEventArgs e)
         {
-          
+            DataGridView dts = (DataGridView)sender;
+            DataTable dt = (DataTable)dts.DataSource;
+            DataTable so = new DataTable();
             if(e.ColumnIndex == 4)//sort length
             {
-               
+                System.Diagnostics.Debug.WriteLine("");
+                 so = dt.AsEnumerable().OrderBy(r => int.Parse( r.Field<String>("Length").Substring(0, r.Field<String>("Length").Length-3)
+                    ));
             }
             if(e.ColumnIndex == 5)//sort res
             {
 
             }
+            Movies_Data.DataSource = so;
         }
 
         /*
