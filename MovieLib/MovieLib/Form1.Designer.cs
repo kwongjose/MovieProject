@@ -1,4 +1,7 @@
-﻿namespace MovieLib
+﻿using System;
+using System.Windows.Forms;
+
+namespace MovieLib
 {
     partial class Form1
     {
@@ -78,7 +81,7 @@
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
-            this.Options_List.Click += new System.EventHandler(this.Options_List_Click);
+          
             // 
             // Load_Files
             // 
@@ -212,7 +215,11 @@
             this.Movies_Data.ReadOnly = true;
             this.Movies_Data.Size = new System.Drawing.Size(1230, 457);
             this.Movies_Data.TabIndex = 6;
-            this.Movies_Data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
+            this.Movies_Data.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
+            this.Movies_Data.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(Sorter);
+        
+            
+            
             // 
             // Default
             // 
@@ -347,6 +354,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void CustomSort(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

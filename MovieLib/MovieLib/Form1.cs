@@ -29,16 +29,26 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             con.NewDataBase();
             DataTable dt = con.SelAllMovies();
-            Movies_Data.Columns.Clear();
-            Movies_Data.DataSource = dt;
+            Movies_Data.DataSource = dt; 
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-
-
+   
         }
-
-        private void Sorter(object sender, DataGridViewSortCompareEventArgs e)
+      
+        /*
+         * sort either length or resultion as ints
+         * 
+         */ 
+        private void Sorter(object sender, DataGridViewCellMouseEventArgs e)
         {
-           
+          
+            if(e.ColumnIndex == 4)//sort length
+            {
+               
+            }
+            if(e.ColumnIndex == 5)//sort res
+            {
+
+            }
         }
 
         /*
@@ -275,7 +285,7 @@ namespace MovieLib
                 progressBar.Value = 0;
                 working.Visible = true;
                 panel1.Visible = true;
-                Thread thread = new Thread(() => ProccessFiles(FilesToInsert.ToArray()));
+                Thread thread = new Thread( () => ProccessFiles(FilesToInsert.ToArray()));
                 thread.Start();
 
             }
@@ -320,13 +330,8 @@ namespace MovieLib
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
-        /*
-        * 
-        */
-        private void Options_List_Click(object sender, EventArgs e)
-        {
-            //should do nothing 
-        }
+        
+      
         /*
         * Shows all rows in the database
         */
@@ -335,7 +340,6 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable dt = con.SelAllMovies();
             Movies_Data.DataSource = dt;
-            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
         /*
          * delete all rows from movies table
@@ -349,17 +353,7 @@ namespace MovieLib
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
-        /*
-         * key listener for enter press
-         * 
-         */ 
-        private void textBox1_TextChanged(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Search_Click(this, new EventArgs());
-            }
-        }
+      
         /*
          * gets the text from textbox1 
          * looks for title in movie database
@@ -517,5 +511,8 @@ namespace MovieLib
             Form form = new FileInfo(con.FindDubs());
             form.Show();
         }
+
+
+
     }
 }
