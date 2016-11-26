@@ -95,18 +95,28 @@ public class FileToDataBase
         if (Movie_Path.Contains('('))//Holds a Date
         {
             Movie_Year = getBetween(Movie_Path, "(", ")");//(1990) or ""
+            if (Movie_Year.Contains("tt"))//name has ID
+            {
 
-            int i = Movie_Path.IndexOf("(");
+            }
+            else//name has year
+            {
+              //  Movie_Year = getBetween(Movie_Path, "(", ")");//(1990) or ""
 
-            Movie_Title = Movie_Path.Substring(0, i);//Movie Title
+                int i = Movie_Path.IndexOf("(");
+
+                Movie_Title = Movie_Path.Substring(0, i);//Movie Title
+                ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
+            }
 
         }
         else
         {
             Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
+            ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
         }
        
-        ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
+       // ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
         return "";
     }
     /*
