@@ -242,6 +242,11 @@ namespace MovieLib
                     var form = new Movie_Info(M_ID);
                     form.Show(this);
                 }
+                if(e.ColumnIndex == 6)//select ID
+                {
+                   r.Cells[6].Value.ToString();
+                    textBox2.Text = r.Cells[6].Value.ToString();
+                }
             }
         }
         /*
