@@ -211,18 +211,43 @@ public class FileToDataBase
         if (Movie_Path.Contains('('))//Holds a Date
         {
             Movie_Year = getBetween(Movie_Path, "(", ")");//(1990) or ""
+            if (Movie_Year.Contains("tt"))//holds IMDB ID
+            {
+                StringBuilder ApiCall = new StringBuilder();
+                ApiCall.Append("?i=");
+                ApiCall.Append(Movie_Year);
+                ApiCall.Append("&plot=full&r=json");
 
-            int i = Movie_Path.IndexOf("(");
+                Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
+                Task.WaitAll(t);
+                
+                String respon = t.Result;
+                Movie mov = JsonConvert.DeserializeObject<Movie>(respon);
 
-            Movie_Title = Movie_Path.Substring(0, i);//Movie Title
+                if (mov.Response == "True")
+                {
+                    mov.Res = Resulution;
+                    mov.Path = Full_Path;
+                    form.Movies.Enqueue(mov);
+                }
+            }
+            else
+            {
+                int i = Movie_Path.IndexOf("(");
+
+                Movie_Title = Movie_Path.Substring(0, i);//Movie Title
+                ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
+            }
+            
 
         }
         else
         {
             Movie_Title = Movie_Path.Remove(Movie_Path.Length - 4);//Movie Title
+            ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
         }
 
-        ApiCallBuilder(Movie_Title, Movie_Year);//Call the API
+      
     }
     /*
      * Gets Text Between Two subStrings
