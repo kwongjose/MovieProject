@@ -51,7 +51,6 @@ namespace MovieLib
             {
 
             }
-            Movies_Data.DataSource = so;
         }
 
         /*

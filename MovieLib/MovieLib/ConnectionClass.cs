@@ -181,7 +181,7 @@ public class ConnectionClass
                 dr["Rating"] = (String)r["Rating"];
                 dr["Length"] = (String)r["Length"];
                 dr["Resolution"] = (String)r["Resolution"];
-                dr["ID"] = r["RowId"].ToString();
+                dr["ID"] = r["RowId"];
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
@@ -782,7 +782,7 @@ public class ConnectionClass
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        SQLiteCommand com = new SQLiteCommand("SELECT TITLE, COUNT(*) c FROM Movies GROUP BY TITle HAVING c > 1", con);
+        SQLiteCommand com = new SQLiteCommand("SELECT TITLE, YEAR, COUNT(*) c FROM Movies GROUP BY TITle, year HAVING c > 1", con);
         List<String> Dubs = new List<string>();
         SQLiteDataReader dr = com.ExecuteReader();
         while (dr.Read())
