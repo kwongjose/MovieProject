@@ -753,7 +753,7 @@ public class ConnectionClass
         {
             SQLiteDataReader dr = com.ExecuteReader();
             int i = 0;
-            while (dr.Read() &&  i < 3)
+            while (dr.Read() &&  i < 4)
             {
                 Actors.Add((string)dr["Name"]);
                 
