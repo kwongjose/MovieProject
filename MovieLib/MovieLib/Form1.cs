@@ -14,7 +14,7 @@ namespace MovieLib
     public partial class Form1 : Form
     {
         public List<String> BadFile = new List<string>();
-        int Total_Files;
+        int Total_Files, Found_Files;
         int prog = 0;
         public Queue<Movie> Movies = new Queue<Movie>();
         /*
@@ -76,6 +76,7 @@ namespace MovieLib
                 Total_Files = files.Count;
                 progressBar.Visible = true;
                 progressBar.Value = 0;
+                prog = 0;
                 working.Visible = true;
                 panel1.Visible = true;
                 Thread thread = new Thread(() => ProccessFiles(files.ToArray()));
@@ -99,7 +100,11 @@ namespace MovieLib
               });
 
             // form.Close();
-            
+            int found = Movies.Count;
+            progressBar.Maximum = found;
+            Found_Files = Movies.Count;
+            Insert();
+
             UpdateTable(files.Length);
         }
         /*
@@ -115,11 +120,9 @@ namespace MovieLib
                 
                 return;
             }
-            int found = Movies.Count;
-            progressBar.Maximum = found;
-            Insert();
+         
 
-            MessageBox.Show("Files found: " + found + "/" + x, "Message");
+            MessageBox.Show("Files found: " + Found_Files + "/" + Total_Files, "Message");
 
             working.Visible = false;
             ConnectionClass con = new ConnectionClass();
@@ -144,7 +147,8 @@ namespace MovieLib
             int size = Movies.Count;
             for(int i = 0; i < size; i++)
             {
-                progressBar.Value = i;
+              //  progressBar.Value = i;
+                UpdateBar(i);
                 Movie Curent_Movie = Movies.Dequeue();
                 con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Res, Curent_Movie.Plot, Curent_Movie.Path, Curent_Movie.Poster, Curent_Movie.Rated);
 
@@ -203,7 +207,8 @@ namespace MovieLib
             }
             if(i == Total_Files - 1)
             {
-                label1.Text = "Inserting";
+               
+                working.Text = "Inserting";
             }
         }
 
@@ -290,6 +295,8 @@ namespace MovieLib
                 Total_Files = FilesToInsert.Count;
                 progressBar.Visible = true;
                 progressBar.Value = 0;
+                prog = 0;
+                working.Text = "Working Please Wait";
                 working.Visible = true;
                 panel1.Visible = true;
                 Thread thread = new Thread( () => ProccessFiles(FilesToInsert.ToArray()));

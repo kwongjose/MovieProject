@@ -76,8 +76,8 @@ namespace MovieLib
             this.Load_Files,
             this.Rescan_Folder,
             this.startOverToolStripMenuItem,
-            this.findBadNamesToolStripMenuItem,
-            this.findDuplicatesToolStripMenuItem});
+            this.findDuplicatesToolStripMenuItem,
+            this.findBadNamesToolStripMenuItem});
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";

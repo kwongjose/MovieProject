@@ -130,6 +130,12 @@
     <Compile Include="InfoUpDate.Designer.cs">
       <DependentUpon>InfoUpDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainTainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainTainer.Designer.cs">
+      <DependentUpon>MainTainer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Movie.cs" />
     <Compile Include="Movie_Info.cs">
       <SubType>Form</SubType>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoUpDate.resx">
       <DependentUpon>InfoUpDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainTainer.resx">
+      <DependentUpon>MainTainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Movie_Info.resx">
       <DependentUpon>Movie_Info.cs</DependentUpon>
