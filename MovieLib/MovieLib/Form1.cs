@@ -100,12 +100,11 @@ namespace MovieLib
               });
 
             // form.Close();
-            int found = Movies.Count;
-            progressBar.Maximum = found;
             Found_Files = Movies.Count;
             Insert();
 
             UpdateTable(files.Length);
+           
         }
         /*
          * Updates the datagridview and changes visability of working lable and progressbar
@@ -123,6 +122,7 @@ namespace MovieLib
          
 
             MessageBox.Show("Files found: " + Found_Files + "/" + Total_Files, "Message");
+            Found_Files = 0;
 
             working.Visible = false;
             ConnectionClass con = new ConnectionClass();
@@ -200,15 +200,26 @@ namespace MovieLib
                 BeginInvoke(new Action<int>(UpdateBar), new object[] { i });
                 return;
             }
-            if (i < Total_Files)
+            try
             {
-                progressBar.Value = i;
-                label1.Text = i + "/" + Total_Files;
+                if(Found_Files != 0)
+                {
+                    progressBar.Maximum = Found_Files;
+                }
+                if (i < Total_Files)
+                {
+                    progressBar.Value = i;
+                    label1.Text = i + "/" + Total_Files;
+                }
+                if (i == Total_Files - 1)
+                {
+
+                    working.Text = "Inserting";
+                }
             }
-            if(i == Total_Files - 1)
+            catch(Exception e)
             {
-               
-                working.Text = "Inserting";
+                System.Diagnostics.Debug.WriteLine(e.Message);
             }
         }
 
