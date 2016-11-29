@@ -47,6 +47,9 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ImdbId = new System.Windows.Forms.TextBox();
             this.IMDb_Id = new System.Windows.Forms.Label();
+            this.AddActorItem = new System.Windows.Forms.TextBox();
+            this.ActorList = new System.Windows.Forms.CheckedListBox();
+            this.Add = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Tpath
@@ -109,7 +112,6 @@
             this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Plot";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -207,13 +209,40 @@
             this.IMDb_Id.Size = new System.Drawing.Size(46, 13);
             this.IMDb_Id.TabIndex = 18;
             this.IMDb_Id.Text = "IMDB Id";
-            this.IMDb_Id.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // AddActorItem
+            // 
+            this.AddActorItem.Location = new System.Drawing.Point(594, 112);
+            this.AddActorItem.Name = "AddActorItem";
+            this.AddActorItem.Size = new System.Drawing.Size(185, 20);
+            this.AddActorItem.TabIndex = 19;
+            // 
+            // ActorList
+            // 
+            this.ActorList.FormattingEnabled = true;
+            this.ActorList.Location = new System.Drawing.Point(594, 166);
+            this.ActorList.Name = "ActorList";
+            this.ActorList.Size = new System.Drawing.Size(185, 169);
+            this.ActorList.TabIndex = 20;
+            // 
+            // Add
+            // 
+            this.Add.Location = new System.Drawing.Point(795, 114);
+            this.Add.Name = "Add";
+            this.Add.Size = new System.Drawing.Size(75, 23);
+            this.Add.TabIndex = 21;
+            this.Add.Text = "Add";
+            this.Add.UseVisualStyleBackColor = true;
+            this.Add.Click += new System.EventHandler(this.Add_Click);
             // 
             // UpdateRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 615);
+            this.ClientSize = new System.Drawing.Size(882, 615);
+            this.Controls.Add(this.Add);
+            this.Controls.Add(this.ActorList);
+            this.Controls.Add(this.AddActorItem);
             this.Controls.Add(this.IMDb_Id);
             this.Controls.Add(this.ImdbId);
             this.Controls.Add(this.checkBox1);
@@ -235,7 +264,6 @@
             this.Controls.Add(this.Tpath);
             this.Name = "UpdateRow";
             this.Text = "Form2";
-            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,5 +290,8 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox ImdbId;
         private System.Windows.Forms.Label IMDb_Id;
+        private System.Windows.Forms.TextBox AddActorItem;
+        private System.Windows.Forms.CheckedListBox ActorList;
+        private System.Windows.Forms.Button Add;
     }
 }

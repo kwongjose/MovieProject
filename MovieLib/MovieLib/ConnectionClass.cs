@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using System.Text;
 /*
- * This Class handels all interaction with the SQLite database
- * 
- */
+* This Class handels all interaction with the SQLite database
+* 
+*/
 public class ConnectionClass
 {
     String ConString = "Data Source=MyMovies.sqlite;Version=3;";
@@ -47,7 +48,7 @@ public class ConnectionClass
             command.ExecuteNonQuery();
 
             //Make Relation
-            String MovieActor = "Create Table IF NOT EXISTS MovieActor (MovieID INTEGER, ActorID INTEGER, FOREIGN KEY(MovieID) REFERENCES Movies(RowID), FOREIGN KEY(ActorID) REFERENCES ACTOR(AID) )";
+            String MovieActor = "Create Table IF NOT EXISTS MovieActor (MovieID INTEGER, ActorID INTEGER, FOREIGN KEY(MovieID) REFERENCES Movies(RowID), FOREIGN KEY(ActorID) REFERENCES ACTOR(AID), PRIMARY KEY (MovieID, ActorID) )";
             command = new SQLiteCommand(MovieActor, m_dbConnection);
             command.ExecuteNonQuery();
             
@@ -69,7 +70,7 @@ public class ConnectionClass
     {
         try
         {
-            String insert = "INSERT INTO ACTOR (Name) SELECT @AName  WHERE NOT EXISTS (SELECT * FROM ACTOR WHERE Name = @AName) ";
+            String insert = "INSERT INTO ACTOR (Name) SELECT @AName  WHERE NOT EXISTS (SELECT * FROM ACTOR WHERE Name LIKE @AName) ";
             SQLiteConnection con = new SQLiteConnection(ConString);
             con.Open();
             SQLiteCommand com = new SQLiteCommand(insert, con);
@@ -548,7 +549,20 @@ public class ConnectionClass
 
                 
             }
-            
+            r.Close();
+            com.CommandText = "SELECT Name FROM Actor Join MovieActor ON actor.aid = movieactor.actorid WHERE MovieActor.MovieID = " + Mid;
+            r = com.ExecuteReader();
+            StringBuilder actorlist = new StringBuilder();
+
+           
+            while(r.Read())
+            {
+                
+                actorlist.Append((string)r["Name"]);
+                actorlist.Append(",");
+            }
+            mov.Actors = actorlist.ToString().TrimEnd(',');
+
             r.Close();
             con.Close();
             con.Dispose();
@@ -662,8 +676,8 @@ public class ConnectionClass
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        string temp = '"' + aname + '"';
-        SQLiteCommand com = new SQLiteCommand("Select AID FROM ACTOR Where Name = " + temp , con);
+        string temp = '"' + "%"  + aname + "%" + '"';
+        SQLiteCommand com = new SQLiteCommand("Select AID FROM ACTOR Where Name Like " + temp , con);
         try
         {
             SQLiteDataReader dr = com.ExecuteReader();
@@ -794,5 +808,27 @@ public class ConnectionClass
         con.Dispose();
         return Dubs;
     }
+
+    /*
+     * delete a row from movieactor
+     * 
+     */
+     public bool DeleteFromMovieActor(int MID, int AID)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("Delete FROM MovieActor WHERE MovieID = @M_ID and ActorID = @A_ID", con);
+        com.Parameters.AddWithValue("@M_ID", MID);
+        com.Parameters.AddWithValue("@A_ID", AID);
+        try
+        {
+            com.ExecuteNonQuery();
+            return true;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+    } 
     
 }

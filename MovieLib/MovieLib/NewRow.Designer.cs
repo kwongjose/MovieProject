@@ -47,6 +47,9 @@
             this.Fpath = new System.Windows.Forms.Label();
             this.Imdb = new System.Windows.Forms.CheckBox();
             this.ImdbId = new System.Windows.Forms.TextBox();
+            this.ActorList = new System.Windows.Forms.CheckedListBox();
+            this.Actor_name = new System.Windows.Forms.TextBox();
+            this.AddActor = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Mplot
@@ -207,11 +210,39 @@
             this.ImdbId.Size = new System.Drawing.Size(100, 20);
             this.ImdbId.TabIndex = 18;
             // 
+            // ActorList
+            // 
+            this.ActorList.FormattingEnabled = true;
+            this.ActorList.Location = new System.Drawing.Point(652, 159);
+            this.ActorList.Name = "ActorList";
+            this.ActorList.Size = new System.Drawing.Size(219, 184);
+            this.ActorList.TabIndex = 19;
+            // 
+            // Actor_name
+            // 
+            this.Actor_name.Location = new System.Drawing.Point(652, 107);
+            this.Actor_name.Name = "Actor_name";
+            this.Actor_name.Size = new System.Drawing.Size(100, 20);
+            this.Actor_name.TabIndex = 20;
+            // 
+            // AddActor
+            // 
+            this.AddActor.Location = new System.Drawing.Point(795, 110);
+            this.AddActor.Name = "AddActor";
+            this.AddActor.Size = new System.Drawing.Size(75, 23);
+            this.AddActor.TabIndex = 21;
+            this.AddActor.Text = "Add";
+            this.AddActor.UseVisualStyleBackColor = true;
+            this.AddActor.Click += new System.EventHandler(this.AddActor_Click);
+            // 
             // NewRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 616);
+            this.ClientSize = new System.Drawing.Size(943, 616);
+            this.Controls.Add(this.AddActor);
+            this.Controls.Add(this.Actor_name);
+            this.Controls.Add(this.ActorList);
             this.Controls.Add(this.ImdbId);
             this.Controls.Add(this.Imdb);
             this.Controls.Add(this.Fpath);
@@ -259,5 +290,8 @@
         private System.Windows.Forms.Label Fpath;
         private System.Windows.Forms.CheckBox Imdb;
         private System.Windows.Forms.TextBox ImdbId;
+        private System.Windows.Forms.CheckedListBox ActorList;
+        private System.Windows.Forms.TextBox Actor_name;
+        private System.Windows.Forms.Button AddActor;
     }
 }

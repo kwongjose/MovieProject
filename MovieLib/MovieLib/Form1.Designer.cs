@@ -37,8 +37,8 @@ namespace MovieLib
             this.Rescan_Folder = new System.Windows.Forms.ToolStripMenuItem();
             this.startOverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastChanchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.findBadNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findBadNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Sort_Genres = new System.Windows.Forms.ComboBox();
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
@@ -76,8 +76,8 @@ namespace MovieLib
             this.Load_Files,
             this.Rescan_Folder,
             this.startOverToolStripMenuItem,
-            this.findDuplicatesToolStripMenuItem,
-            this.findBadNamesToolStripMenuItem});
+            this.findBadNamesToolStripMenuItem,
+            this.findDuplicatesToolStripMenuItem});
             this.Options_List.Name = "Options_List";
             this.Options_List.Size = new System.Drawing.Size(61, 20);
             this.Options_List.Text = "Options";
@@ -111,19 +111,19 @@ namespace MovieLib
             this.lastChanchToolStripMenuItem.Text = "Last Chanch";
             this.lastChanchToolStripMenuItem.Click += new System.EventHandler(this.lastChanchToolStripMenuItem_Click);
             // 
-            // findBadNamesToolStripMenuItem
-            // 
-            this.findBadNamesToolStripMenuItem.Name = "findBadNamesToolStripMenuItem";
-            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
-            this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
-            // 
             // findDuplicatesToolStripMenuItem
             // 
             this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
             this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates";
             this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click_1);
+            // 
+            // findBadNamesToolStripMenuItem
+            // 
+            this.findBadNamesToolStripMenuItem.Name = "findBadNamesToolStripMenuItem";
+            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
+            this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
             // 
             // Sort_Genres
             // 

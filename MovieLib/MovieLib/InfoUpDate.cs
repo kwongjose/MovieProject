@@ -29,12 +29,21 @@ namespace MovieLib
             Nres.Text = mov.Res;
             Plot.Text = mov.Plot;
             Tpath.Text = mov.Path;
+            LoadView(mov.Actors);
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+       /*
+        * load the actor view
+        * 
+        */
+        private void LoadView(String a)
         {
-
-        }
+            String[] alist = a.Split(',');
+           
+                ActorList.Items.AddRange(a.Split(','));
+            
+           
+        } 
         /*
          * calls connection class and updates the movie row with new info
          * 
@@ -42,6 +51,16 @@ namespace MovieLib
         private void UpDate_Click(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
+
+            for (int i = 0; i < ActorList.Items.Count; i++)
+            {
+                if (ActorList.GetItemChecked(i) )
+                {
+                    int aid = con.GetActorID((String)ActorList.Items[i] );
+                    con.DeleteFromMovieActor(M_Id, aid);
+                }
+            }
+
             String Path = Tpath.Text;
             if (checkBox1.Checked)
             {
@@ -49,7 +68,7 @@ namespace MovieLib
             }
             else
             {
-                if (con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text, Nres.Text))
+                if (con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text, Nres.Text) )
                 {
                     MessageBox.Show("Row Updated", "Message");
                 }
@@ -60,15 +79,33 @@ namespace MovieLib
             }
             this.Close();
         }
-
-        private void label1_Click(object sender, EventArgs e)
+        /*
+         * add an actor to a movie
+         * 
+         */ 
+        private void Add_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
+           
+            if(AddActorItem.Text.Length > 1)
+            {
+                string actorname = AddActorItem.Text;
+                ConnectionClass con = new ConnectionClass();
+                int aid = con.GetActorID(actorname.Trim() );
+                if(aid != 0 )//actor in db
+                {
+                    
+                    aid = con.GetActorID(actorname.Trim() );
+                    con.Insert_MovieActor(M_Id, aid);
+                    ActorList.Items.Add(actorname.Trim() );
+                }
+                else//actor not in db
+                {
+                    con.InsertNewActor(actorname.Trim() );
+                    aid = con.GetActorID(actorname.Trim() );
+                    con.Insert_MovieActor(M_Id, aid);
+                    ActorList.Items.Add(actorname.Trim() );
+                }
+            }
+        }//end
     }
 }
