@@ -249,20 +249,32 @@ namespace MovieLib
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
+            try { 
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow r = senderGrid.Rows[e.RowIndex];
                 if (e.ColumnIndex == 0)
                 {
-                    int M_ID = int.Parse(r.Cells[6].Value.ToString());
-                    var form = new Movie_Info(M_ID);
-                    form.Show(this);
+                    if (r.Cells[6].Value.ToString() != null)
+                    {
+                        int M_ID = int.Parse(r.Cells[6].Value.ToString());
+                        var form = new Movie_Info(M_ID);
+                        form.Show(this);
+                    }
                 }
-                if(e.ColumnIndex == 6)//select ID
+                if (e.ColumnIndex == 6)//select ID
                 {
-                   r.Cells[6].Value.ToString();
-                    textBox2.Text = r.Cells[6].Value.ToString();
+                    if (r.Cells[6].Value.ToString() != null)
+                    {
+                        textBox2.Text = r.Cells[6].Value.ToString();
+                    }
                 }
+            }
+            }
+            catch(Exception w)
+            {
+                System.Diagnostics.Debug.WriteLine(w.Message);
+
             }
         }
         /*
