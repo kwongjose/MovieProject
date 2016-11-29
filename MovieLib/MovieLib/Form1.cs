@@ -528,8 +528,35 @@ namespace MovieLib
             c.Enabled = true;
         }
         /*
-         * Shows duplicates titles
+         * add custom gerna
+         * 
          */ 
+        private void addCustomGernaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Add_G.Visible = true;
+        }
+        /*
+         * add gerna
+         */
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Add_G.Visible = false;
+            
+         
+        }
+
+        private void Remove_Click(object sender, EventArgs e)
+        {
+            Add_G.Visible = false;
+            if(Sort_Genres.Items.Contains(Gerna.Text))
+            {
+                Sort_Genres.Items.Remove(Gerna.Text);
+            }
+        }
+
+        /*
+* Shows duplicates titles
+*/
         private void findDuplicatesToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
