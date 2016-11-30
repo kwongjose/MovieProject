@@ -239,6 +239,15 @@ namespace MovieLib
             {
                 dt = dr.CopyToDataTable();
             }
+            else
+            {
+                dt = new DataTable();
+                dt.Columns.Add("No Data");
+                DataRow drs = dt.NewRow();
+                drs["No Data"] = "NO Movies";
+                
+                dt.Rows.Add(drs);
+            }
 
             // Movies_Data.Columns.Clear();
             Movies_Data.DataSource = dt;
