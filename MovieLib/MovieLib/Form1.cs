@@ -547,6 +547,7 @@ namespace MovieLib
         private void addCustomGernaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Add_G.Visible = true;
+            Gerna.Text = "";
         }
         /*
          * add gerna
