@@ -86,7 +86,7 @@ namespace MovieLib
         private void Add_Click(object sender, EventArgs e)
         {
            
-            if(AddActorItem.Text.Length > 1)
+            if(AddActorItem.Text.Length > 1 && !ActorList.Items.Contains(AddActorItem.Text) )
             {
                 string actorname = AddActorItem.Text;
                 ConnectionClass con = new ConnectionClass();

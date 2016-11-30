@@ -56,7 +56,7 @@ namespace MovieLib
          */ 
         private void AddActor_Click(object sender, EventArgs e)
         {
-            if(Actor_name.Text.Length > 2)
+            if(Actor_name.Text.Length > 2 && !ActorList.Items.Contains(Actor_name.Text) )
             {
                 ActorList.Items.Add(Actor_name.Text);
             }
