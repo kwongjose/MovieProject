@@ -31,35 +31,98 @@ public class ConnectionClass
             if (!(File.Exists("MyMovies.sqlite")))//is db made
             {
                 SQLiteConnection.CreateFile("MyMovies.sqlite");
+
+
+                SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=MyMovies.sqlite;Version=3;");
+                m_dbConnection.Open();
+
+                String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rated Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT, Poster TEXT )";
+
+
+                SQLiteCommand command = new SQLiteCommand(MakeTable, m_dbConnection);
+                command.ExecuteNonQuery();
+                //Make Actor Table
+
+                String Actor = "Create Table IF NOT EXISTS ACTOR (AID INTEGER PRIMARY KEY AUTOINCREMENT, Name Text)";
+                command = new SQLiteCommand(Actor, m_dbConnection);
+                command.ExecuteNonQuery();
+
+                //Make Relation
+                String MovieActor = "Create Table IF NOT EXISTS MovieActor (MovieID INTEGER, ActorID INTEGER, FOREIGN KEY(MovieID) REFERENCES Movies(RowID), FOREIGN KEY(ActorID) REFERENCES ACTOR(AID), PRIMARY KEY (MovieID, ActorID) )";
+                command = new SQLiteCommand(MovieActor, m_dbConnection);
+                command.ExecuteNonQuery();
+
+                String Gernras = "Create Table IF NOT EXISTS GENRAS(ID INTEGER PRIMARY KEY AUTOINCREMENT, genres TEXT )";
+                command.CommandText = Gernras;
+                command.ExecuteNonQuery();
+
+                String GernraINSERT = "INSERT INTO GENRAS (genres) VALUES ('Action'), ('Animation'), ('Adventure'), ('Biography'), ('Comedy'), ('Crime'), ('Documentary'), ('Drama'), ('Family'), ('Fantasy'), ('Film_Noir'), ('History'), ('Horror'), ('Music'), ('Marvel'), ('DC'), ('Musical'), ('Mystery'), ('Romance'), ('Sci-Fi'), ('Sport'), ('Thriller'), ('War'), ('Western')";
+                command.CommandText = GernraINSERT;
+                command.ExecuteNonQuery();
+
+
+
+                m_dbConnection.Close();
             }
-
-            SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=MyMovies.sqlite;Version=3;");
-            m_dbConnection.Open();
-
-            String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rated Text, Rating Text, Length Text, Resolution Text, Plot Text, Path TEXT, Poster TEXT )";
-
-
-            SQLiteCommand command = new SQLiteCommand(MakeTable, m_dbConnection);
-            command.ExecuteNonQuery();
-            //Make Actor Table
-
-            String Actor = "Create Table IF NOT EXISTS ACTOR (AID INTEGER PRIMARY KEY AUTOINCREMENT, Name Text)";
-             command = new SQLiteCommand(Actor, m_dbConnection);
-            command.ExecuteNonQuery();
-
-            //Make Relation
-            String MovieActor = "Create Table IF NOT EXISTS MovieActor (MovieID INTEGER, ActorID INTEGER, FOREIGN KEY(MovieID) REFERENCES Movies(RowID), FOREIGN KEY(ActorID) REFERENCES ACTOR(AID), PRIMARY KEY (MovieID, ActorID) )";
-            command = new SQLiteCommand(MovieActor, m_dbConnection);
-            command.ExecuteNonQuery();
-            
-
-            m_dbConnection.Close();
         }
         catch (SQLiteException e)
         {
-
+            System.Diagnostics.Debug.WriteLine(e.Message);
         }
     }
+    /*
+     * Delete from gerna
+     * 
+     */
+     public void DeleteGenre(String name)
+    {
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand("DELETE FROM GENRAS WHERE genres = @GER", con);
+        com.Parameters.AddWithValue("@GER", name);
+        com.ExecuteNonQuery();
+    } 
+    /*
+     * Insert new Gernra intno table
+     * 
+     */
+     public void InsertNewGerna(String Name)
+    {
+        String insert = "INSERT INTO GENRAS (genres) SELECT @GERN WHERE NOT EXISTS (SELECT genres FROM GENRAS WHERE genres LIKE @GERN)";
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand(insert, con);
+        com.Parameters.AddWithValue("@GERN", Name);
+        try
+        {
+            com.ExecuteNonQuery();
+        }
+        catch(Exception e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.Message);
+        }
+        con.Close();
+        con.Dispose();
+    } 
+
+    /*
+     * Get all Gernras from table
+     * 
+     */
+     public List<String> GetGenres()
+    {
+        string sel = "SELECT * FROM GENRAS";
+        SQLiteConnection con = new SQLiteConnection(ConString);
+        con.Open();
+        SQLiteCommand com = new SQLiteCommand(sel, con);
+        SQLiteDataReader dr = com.ExecuteReader();
+        List<String> Glist = new List<string>();
+        while(dr.Read())
+        {
+            Glist.Add((string)dr["genres"]);
+        }
+        return Glist;
+    } 
 
     /*
      * Inserts a new Actor into the Actor Table

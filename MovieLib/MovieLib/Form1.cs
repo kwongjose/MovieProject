@@ -31,6 +31,7 @@ namespace MovieLib
             DataTable dt = con.SelAllMovies();
             Movies_Data.DataSource = dt; 
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+            Sort_Genres.Items.AddRange( con.GetGenres().ToArray() );
    
         }
       
@@ -553,6 +554,12 @@ namespace MovieLib
         private void button1_Click(object sender, EventArgs e)
         {
             Add_G.Visible = false;
+            if (!Sort_Genres.Items.Contains(Gerna.Text) ){
+                ConnectionClass con = new ConnectionClass();
+                con.InsertNewGerna(Gerna.Text);
+                Sort_Genres.Items.Add(Gerna.Text);
+
+            }
             
          
         }
@@ -563,6 +570,9 @@ namespace MovieLib
             if(Sort_Genres.Items.Contains(Gerna.Text))
             {
                 Sort_Genres.Items.Remove(Gerna.Text);
+                ConnectionClass con = new ConnectionClass();
+                con.DeleteGenre(Gerna.Text);
+
             }
         }
 

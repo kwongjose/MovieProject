@@ -135,6 +135,7 @@ namespace MovieLib
             // Sort_Genres
             // 
             this.Sort_Genres.FormattingEnabled = true;
+            /*
             this.Sort_Genres.Items.AddRange(new object[] {
             "Action",
             "Animation",
@@ -159,7 +160,7 @@ namespace MovieLib
             "Sport",
             "Thriller",
             "War",
-            "Western"});
+            "Western"}); */
             this.Sort_Genres.Location = new System.Drawing.Point(81, 63);
             this.Sort_Genres.Name = "Sort_Genres";
             this.Sort_Genres.Size = new System.Drawing.Size(121, 21);
