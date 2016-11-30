@@ -183,11 +183,12 @@ public class FileToDataBase
         form = forms;
         Resulution = "n/a";
 
-        //Thread thread = new Thread(() => GetRes(F_Path) );
-      //  task = new Task( () =>  GetRes(F_Path) );
-      //  task.Start();
+        Thread thread = new Thread(() => GetRes(F_Path) );
+          task = new Task( () =>  GetRes(F_Path) );
+          task.Start();
 
-           
+        Stopwatch watch = Stopwatch.StartNew();
+        /*
          MediaFile infile = new MediaFile { Filename = F_Path }; //Try to speed this up
           using (Engine engin = new Engine())
           {
@@ -203,8 +204,9 @@ public class FileToDataBase
           {
 
           }
-          
-        
+          */
+       // System.Diagnostics.Debug.WriteLine(watch.ElapsedMilliseconds + " META " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+
         Full_Path = F_Path;
         Movie_Path = Path.GetFileName(F_Path);//movie title (1999).mpg
         //does path hold a date
@@ -299,11 +301,12 @@ public class FileToDataBase
             ApiCall.Append(M_Year);
             ApiCall.Append("&plot=full&r=json");
         }
-
+        Stopwatch watch = Stopwatch.StartNew();
         Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()));//I don't know why this works
         t.Wait();
+       // System.Diagnostics.Debug.WriteLine(watch.ElapsedMilliseconds + " AIP " + System.Threading.Thread.CurrentThread.ManagedThreadId);
        // task.Wait();
-        //Task.WaitAll(task);
+        Task.WaitAll(task);
         // ParseJson(t.Result);
         String respon = t.Result;
         Movie mov = JsonConvert.DeserializeObject<Movie>(respon);

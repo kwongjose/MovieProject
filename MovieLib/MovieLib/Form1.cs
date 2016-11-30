@@ -92,7 +92,7 @@ namespace MovieLib
          */
         private void ProccessFiles(String[] files)
         {
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 6 },
               M_File =>
               {
                   ToFileTODatabase(M_File);
