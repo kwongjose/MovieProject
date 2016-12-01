@@ -57,8 +57,10 @@
             this.M_Plot.Multiline = true;
             this.M_Plot.Name = "M_Plot";
             this.M_Plot.ReadOnly = true;
+            this.M_Plot.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.M_Plot.Size = new System.Drawing.Size(566, 152);
             this.M_Plot.TabIndex = 1;
+            this.M_Plot.TabStop = false;
             // 
             // Watch_Movie
             // 

@@ -66,6 +66,7 @@
             this.Plot.Location = new System.Drawing.Point(140, 420);
             this.Plot.Multiline = true;
             this.Plot.Name = "Plot";
+            this.Plot.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Plot.Size = new System.Drawing.Size(378, 67);
             this.Plot.TabIndex = 1;
             // 
