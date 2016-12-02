@@ -186,10 +186,10 @@ public class FileToDataBase
         Resulution = "n/a";
 
       //  Thread thread = new Thread(() => GetRes(F_Path) );
-       // Task task = new Task( () => GetRes(F_Path) );
-         // task.Start();
+        Task task = new Task( () => GetRes(F_Path) );
+          task.Start();
 
-       
+       /*
          MediaFile infile = new MediaFile { Filename = F_Path }; //Try to speed this up
           using (Engine engin = new Engine())
           {
@@ -205,7 +205,7 @@ public class FileToDataBase
           {
 
           }
-          
+          */
        // System.Diagnostics.Debug.WriteLine(watch.ElapsedMilliseconds + " META " + System.Threading.Thread.CurrentThread.ManagedThreadId);
 
         Full_Path = F_Path;
@@ -223,12 +223,15 @@ public class FileToDataBase
 
                 Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
                 Task.WaitAll(t);
-                
+                task.Wait();
+
                 String respon = t.Result;
                 Movie mov = JsonConvert.DeserializeObject<Movie>(respon);
+                int d = Movie_Path.IndexOf("(");
 
                 if (mov.Response == "True")
                 {
+                    //mov.Title = Movie_Path.Substring(0, d);
                     mov.Res = Resulution;
                     mov.Path = Full_Path;
                     form.Movies.Enqueue(mov);
@@ -306,8 +309,8 @@ public class FileToDataBase
         Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString() ) );//I don't know why this works
        t.Wait();
        // System.Diagnostics.Debug.WriteLine(watch.ElapsedMilliseconds + " AIP " + System.Threading.Thread.CurrentThread.ManagedThreadId);
-       // task.Wait();
-     //   Task.WaitAll(task, t);
+        task.Wait();
+       //Task.WaitAll(task, t);
         // ParseJson(t.Result);
         String respon = t.Result;
       
@@ -315,6 +318,7 @@ public class FileToDataBase
        
         if(mov.Response == "True")
         {
+          //  mov.Title = Movie_Title;//DONT FORGET THIS CHANGE
             mov.Res = Resulution;
             mov.Path = Full_Path;
             form.Movies.Enqueue(mov); 
