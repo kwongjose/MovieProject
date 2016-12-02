@@ -241,12 +241,11 @@ namespace MovieLib
             }
             else
             {
-                dt = new DataTable();
-                dt.Columns.Add("No Data");
+
+                dt.Columns.Clear();
                 DataRow drs = dt.NewRow();
-                drs["No Data"] = "NO Movies";
-                
                 dt.Rows.Add(drs);
+              
             }
 
             // Movies_Data.Columns.Clear();
@@ -355,6 +354,13 @@ namespace MovieLib
             {
                 dt = dr.CopyToDataTable();
             }
+            else
+            {
+                dt.Rows.Clear();
+                DataRow drs = dt.NewRow();
+                dt.Rows.Add(drs);
+
+            }
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
@@ -373,7 +379,13 @@ namespace MovieLib
             {
                 dt = dr.CopyToDataTable();
             }
-            
+            else
+            {
+                dt.Rows.Clear();
+                DataRow drs = dt.NewRow();
+                dt.Rows.Add(drs);
+
+            }
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
