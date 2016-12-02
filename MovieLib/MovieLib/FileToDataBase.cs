@@ -155,7 +155,7 @@ public class FileToDataBase
      * using this to see if i can speed up total run time
      * 
      */ 
-    private String GetRes(String F)
+    private  String GetRes(String F)
     {
         MediaFile infile = new MediaFile { Filename = F };
         using (Engine engin = new Engine())
@@ -164,12 +164,14 @@ public class FileToDataBase
         }
         try
         {
-            Resulution =  infile.Metadata.VideoData.FrameSize;
+            Resulution =   infile.Metadata.VideoData.FrameSize;
+            System.Diagnostics.Debug.WriteLine("WOOO" + Resulution);
             Resulution = Resulution.Replace("x", " X ");
             return Resulution;
         }
         catch (Exception e)
         {
+            System.Diagnostics.Debug.WriteLine(e.Message + "WOO:" + Resulution);
             return "";
         }
     }
@@ -183,12 +185,11 @@ public class FileToDataBase
         form = forms;
         Resulution = "n/a";
 
-        Thread thread = new Thread(() => GetRes(F_Path) );
-          task = new Task( () =>  GetRes(F_Path) );
-          task.Start();
+      //  Thread thread = new Thread(() => GetRes(F_Path) );
+       // Task task = new Task( () => GetRes(F_Path) );
+         // task.Start();
 
-        Stopwatch watch = Stopwatch.StartNew();
-        /*
+       
          MediaFile infile = new MediaFile { Filename = F_Path }; //Try to speed this up
           using (Engine engin = new Engine())
           {
@@ -204,7 +205,7 @@ public class FileToDataBase
           {
 
           }
-          */
+          
        // System.Diagnostics.Debug.WriteLine(watch.ElapsedMilliseconds + " META " + System.Threading.Thread.CurrentThread.ManagedThreadId);
 
         Full_Path = F_Path;
@@ -302,13 +303,14 @@ public class FileToDataBase
             ApiCall.Append("&plot=full&r=json");
         }
         Stopwatch watch = Stopwatch.StartNew();
-        Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString()));//I don't know why this works
-        t.Wait();
+        Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString() ) );//I don't know why this works
+       t.Wait();
        // System.Diagnostics.Debug.WriteLine(watch.ElapsedMilliseconds + " AIP " + System.Threading.Thread.CurrentThread.ManagedThreadId);
        // task.Wait();
-        Task.WaitAll(task);
+     //   Task.WaitAll(task, t);
         // ParseJson(t.Result);
         String respon = t.Result;
+      
         Movie mov = JsonConvert.DeserializeObject<Movie>(respon);
        
         if(mov.Response == "True")
