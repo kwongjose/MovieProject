@@ -186,7 +186,7 @@ public class FileToDataBase
         Resulution = "n/a";
 
       //  Thread thread = new Thread(() => GetRes(F_Path) );
-        Task task = new Task( () => GetRes(F_Path) );
+        task = new Task( () => GetRes(F_Path) );
           task.Start();
 
        /*
@@ -222,7 +222,7 @@ public class FileToDataBase
                 ApiCall.Append("&plot=full&r=json");
 
                 Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
-                Task.WaitAll(t);
+                Task.WaitAll(t); 
                 task.Wait();
 
                 String respon = t.Result;

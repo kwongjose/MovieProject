@@ -220,7 +220,7 @@ namespace MovieLib
             }
             catch(Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message);
+                System.Diagnostics.Debug.WriteLine(e.Message + "problem in updatebar");
             }
         }
 
@@ -344,10 +344,11 @@ namespace MovieLib
         private void Sort_Rating_SelectedIndexChanged(object sender, EventArgs e)
         {
             String Rating = Sort_Rating.SelectedItem.ToString();
+            double t = double.Parse(Rating);
            // ConnectionClass con = new ConnectionClass();
-          //  DataTable dt = con.GetMovieByRating(Rating);
+           //  DataTable dt = con.GetMovieByRating(Rating);
             DataTable dt = (DataTable)(Movies_Data.DataSource);
-            DataRow[] dr = dt.Select("Rating > '" + Rating + "%' ");//This does not work
+            DataRow[] dr = dt.Select("Rating > '" + t + "%' ");//This does not work
            
             if(dr.Length > 0)
             {
