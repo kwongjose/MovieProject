@@ -47,10 +47,11 @@ namespace MovieLib
             if(e.ColumnIndex == 4)//sort length
             {
                
+                Movies_Data.DataSource = SortAlphaNumColumn(dt, "Length");
             }
             if(e.ColumnIndex == 5)//sort res
             {
-
+                Movies_Data.DataSource = SortAlphaNumColumn(dt, "Resolution");
             }
         }
 
@@ -608,6 +609,48 @@ namespace MovieLib
             Form form = new FileInfo(con.FindDubs());
             form.Show();
         }
+
+        /*
+         * 
+         * sort a given datatable by a supplied column nname
+         * 
+         */
+         private DataTable SortAlphaNumColumn(DataTable dt, String Colname)
+        {
+            string tempColName = Colname + "int";
+
+            dt.Columns.Add(new DataColumn(tempColName, typeof(int)));
+         
+                foreach (DataRow row in dt.Rows)
+                {
+                    int i;
+                    String temp = row[Colname].ToString();
+                if (Colname.Equals("Length"))
+                {
+                    if (int.TryParse(temp.Substring(0, temp.Length - 3), out i))
+                    {
+                        row[tempColName] = i;
+                        System.Diagnostics.Debug.WriteLine(i + " INT STRING");
+                    }
+                }//end if length
+                else
+                {
+                    string[] resT = temp.Split('X');
+                    i = int.Parse(resT[0]) * int.Parse(resT[1]);
+                    row[tempColName] = i;
+                }
+
+                }
+          //  DataRow[] dr = dt.Select(" orderby " + tempColName + " ASC");
+            
+            DataView dv = dt.DefaultView;
+            dv.Sort = tempColName;
+            dt = dv.ToTable();
+            dt.Columns.Remove(tempColName);
+            
+           // dt = dr.CopyToDataTable();
+            return dt;
+        } 
 
 
 

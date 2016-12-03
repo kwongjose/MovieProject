@@ -36,7 +36,7 @@ public class ConnectionClass
                 SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=MyMovies.sqlite;Version=3;");
                 m_dbConnection.Open();
                 //EDIT
-                String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rated Text, Rating DECIMAL, Length Text, Resolution Text, Plot Text, Path TEXT, Poster TEXT )";
+                String MakeTable = "Create Table IF NOT EXISTS Movies  (RowId INTEGER PRIMARY KEY AUTOINCREMENT, Title Text, Year Text, Gerna Text, Rated Text, Rating TEXT, Length Text, Resolution Text, Plot Text, Path TEXT, Poster TEXT )";
 
 
                 SQLiteCommand command = new SQLiteCommand(MakeTable, m_dbConnection);
@@ -224,7 +224,7 @@ public class ConnectionClass
         dt.Columns.Add("Title");
         dt.Columns.Add("Year");
         dt.Columns.Add("Gernra");
-        dt.Columns.Add("Rating", typeof(double)); //EDIT
+        dt.Columns.Add("Rating"); //EDIT
         dt.Columns.Add("Length");
         dt.Columns.Add("Resolution");
         dt.Columns.Add("ID");
@@ -242,7 +242,7 @@ public class ConnectionClass
                 dr["Title"] = (String)r["Title"];
                 dr["Year"] = (String)r["Year"];
                 dr["Gernra"] = (String)r["Gerna"];
-                dr["Rating"] = Double.Parse(r["Rating"].ToString());  //EDIT
+                dr["Rating"] = (String)r["Rating"];  //EDIT
                 dr["Length"] = (String)r["Length"];
                 dr["Resolution"] = (String)r["Resolution"];
                 dr["ID"] = r["RowId"];
@@ -686,7 +686,7 @@ public class ConnectionClass
         Insert.Parameters.AddWithValue("@Title", M_Title);
         Insert.Parameters.AddWithValue("@Year", M_Year);
         Insert.Parameters.AddWithValue("@Gerna", M_Gernas);
-        Insert.Parameters.AddWithValue("@Rating", Double.Parse(M_Rating)); //edit
+        Insert.Parameters.AddWithValue("@Rating", M_Rating); //edit
         Insert.Parameters.AddWithValue("@Length", M_Length);
         Insert.Parameters.AddWithValue("@Resolution", M_Res);
         Insert.Parameters.AddWithValue("@Plot", M_Plot);
