@@ -224,34 +224,7 @@ namespace MovieLib
             }
         }
 
-        /*
-        * Selects Movies based on Genres
-        */
-        private void Sort_Genres_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            String Sel_Genre = Sort_Genres.Text;
-            // ConnectionClass con = new ConnectionClass();
-            //DataTable dt = con.GetMovieByGernra(Sel_Genre);
-            DataTable dt = (DataTable)(Movies_Data.DataSource);
-            DataRow[] dr = dt.Select("Gernra LIKE '%" + Sel_Genre + "%' ");
-
-            if (dr.Length > 0)
-            {
-                dt = dr.CopyToDataTable();
-            }
-            else
-            {
-
-                dt.Columns.Clear();
-                DataRow drs = dt.NewRow();
-                dt.Rows.Add(drs);
-              
-            }
-
-            // Movies_Data.Columns.Clear();
-            Movies_Data.DataSource = dt;
-            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-        }
+       
         /*
         * brings up info about the selected movie
         */
@@ -353,11 +326,12 @@ namespace MovieLib
             if (dr.Length > 0)
             {
                 dt = dr.CopyToDataTable();
+                System.Diagnostics.Debug.WriteLine(dr.Length);
             }
             else
             {
-                dt.Rows.Clear();
                 DataRow drs = dt.NewRow();
+                dt.Rows.Clear();
                 dt.Rows.Add(drs);
 
             }
@@ -373,7 +347,7 @@ namespace MovieLib
            // ConnectionClass con = new ConnectionClass();
           //  DataTable dt = con.GetMovieByRating(Rating);
             DataTable dt = (DataTable)(Movies_Data.DataSource);
-            DataRow[] dr = dt.Select("Rating > '" + Rating + "%' ");
+            DataRow[] dr = dt.Select("Rating > '" + Rating + "%' ");//This does not work
            
             if(dr.Length > 0)
             {
@@ -381,16 +355,42 @@ namespace MovieLib
             }
             else
             {
-                dt.Rows.Clear();
                 DataRow drs = dt.NewRow();
+                dt.Rows.Clear();
                 dt.Rows.Add(drs);
-
             }
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
-        
-      
+        /*
+       * Selects Movies based on Genres
+       */
+        private void Sort_Genres_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String Sel_Genre = Sort_Genres.Text;
+            // ConnectionClass con = new ConnectionClass();
+            //DataTable dt = con.GetMovieByGernra(Sel_Genre);
+            DataTable dt = (DataTable)(Movies_Data.DataSource);
+            DataRow[] dr = dt.Select("Gernra LIKE '%" + Sel_Genre + "%' ");
+
+            if (dr.Length > 0)
+            {
+                dt = dr.CopyToDataTable();
+                System.Diagnostics.Debug.WriteLine(dr.Length);
+            }
+            else
+            {
+                DataRow drs = dt.NewRow();
+                dt.Rows.Clear();
+                dt.Rows.Add(drs);
+
+            }
+
+            // Movies_Data.Columns.Clear();
+            Movies_Data.DataSource = dt;
+            Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
+        }
+
         /*
         * Shows all rows in the database
         */
