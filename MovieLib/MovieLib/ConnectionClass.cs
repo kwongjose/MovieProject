@@ -228,6 +228,7 @@ public class ConnectionClass
         dt.Columns.Add("Length");
         dt.Columns.Add("Resolution");
         dt.Columns.Add("ID");
+        dt.Columns.Add("sort", typeof(int));
         String GetAllM = "SELECT * FROM Movies";
         try
         {
@@ -246,6 +247,7 @@ public class ConnectionClass
                 dr["Length"] = (String)r["Length"];
                 dr["Resolution"] = (String)r["Resolution"];
                 dr["ID"] = r["RowId"];
+                dr["sort"] = 0;
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
@@ -255,9 +257,9 @@ public class ConnectionClass
         }
         catch (SQLiteException e)
         {
-
+            System.Diagnostics.Debug.WriteLine(e.Message + " Error in sel all movie");
         }
-
+        
         return dt;
     }
     /*
@@ -485,6 +487,7 @@ public class ConnectionClass
         dt.Columns.Add("Length");
         dt.Columns.Add("Resolution");
         dt.Columns.Add("ID");
+        dt.Columns.Add("sort", typeof(int) );
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         String Ser_Title = '"' + "%" + Title + "%" + '"';
@@ -502,6 +505,7 @@ public class ConnectionClass
                 dr["Length"] = (String)r["Length"];
                 dr["Resolution"] = (String)r["Resolution"];
                 dr["ID"] = r["RowId"].ToString();
+                dr["sort"] = 0;
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
@@ -784,6 +788,7 @@ public class ConnectionClass
         dt.Columns.Add("Length");
         dt.Columns.Add("Resolution");
         dt.Columns.Add("ID");
+        dt.Columns.Add("sort", typeof(int));
 
         string temp = '"' + "%" + name + "%" + '"';
         SQLiteCommand com = new SQLiteCommand("Select * from movies join MovieActor on movies.RowID = MovieActor.MovieID WHERE MovieActor.ActorID in (SELECT AID FROM Actor WHERE Name LIKE " + temp + ")", con);
@@ -802,6 +807,7 @@ public class ConnectionClass
                 drt["Length"] = (String)dr["Length"];
                 drt["Resolution"] = (String)dr["Resolution"];
                 drt["ID"] = dr["RowId"].ToString();
+                drt["sort"] = 0;
                 //add row to datatable
                 dt.Rows.Add(drt);
                 

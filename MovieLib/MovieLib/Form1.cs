@@ -32,6 +32,7 @@ namespace MovieLib
             Movies_Data.DataSource = dt; 
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
             Sort_Genres.Items.AddRange( con.GetGenres().ToArray() );
+            Movies_Data.Columns["sort"].Visible = false;
    
         }
       
@@ -131,7 +132,7 @@ namespace MovieLib
             DataTable dt = con.SelAllMovies();
             progressBar.Visible = false;
             panel1.Visible = false;
-            Movies_Data.Columns.Clear();
+           // Movies_Data.Rows.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
             
@@ -615,40 +616,58 @@ namespace MovieLib
          * sort a given datatable by a supplied column nname
          * 
          */
-         private DataTable SortAlphaNumColumn(DataTable dt, String Colname)
+        private DataTable SortAlphaNumColumn(DataTable dt, String Colname)
         {
             string tempColName = Colname + "int";
 
-            dt.Columns.Add(new DataColumn(tempColName, typeof(int)));
+          //  dt.Columns.Add(new DataColumn(tempColName, typeof(int)));
          
+
+            if (Colname.Equals("Length"))
+            {
                 foreach (DataRow row in dt.Rows)
                 {
                     int i;
                     String temp = row[Colname].ToString();
-                if (Colname.Equals("Length"))
-                {
-                    if (int.TryParse(temp.Substring(0, temp.Length - 3), out i))
-                    {
-                        row[tempColName] = i;
-                        System.Diagnostics.Debug.WriteLine(i + " INT STRING");
-                    }
-                }//end if length
-                else
-                {
-                    string[] resT = temp.Split('X');
-                    i = int.Parse(resT[0]) * int.Parse(resT[1]);
-                    row[tempColName] = i;
-                }
 
+                   if( int.TryParse(temp.Substring(0, temp.Length - 3), out i )){
+                        row["sort"] = i;
+                    }
+
+                    // row[tempColName] = i;
+                   
+                    
+                }//end if length
+            }//end length
+           
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    int i;
+                    int t;
+                    String temp = row[Colname].ToString();
+                    string[] resT = temp.Split('X');
+                    if( int.TryParse(resT[0], out i) && int.TryParse(resT[1], out t)) {
+                        row["sort"] = i * t;
+                    }
+                    //  row[tempColName] = i;
+                   
                 }
-          //  DataRow[] dr = dt.Select(" orderby " + tempColName + " ASC");
-            
+            }
+
+          
+            //This is super fast
+             IEnumerable<DataRow> dr = dt.Select().OrderBy(row => row["sort"] );
+             dt = dr.ToArray().CopyToDataTable();
+            /*
             DataView dv = dt.DefaultView;
             dv.Sort = tempColName;
             dt = dv.ToTable();
-            dt.Columns.Remove(tempColName);
-            
-           // dt = dr.CopyToDataTable();
+            */
+          //  dt.Columns.Remove(tempColName);
+           
+            // dt = dr.CopyToDataTable();
             return dt;
         } 
 

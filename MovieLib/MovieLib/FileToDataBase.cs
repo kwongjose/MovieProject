@@ -7,12 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Timers;
 using System.Diagnostics;
-using System.Data;
 
 /*
  * Class takes in a File Path Seperates it into a Title with or without year
