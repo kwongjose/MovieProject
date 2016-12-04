@@ -23,36 +23,43 @@ namespace MovieLib
         public Form1()
         {
             InitializeComponent();
-             progressBar.Visible = false;
+            progressBar.Visible = false;
             panel1.Visible = false;
             //call database and load table
             ConnectionClass con = new ConnectionClass();
             con.NewDataBase();
             DataTable dt = con.SelAllMovies();
-            Movies_Data.DataSource = dt; 
+            Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-            Sort_Genres.Items.AddRange( con.GetGenres().ToArray() );
+            Sort_Genres.Items.AddRange(con.GetGenres().ToArray());
+            Movies_Data.Columns["Length"].SortMode = DataGridViewColumnSortMode.Programmatic;
+            Movies_Data.Columns["Resolution"].SortMode = DataGridViewColumnSortMode.Programmatic;
             Movies_Data.Columns["sort"].Visible = false;
-   
+            Movies_Data.Columns["sortRes"].Visible = false;
+
         }
-      
+
         /*
          * sort either length or resultion as ints
          * 
-         */ 
+         */
         private void Sorter(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridView dts = (DataGridView)sender;
             DataTable dt = (DataTable)dts.DataSource;
+            DataTable Cdt = dt.Copy();
             DataTable so = new DataTable();
-            if(e.ColumnIndex == 4)//sort length
+            if (e.ColumnIndex == 4)//sort length
             {
-               
-                Movies_Data.DataSource = SortAlphaNumColumn(dt, "Length");
+                // Movies_Data.DataSource = SortAlphaNumColumn(dt, "Length");
+                IEnumerable<DataRow> dr = dt.Select().OrderBy(Row => Row["sort"]);
+                Movies_Data.DataSource = dr.ToArray().CopyToDataTable();
+
             }
-            if(e.ColumnIndex == 5)//sort res
+            if (e.ColumnIndex == 5)//sort res
             {
-                Movies_Data.DataSource = SortAlphaNumColumn(dt, "Resolution");
+                // Movies_Data.DataSource = SortAlphaNumColumn(dt, "Resolution");
+                IEnumerable<DataRow> dr = dt.Select().OrderBy(row => row["sortRes"]); Movies_Data.DataSource = dr.ToArray().CopyToDataTable();
             }
         }
 
@@ -74,7 +81,7 @@ namespace MovieLib
                 }
 
                 DisableContol(this);
-                
+
                 progressBar.Maximum = files.Count;
                 Total_Files = files.Count;
                 progressBar.Visible = true;
@@ -107,7 +114,7 @@ namespace MovieLib
             Insert();
 
             UpdateTable(files.Length);
-           
+
         }
         /*
          * Updates the datagridview and changes visability of working lable and progressbar
@@ -119,10 +126,10 @@ namespace MovieLib
             if (InvokeRequired)
             {
                 BeginInvoke(new MethodInvoker(() => UpdateTable(x)));
-                
+
                 return;
             }
-         
+
 
             MessageBox.Show("Files found: " + Found_Files + "/" + Total_Files, "Message");
             Found_Files = 0;
@@ -132,10 +139,10 @@ namespace MovieLib
             DataTable dt = con.SelAllMovies();
             progressBar.Visible = false;
             panel1.Visible = false;
-           // Movies_Data.Rows.Clear();
+            // Movies_Data.Rows.Clear();
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
-            
+
             EnableContol(this);
         }
 
@@ -143,14 +150,14 @@ namespace MovieLib
          * inserts into DB from Que
          * 
          */
-         private void Insert()
+        private void Insert()
         {
-            
+
             ConnectionClass con = new ConnectionClass();
             int size = Movies.Count;
-            for(int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
             {
-              //  progressBar.Value = i;
+                //  progressBar.Value = i;
                 UpdateBar(i);
                 Movie Curent_Movie = Movies.Dequeue();
                 con.TestInsertNewRow(Curent_Movie.Title, Curent_Movie.Year, Curent_Movie.Genre, Curent_Movie.imdbRating, Curent_Movie.Runtime, Curent_Movie.Res, Curent_Movie.Plot, Curent_Movie.Path, Curent_Movie.Poster, Curent_Movie.Rated);
@@ -158,18 +165,18 @@ namespace MovieLib
                 String[] act = Curent_Movie.Actors.Split(',').ToArray();
                 int Mid = con.GetRowID(Curent_Movie.Path);
 
-                foreach(string name in act)
+                foreach (string name in act)
                 {
                     con.InsertNewActor(name.Trim());
                 }//end 
-                foreach(string name in act)
+                foreach (string name in act)
                 {
-                    int aid = con.GetActorID(name.Trim() );
+                    int aid = con.GetActorID(name.Trim());
                     con.Insert_MovieActor(Mid, aid);
                 }//end
 
             }//end for
-        } 
+        }
 
         /*
          * method used to call in parralel
@@ -205,7 +212,7 @@ namespace MovieLib
             }
             try
             {
-                if(Found_Files != 0)
+                if (Found_Files != 0)
                 {
                     progressBar.Maximum = Found_Files;
                 }
@@ -220,42 +227,43 @@ namespace MovieLib
                     working.Text = "Inserting";
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message + "problem in updatebar");
             }
         }
 
-       
+
         /*
         * brings up info about the selected movie
         */
         private void Movies_Data_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-            try { 
-            if (e.RowIndex >= 0)
+            try
             {
-                DataGridViewRow r = senderGrid.Rows[e.RowIndex];
-                if (e.ColumnIndex == 0)
+                if (e.RowIndex >= 0)
                 {
-                    if (r.Cells[6].Value.ToString() != null)
+                    DataGridViewRow r = senderGrid.Rows[e.RowIndex];
+                    if (e.ColumnIndex == 0)
                     {
-                        int M_ID = int.Parse(r.Cells[6].Value.ToString());
-                        var form = new Movie_Info(M_ID);
-                        form.Show(this);
+                        if (r.Cells[6].Value.ToString() != null)
+                        {
+                            int M_ID = int.Parse(r.Cells[6].Value.ToString());
+                            var form = new Movie_Info(M_ID);
+                            form.Show(this);
+                        }
                     }
-                }
-                if (e.ColumnIndex == 6)//select ID
-                {
-                    if (r.Cells[6].Value.ToString() != null)
+                    if (e.ColumnIndex == 6)//select ID
                     {
-                        textBox2.Text = r.Cells[6].Value.ToString();
+                        if (r.Cells[6].Value.ToString() != null)
+                        {
+                            textBox2.Text = r.Cells[6].Value.ToString();
+                        }
                     }
                 }
             }
-            }
-            catch(Exception w)
+            catch (Exception w)
             {
                 System.Diagnostics.Debug.WriteLine(w.Message);
 
@@ -276,7 +284,7 @@ namespace MovieLib
             {
                 List<String> files = new List<String>();
                 //string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath);//List of all Files in folder
-                
+
                 foreach (String filter in FilterFile)
                 {
                     files.AddRange(Directory.GetFiles(folderBrowserDialog1.SelectedPath, filter));
@@ -306,7 +314,7 @@ namespace MovieLib
                 working.Text = "Working Please Wait";
                 working.Visible = true;
                 panel1.Visible = true;
-                Thread thread = new Thread( () => ProccessFiles(FilesToInsert.ToArray()));
+                Thread thread = new Thread(() => ProccessFiles(FilesToInsert.ToArray()));
                 thread.Start();
 
             }
@@ -347,12 +355,12 @@ namespace MovieLib
         {
             String Rating = Sort_Rating.SelectedItem.ToString();
             double t = double.Parse(Rating);
-           // ConnectionClass con = new ConnectionClass();
-           //  DataTable dt = con.GetMovieByRating(Rating);
+            // ConnectionClass con = new ConnectionClass();
+            //  DataTable dt = con.GetMovieByRating(Rating);
             DataTable dt = (DataTable)(Movies_Data.DataSource);
             DataRow[] dr = dt.Select("Rating > '" + t + "%' ");//This does not work
-           
-            if(dr.Length > 0)
+
+            if (dr.Length > 0)
             {
                 dt = dr.CopyToDataTable();
             }
@@ -415,7 +423,7 @@ namespace MovieLib
             Movies_Data.DataSource = dt;
             Movies_Data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//fill window
         }
-      
+
         /*
          * gets the text from textbox1 
          * looks for title in movie database
@@ -427,8 +435,8 @@ namespace MovieLib
             ConnectionClass con = new ConnectionClass();
             DataTable mt = con.GetMovieByTitle(Title);
 
-            mt.Merge( con.GetActorMovies(Title) );
-           DataTable rd = mt.DefaultView.ToTable(true); //might need to improve this, not sure why it works
+            mt.Merge(con.GetActorMovies(Title));
+            DataTable rd = mt.DefaultView.ToTable(true); //might need to improve this, not sure why it works
             Movies_Data.DataSource = rd;
         }
         /*
@@ -531,8 +539,8 @@ namespace MovieLib
                 MessageBox.Show("Check Input", "Message");
             }
         }
-       
-       
+
+
         /*
          * Disables all controles on the form. 
          * @pram a controle
@@ -544,11 +552,11 @@ namespace MovieLib
             {
                 DisableContol(con);
             }
-            if( c.GetType() == typeof(MenuStrip) | c.GetType() == typeof(ComboBox) | c.GetType() == typeof(Button) | c.GetType() == typeof(TextBox) )
+            if (c.GetType() == typeof(MenuStrip) | c.GetType() == typeof(ComboBox) | c.GetType() == typeof(Button) | c.GetType() == typeof(TextBox))
             {
                 c.Enabled = false;
             }
-            
+
         }
 
         /*
@@ -558,7 +566,7 @@ namespace MovieLib
          */
         private void EnableContol(Control c)
         {
-            foreach(Control con in c.Controls)
+            foreach (Control con in c.Controls)
             {
                 EnableContol(con);
             }
@@ -567,7 +575,7 @@ namespace MovieLib
         /*
          * add custom gerna
          * 
-         */ 
+         */
         private void addCustomGernaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Add_G.Visible = true;
@@ -579,20 +587,21 @@ namespace MovieLib
         private void button1_Click(object sender, EventArgs e)
         {
             Add_G.Visible = false;
-            if (!Sort_Genres.Items.Contains(Gerna.Text) ){
+            if (!Sort_Genres.Items.Contains(Gerna.Text))
+            {
                 ConnectionClass con = new ConnectionClass();
                 con.InsertNewGerna(Gerna.Text);
                 Sort_Genres.Items.Add(Gerna.Text);
 
             }
-            
-         
+
+
         }
 
         private void Remove_Click(object sender, EventArgs e)
         {
             Add_G.Visible = false;
-            if(Sort_Genres.Items.Contains(Gerna.Text))
+            if (Sort_Genres.Items.Contains(Gerna.Text))
             {
                 Sort_Genres.Items.Remove(Gerna.Text);
                 ConnectionClass con = new ConnectionClass();
@@ -620,8 +629,8 @@ namespace MovieLib
         {
             string tempColName = Colname + "int";
 
-          //  dt.Columns.Add(new DataColumn(tempColName, typeof(int)));
-         
+            //  dt.Columns.Add(new DataColumn(tempColName, typeof(int)));
+
 
             if (Colname.Equals("Length"))
             {
@@ -630,46 +639,45 @@ namespace MovieLib
                     int i;
                     String temp = row[Colname].ToString();
 
-                   if( int.TryParse(temp.Substring(0, temp.Length - 3), out i )){
+                    if (int.TryParse(temp.Substring(0, temp.Length - 3), out i))
+                    {
                         row["sort"] = i;
                     }
 
-                    // row[tempColName] = i;
-                   
-                    
                 }//end if length
+
             }//end length
-           
+
             else
             {
+
                 foreach (DataRow row in dt.Rows)
                 {
                     int i;
                     int t;
                     String temp = row[Colname].ToString();
                     string[] resT = temp.Split('X');
-                    if( int.TryParse(resT[0], out i) && int.TryParse(resT[1], out t)) {
+                    if (int.TryParse(resT[0], out i) && int.TryParse(resT[1], out t))
+                    {
                         row["sort"] = i * t;
                     }
-                    //  row[tempColName] = i;
-                   
                 }
             }
 
-          
+
             //This is super fast
-             IEnumerable<DataRow> dr = dt.Select().OrderBy(row => row["sort"] );
-             dt = dr.ToArray().CopyToDataTable();
+            IEnumerable<DataRow> dr = dt.Select().OrderBy(row => row["sort"]);
+            dt = dr.ToArray().CopyToDataTable();
             /*
             DataView dv = dt.DefaultView;
             dv.Sort = tempColName;
             dt = dv.ToTable();
             */
-          //  dt.Columns.Remove(tempColName);
-           
+            //  dt.Columns.Remove(tempColName);
+
             // dt = dr.CopyToDataTable();
             return dt;
-        } 
+        }
 
 
 

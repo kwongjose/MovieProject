@@ -14,7 +14,7 @@ public class ConnectionClass
     /*
      * An Empty constructor
      * 
-     */ 
+     */
     public ConnectionClass()
     {
 
@@ -74,19 +74,19 @@ public class ConnectionClass
      * Delete from gerna
      * 
      */
-     public void DeleteGenre(String name)
+    public void DeleteGenre(String name)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand("DELETE FROM GENRAS WHERE genres = @GER", con);
         com.Parameters.AddWithValue("@GER", name);
         com.ExecuteNonQuery();
-    } 
+    }
     /*
      * Insert new Gernra intno table
      * 
      */
-     public void InsertNewGerna(String Name)
+    public void InsertNewGerna(String Name)
     {
         String insert = "INSERT INTO GENRAS (genres) SELECT @GERN WHERE NOT EXISTS (SELECT genres FROM GENRAS WHERE genres LIKE @GERN)";
         SQLiteConnection con = new SQLiteConnection(ConString);
@@ -97,19 +97,19 @@ public class ConnectionClass
         {
             com.ExecuteNonQuery();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             System.Diagnostics.Debug.WriteLine(e.Message);
         }
         con.Close();
         con.Dispose();
-    } 
+    }
 
     /*
      * Get all Gernras from table
      * 
      */
-     public List<String> GetGenres()
+    public List<String> GetGenres()
     {
         string sel = "SELECT * FROM GENRAS";
         SQLiteConnection con = new SQLiteConnection(ConString);
@@ -117,19 +117,19 @@ public class ConnectionClass
         SQLiteCommand com = new SQLiteCommand(sel, con);
         SQLiteDataReader dr = com.ExecuteReader();
         List<String> Glist = new List<string>();
-        while(dr.Read())
+        while (dr.Read())
         {
             Glist.Add((string)dr["genres"]);
         }
         return Glist;
-    } 
+    }
 
     /*
      * Inserts a new Actor into the Actor Table
      * @Parm Actor name String
      * 
      */
-     public bool InsertNewActor(String Actor)
+    public bool InsertNewActor(String Actor)
     {
         try
         {
@@ -139,14 +139,14 @@ public class ConnectionClass
             SQLiteCommand com = new SQLiteCommand(insert, con);
             com.Parameters.AddWithValue("@AName", Actor);
             com.ExecuteNonQuery();
-           
+
             com.Dispose();
             con.Close();
             con.Dispose();
 
             return true;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             return false;
         }
@@ -157,7 +157,7 @@ public class ConnectionClass
      * @Parm RowID Integer (id for movie) AID Integer (ID for an Actor)
      * 
      */
-     public bool Insert_MovieActor(int RowID, int AID)
+    public bool Insert_MovieActor(int RowID, int AID)
     {
         try
         {
@@ -177,11 +177,11 @@ public class ConnectionClass
 
             return true;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             return false;
         }
-    } 
+    }
     /*
      * Inserts a new Movie Row into the Database
      * @pram String title, String Year, String Gernas, String Rating, String Length, String Resoulution, 
@@ -229,6 +229,7 @@ public class ConnectionClass
         dt.Columns.Add("Resolution");
         dt.Columns.Add("ID");
         dt.Columns.Add("sort", typeof(int));
+        dt.Columns.Add("sortRes", typeof(int));
         String GetAllM = "SELECT * FROM Movies";
         try
         {
@@ -240,14 +241,31 @@ public class ConnectionClass
             while (r.Read())//Build DataTable
             {
                 DataRow dr = dt.NewRow();
+                String temp = (String)r["Length"];
+                String tempR = (String)r["Resolution"];
                 dr["Title"] = (String)r["Title"];
                 dr["Year"] = (String)r["Year"];
                 dr["Gernra"] = (String)r["Gerna"];
-                dr["Rating"] = (String)r["Rating"];  //EDIT
-                dr["Length"] = (String)r["Length"];
-                dr["Resolution"] = (String)r["Resolution"];
+                dr["Rating"] = (String)r["Rating"]; //EDIT
+                dr["Length"] = temp;
+                dr["Resolution"] = tempR;
                 dr["ID"] = r["RowId"];
-                dr["sort"] = 0;
+                int i = 0;
+                if (int.TryParse(temp.Substring(0, temp.Length - 3), out i))
+                {
+                    dr["sort"] = i;
+                }
+                else
+                {
+                    dr["sort"] = 0;
+                }
+                string[] restT = tempR.Split('X');
+                int t;
+                if (int.TryParse(restT[0], out i) && int.TryParse(restT[1], out t))
+                {
+                    dr["sortRes"] = i * t;
+                }
+
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
@@ -259,7 +277,7 @@ public class ConnectionClass
         {
             System.Diagnostics.Debug.WriteLine(e.Message + " Error in sel all movie");
         }
-        
+
         return dt;
     }
     /*
@@ -395,7 +413,7 @@ public class ConnectionClass
         dt.Columns.Add("ID");
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        String Rate = '"' + R  + '"';
+        String Rate = '"' + R + '"';
         SQLiteCommand com = new SQLiteCommand("SELECT * FROM MOVIES WHERE Rating < " + R, con);
         try
         {
@@ -487,7 +505,8 @@ public class ConnectionClass
         dt.Columns.Add("Length");
         dt.Columns.Add("Resolution");
         dt.Columns.Add("ID");
-        dt.Columns.Add("sort", typeof(int) );
+        dt.Columns.Add("sort", typeof(int));
+        dt.Columns.Add("sortRes", typeof(int));
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         String Ser_Title = '"' + "%" + Title + "%" + '"';
@@ -498,14 +517,31 @@ public class ConnectionClass
             while (r.Read())
             {
                 DataRow dr = dt.NewRow();
+                string temp = (string)r["Length"];
+                string tempR = (string)r["Resolution"];
                 dr["Title"] = (String)r["Title"];
                 dr["Year"] = (String)r["Year"];
                 dr["Gernra"] = (String)r["Gerna"];
                 dr["Rating"] = (String)r["Rating"];
-                dr["Length"] = (String)r["Length"];
-                dr["Resolution"] = (String)r["Resolution"];
+                dr["Length"] = temp;
+                dr["Resolution"] = tempR;
                 dr["ID"] = r["RowId"].ToString();
-                dr["sort"] = 0;
+               
+                int i = 0;
+                if (int.TryParse(temp.Substring(0, temp.Length - 3), out i))
+                {
+                    dr["sort"] = i;
+                }
+                else
+                {
+                    dr["sort"] = 0;
+                }
+                string[] restT = tempR.Split('X');
+                int t;
+                if (int.TryParse(restT[0], out i) && int.TryParse(restT[1], out t))
+                {
+                    dr["sortRes"] = i * t;
+                }
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
@@ -571,7 +607,7 @@ public class ConnectionClass
         string actor = "DELETE FROM Actor ";
         try
         {
-            
+
             com.ExecuteNonQuery();
             com.CommandText = MovieActor;
             com.ExecuteNonQuery();
@@ -592,7 +628,7 @@ public class ConnectionClass
      */
     public Movie GetMovieData(int Mid)
     {
-       
+
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand("SELECT * FROM Movies WHERE Rowid = " + Mid, con);
@@ -602,7 +638,7 @@ public class ConnectionClass
             SQLiteDataReader r = com.ExecuteReader();
             if (r.Read())
             {
-                
+
                 mov.Title = (String)r["Title"];
                 mov.Year = (String)r["Year"];
                 mov.Genre = (String)r["Gerna"];
@@ -614,17 +650,17 @@ public class ConnectionClass
                 mov.Poster = (String)r["Poster"];
                 mov.Rated = (String)r["Rated"];
 
-                
+
             }
             r.Close();
             com.CommandText = "SELECT Name FROM Actor Join MovieActor ON actor.aid = movieactor.actorid WHERE MovieActor.MovieID = " + Mid;
             r = com.ExecuteReader();
             StringBuilder actorlist = new StringBuilder();
 
-           
-            while(r.Read())
+
+            while (r.Read())
             {
-                
+
                 actorlist.Append((string)r["Name"]);
                 actorlist.Append(",");
             }
@@ -633,7 +669,7 @@ public class ConnectionClass
             r.Close();
             con.Close();
             con.Dispose();
-            return mov; 
+            return mov;
 
         }
         catch (Exception e)
@@ -648,37 +684,37 @@ public class ConnectionClass
      * @parm path @return rowID
      * 
      */
-     public int GetRowID(string Path)
+    public int GetRowID(string Path)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         string temp = '"' + Path + '"';
-        SQLiteCommand com = new SQLiteCommand("SELECT ROWID FROM MOVIES WHERE Path = " +  temp, con);
+        SQLiteCommand com = new SQLiteCommand("SELECT ROWID FROM MOVIES WHERE Path = " + temp, con);
 
         try
         {
-           SQLiteDataReader dr = com.ExecuteReader();
-            if (dr.HasRows )
+            SQLiteDataReader dr = com.ExecuteReader();
+            if (dr.HasRows)
             {
                 dr.Read();
-                int id = int.Parse ( dr["RowID"].ToString() );
+                int id = int.Parse(dr["RowID"].ToString());
                 dr.Close();
                 con.Close();
                 return id;
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
 
         }
         con.Close();
         return 0;
-    } 
+    }
     /*
      * Inserts only if row data is not in table
      * @Pram movie title, movie year, gerna, rating, length, res, plot and path
      * 
-     */ 
+     */
     public void TestInsertNewRow(String M_Title, String M_Year, String M_Gernas, String M_Rating, String M_Length, String M_Res, String M_Plot, String M_Path, String M_Poster, String M_Rated)
     {
         System.Diagnostics.Debug.WriteLine(Double.Parse(M_Rating) + "NOT HERE");
@@ -707,7 +743,7 @@ public class ConnectionClass
         }
         catch (SQLiteException e)
         {
-           throw new Exception(e.Message + M_Rating + "THIS IS WRONG");
+            throw new Exception(e.Message + M_Rating + "THIS IS WRONG");
         }
     }
     /*
@@ -726,7 +762,7 @@ public class ConnectionClass
             com.CommandText = "DELETE FROM MovieActor WHERE MovieID = " + M_Id;
             com.ExecuteNonQuery();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             System.Diagnostics.Debug.WriteLine(e.Message);
         }
@@ -744,16 +780,16 @@ public class ConnectionClass
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        string temp = '"' + "%"  + aname + "%" + '"';
-        SQLiteCommand com = new SQLiteCommand("Select AID FROM ACTOR Where Name Like " + temp , con);
+        string temp = '"' + "%" + aname + "%" + '"';
+        SQLiteCommand com = new SQLiteCommand("Select AID FROM ACTOR Where Name Like " + temp, con);
         try
         {
             SQLiteDataReader dr = com.ExecuteReader();
             if (dr.HasRows)
             {
-                
+
                 dr.Read();
-                int id =  int.Parse( dr["AID"].ToString() );
+                int id = int.Parse(dr["AID"].ToString());
                 dr.Close();
                 con.Close();
                 con.Dispose();
@@ -761,21 +797,21 @@ public class ConnectionClass
             }
 
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             System.Diagnostics.Debug.WriteLine(e.Message);
         }
         con.Close();
         con.Dispose();
         return 0;
-        }
+    }
 
     /*
      * retruns rows for a given actor
      * @parm name @return table of movies
      * 
      */
-     public DataTable GetActorMovies(string name)
+    public DataTable GetActorMovies(string name)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
@@ -789,44 +825,61 @@ public class ConnectionClass
         dt.Columns.Add("Resolution");
         dt.Columns.Add("ID");
         dt.Columns.Add("sort", typeof(int));
+        dt.Columns.Add("sortRes", typeof(int));
 
         string temp = '"' + "%" + name + "%" + '"';
         SQLiteCommand com = new SQLiteCommand("Select * from movies join MovieActor on movies.RowID = MovieActor.MovieID WHERE MovieActor.ActorID in (SELECT AID FROM Actor WHERE Name LIKE " + temp + ")", con);
-      //  com.Parameters.AddWithValue("@Aname", temp);
+        //  com.Parameters.AddWithValue("@Aname", temp);
 
         try
         {
             SQLiteDataReader dr = com.ExecuteReader();
-            while(dr.Read())
+            while (dr.Read())
             {
                 DataRow drt = dt.NewRow();
+                string tempL = (string)dr["Length"];
+                String tempR = (String)dr["Resolution"];
                 drt["Title"] = (String)dr["Title"];
                 drt["Year"] = (String)dr["Year"];
                 drt["Gernra"] = (String)dr["Gerna"];
                 drt["Rating"] = (String)dr["Rating"];
-                drt["Length"] = (String)dr["Length"];
-                drt["Resolution"] = (String)dr["Resolution"];
+                drt["Length"] = tempL;
+                drt["Resolution"] = tempR;
                 drt["ID"] = dr["RowId"].ToString();
-                drt["sort"] = 0;
+                int i;
+                if (int.TryParse(tempL.Substring(0, tempL.Length - 3), out i))
+                {
+                    drt["sort"] = i;
+                }
+                else
+                {
+                    drt["sort"] = 0;
+                }
+                string[] restT = tempR.Split('X');
+                int t;
+                if (int.TryParse(restT[0], out i) && int.TryParse(restT[1], out t))
+                {
+                    drt["sortRes"] = i * t;
+                }
                 //add row to datatable
                 dt.Rows.Add(drt);
-                
+
             }
             return dt;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             System.Diagnostics.Debug.WriteLine(e.Message);
         }
         return dt;
-    } 
+    }
 
     /*
      * returns a list of actors in a movie
      * @parm MID @return List of actors
      * ]
      */
-     public List<String> GetActorsFromMovie(int Mid)
+    public List<String> GetActorsFromMovie(int Mid)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
@@ -837,19 +890,19 @@ public class ConnectionClass
         {
             SQLiteDataReader dr = com.ExecuteReader();
             int i = 0;
-            while (dr.Read() &&  i < 4)
+            while (dr.Read() && i < 4)
             {
                 Actors.Add((string)dr["Name"]);
-                
+
                 i++;
             }
-            
+
             dr.Close();
             con.Close();
             con.Dispose();
             return Actors;
         }//try
-        catch(Exception e)
+        catch (Exception e)
         {
 
         }
@@ -857,11 +910,11 @@ public class ConnectionClass
         con.Dispose();
         return null;
     }
-    
+
     /*
      *finds all titles that are duplicates
      * @return List<String>
-     */  
+     */
     public List<String> FindDubs()
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
@@ -883,7 +936,7 @@ public class ConnectionClass
      * delete a row from movieactor
      * 
      */
-     public bool DeleteFromMovieActor(int MID, int AID)
+    public bool DeleteFromMovieActor(int MID, int AID)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
@@ -895,10 +948,10 @@ public class ConnectionClass
             com.ExecuteNonQuery();
             return true;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             return false;
         }
-    } 
-    
+    }
+
 }
