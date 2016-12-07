@@ -37,8 +37,9 @@ namespace MovieLib
             this.Rescan_Folder = new System.Windows.Forms.ToolStripMenuItem();
             this.startOverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastChanchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findBadNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addCustomGernaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Sort_Genres = new System.Windows.Forms.ComboBox();
             this.Sort_Year = new System.Windows.Forms.ComboBox();
             this.Sort_Rating = new System.Windows.Forms.ComboBox();
@@ -56,10 +57,9 @@ namespace MovieLib
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.Add_G = new System.Windows.Forms.Panel();
-            this.Add = new System.Windows.Forms.Button();
-            this.Gerna = new System.Windows.Forms.TextBox();
-            this.addCustomGernaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Remove = new System.Windows.Forms.Button();
+            this.Gerna = new System.Windows.Forms.TextBox();
+            this.Add = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.panel1.SuspendLayout();
@@ -92,14 +92,14 @@ namespace MovieLib
             // Load_Files
             // 
             this.Load_Files.Name = "Load_Files";
-            this.Load_Files.Size = new System.Drawing.Size(175, 22);
+            this.Load_Files.Size = new System.Drawing.Size(223, 22);
             this.Load_Files.Text = "Load Files";
             this.Load_Files.Click += new System.EventHandler(this.Load_Files_Click);
             // 
             // Rescan_Folder
             // 
             this.Rescan_Folder.Name = "Rescan_Folder";
-            this.Rescan_Folder.Size = new System.Drawing.Size(175, 22);
+            this.Rescan_Folder.Size = new System.Drawing.Size(223, 22);
             this.Rescan_Folder.Text = "Rescan";
             this.Rescan_Folder.Click += new System.EventHandler(this.Rescan_Folder_Click);
             // 
@@ -108,7 +108,7 @@ namespace MovieLib
             this.startOverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lastChanchToolStripMenuItem});
             this.startOverToolStripMenuItem.Name = "startOverToolStripMenuItem";
-            this.startOverToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.startOverToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.startOverToolStripMenuItem.Text = "Start Over";
             // 
             // lastChanchToolStripMenuItem
@@ -118,49 +118,30 @@ namespace MovieLib
             this.lastChanchToolStripMenuItem.Text = "Last Chanch";
             this.lastChanchToolStripMenuItem.Click += new System.EventHandler(this.lastChanchToolStripMenuItem_Click);
             // 
-            // findDuplicatesToolStripMenuItem
-            // 
-            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
-            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates";
-            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click_1);
-            // 
             // findBadNamesToolStripMenuItem
             // 
             this.findBadNamesToolStripMenuItem.Name = "findBadNamesToolStripMenuItem";
-            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
             this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
+            // 
+            // findDuplicatesToolStripMenuItem
+            // 
+            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates";
+            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click_1);
+            // 
+            // addCustomGernaToolStripMenuItem
+            // 
+            this.addCustomGernaToolStripMenuItem.Name = "addCustomGernaToolStripMenuItem";
+            this.addCustomGernaToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.addCustomGernaToolStripMenuItem.Text = "Add/Remove Custom Gerna";
+            this.addCustomGernaToolStripMenuItem.Click += new System.EventHandler(this.addCustomGernaToolStripMenuItem_Click);
             // 
             // Sort_Genres
             // 
             this.Sort_Genres.FormattingEnabled = true;
-            /*
-            this.Sort_Genres.Items.AddRange(new object[] {
-            "Action",
-            "Animation",
-            "Adventure",
-            "Biography",
-            "Comedy",
-            "Crime",
-            "Documentary",
-            "Drama",
-            "Family",
-            "Fantasy",
-            "Film-Noir",
-            "History",
-            "Horror",
-            "Music",
-            "Marvel",
-            "DC",
-            "Musical",
-            "Mystery",
-            "Romance",
-            "Sci-Fi",
-            "Sport",
-            "Thriller",
-            "War",
-            "Western"}); */
             this.Sort_Genres.Location = new System.Drawing.Point(81, 63);
             this.Sort_Genres.Name = "Sort_Genres";
             this.Sort_Genres.Size = new System.Drawing.Size(121, 21);
@@ -253,6 +234,7 @@ namespace MovieLib
             this.Search.TabIndex = 9;
             this.Search.Text = "Search";
             this.Search.UseVisualStyleBackColor = true;
+            this.Search.Visible = false;
             this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
             // textBox2
@@ -335,35 +317,11 @@ namespace MovieLib
             this.Add_G.Controls.Add(this.Remove);
             this.Add_G.Controls.Add(this.Gerna);
             this.Add_G.Controls.Add(this.Add);
-            this.Add_G.Location = new System.Drawing.Point(325, 221);
+            this.Add_G.Location = new System.Drawing.Point(315, 222);
             this.Add_G.Name = "Add_G";
             this.Add_G.Size = new System.Drawing.Size(576, 225);
             this.Add_G.TabIndex = 17;
             this.Add_G.Visible = false;
-            // 
-            // Add
-            // 
-            this.Add.Location = new System.Drawing.Point(357, 81);
-            this.Add.Name = "Add";
-            this.Add.Size = new System.Drawing.Size(75, 23);
-            this.Add.TabIndex = 0;
-            this.Add.Text = "Add";
-            this.Add.UseVisualStyleBackColor = true;
-            this.Add.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Gerna
-            // 
-            this.Gerna.Location = new System.Drawing.Point(146, 104);
-            this.Gerna.Name = "Gerna";
-            this.Gerna.Size = new System.Drawing.Size(175, 20);
-            this.Gerna.TabIndex = 1;
-            // 
-            // addCustomGernaToolStripMenuItem
-            // 
-            this.addCustomGernaToolStripMenuItem.Name = "addCustomGernaToolStripMenuItem";
-            this.addCustomGernaToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.addCustomGernaToolStripMenuItem.Text = "Add/Remove Custom Gerna";
-            this.addCustomGernaToolStripMenuItem.Click += new System.EventHandler(this.addCustomGernaToolStripMenuItem_Click);
             // 
             // Remove
             // 
@@ -374,6 +332,23 @@ namespace MovieLib
             this.Remove.Text = "Remove";
             this.Remove.UseVisualStyleBackColor = true;
             this.Remove.Click += new System.EventHandler(this.Remove_Click);
+            // 
+            // Gerna
+            // 
+            this.Gerna.Location = new System.Drawing.Point(146, 104);
+            this.Gerna.Name = "Gerna";
+            this.Gerna.Size = new System.Drawing.Size(175, 20);
+            this.Gerna.TabIndex = 1;
+            // 
+            // Add
+            // 
+            this.Add.Location = new System.Drawing.Point(357, 81);
+            this.Add.Name = "Add";
+            this.Add.Size = new System.Drawing.Size(75, 23);
+            this.Add.TabIndex = 0;
+            this.Add.Text = "Add";
+            this.Add.UseVisualStyleBackColor = true;
+            this.Add.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
