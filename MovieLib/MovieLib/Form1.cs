@@ -534,7 +534,13 @@ namespace MovieLib
                 con.DeleteByID(M_int);
                 MessageBox.Show("Row Deleted", "Message");
             }//end try
-            catch (Exception t)
+            catch (UnauthorizedAccessException t)
+            {
+                
+                MessageBox.Show("File Is Read-Only", "Message");
+               
+            }
+            catch(FormatException q)
             {
                 MessageBox.Show("Check Input", "Message");
             }
