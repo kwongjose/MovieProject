@@ -467,7 +467,7 @@ namespace MovieLib
                 {
 
                     if (con.IsPresent(M_File))//check if file path is in database
-                    {
+                    {//returns false if file is present
                         BadList.Add(M_File);
                         BadFiles++;
                     }
@@ -622,8 +622,17 @@ namespace MovieLib
         private void findDuplicatesToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             ConnectionClass con = new ConnectionClass();
-            Form form = new FileInfo(con.FindDubs());
-            form.Show();
+            List<String> dup = con.FindDubs();
+            if(dup.Count > 0)
+            {
+                Form form = new FileInfo(dup);
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("No Duplicates", "Message");
+            }
+            
         }
 
         /*
