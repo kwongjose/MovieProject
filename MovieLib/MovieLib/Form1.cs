@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Linq;
+using System.Diagnostics;
 
 namespace MovieLib
 {    /*
@@ -383,11 +384,10 @@ namespace MovieLib
             //DataTable dt = con.GetMovieByGernra(Sel_Genre);
             DataTable dt = (DataTable)(Movies_Data.DataSource);
             DataRow[] dr = dt.Select("Gernra LIKE '%" + Sel_Genre + "%' ");
-
+         
             if (dr.Length > 0)
             {
                 dt = dr.CopyToDataTable();
-                System.Diagnostics.Debug.WriteLine(dr.Length);
             }
             else
             {

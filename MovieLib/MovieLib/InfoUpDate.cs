@@ -29,6 +29,7 @@ namespace MovieLib
             Nres.Text = mov.Res;
             Plot.Text = mov.Plot;
             Tpath.Text = mov.Path;
+            PosterLoc.Text = mov.Poster;
             LoadView(mov.Actors);
         }
 
@@ -68,7 +69,7 @@ namespace MovieLib
             }
             else
             {
-                if (con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text, Nres.Text) )
+                if (con.UpDateRow(M_Id, Title.Text, Year.Text, Genra.Text, Rating.Text, Length.Text, Plot.Text, Nres.Text, PosterLoc.Text) )
                 {
                     MessageBox.Show("Row Updated", "Message");
                 }

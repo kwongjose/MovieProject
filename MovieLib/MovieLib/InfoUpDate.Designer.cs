@@ -50,6 +50,8 @@
             this.AddActorItem = new System.Windows.Forms.TextBox();
             this.ActorList = new System.Windows.Forms.CheckedListBox();
             this.Add = new System.Windows.Forms.Button();
+            this.Poster = new System.Windows.Forms.Label();
+            this.PosterLoc = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Tpath
@@ -63,7 +65,7 @@
             // 
             // Plot
             // 
-            this.Plot.Location = new System.Drawing.Point(140, 420);
+            this.Plot.Location = new System.Drawing.Point(140, 495);
             this.Plot.Multiline = true;
             this.Plot.Name = "Plot";
             this.Plot.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -108,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(62, 474);
+            this.label1.Location = new System.Drawing.Point(71, 520);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 7;
@@ -161,7 +163,7 @@
             // 
             // UpDate
             // 
-            this.UpDate.Location = new System.Drawing.Point(230, 580);
+            this.UpDate.Location = new System.Drawing.Point(230, 631);
             this.UpDate.Name = "UpDate";
             this.UpDate.Size = new System.Drawing.Size(108, 23);
             this.UpDate.TabIndex = 13;
@@ -188,7 +190,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(65, 580);
+            this.checkBox1.Location = new System.Drawing.Point(65, 631);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(64, 17);
             this.checkBox1.TabIndex = 16;
@@ -197,7 +199,7 @@
             // 
             // ImdbId
             // 
-            this.ImdbId.Location = new System.Drawing.Point(140, 525);
+            this.ImdbId.Location = new System.Drawing.Point(140, 593);
             this.ImdbId.Name = "ImdbId";
             this.ImdbId.Size = new System.Drawing.Size(100, 20);
             this.ImdbId.TabIndex = 17;
@@ -205,7 +207,7 @@
             // IMDb_Id
             // 
             this.IMDb_Id.AutoSize = true;
-            this.IMDb_Id.Location = new System.Drawing.Point(65, 531);
+            this.IMDb_Id.Location = new System.Drawing.Point(68, 593);
             this.IMDb_Id.Name = "IMDb_Id";
             this.IMDb_Id.Size = new System.Drawing.Size(46, 13);
             this.IMDb_Id.TabIndex = 18;
@@ -236,11 +238,29 @@
             this.Add.UseVisualStyleBackColor = true;
             this.Add.Click += new System.EventHandler(this.Add_Click);
             // 
+            // Poster
+            // 
+            this.Poster.AutoSize = true;
+            this.Poster.Location = new System.Drawing.Point(74, 444);
+            this.Poster.Name = "Poster";
+            this.Poster.Size = new System.Drawing.Size(37, 13);
+            this.Poster.TabIndex = 22;
+            this.Poster.Text = "Poster";
+            // 
+            // PosterLoc
+            // 
+            this.PosterLoc.Location = new System.Drawing.Point(140, 436);
+            this.PosterLoc.Name = "PosterLoc";
+            this.PosterLoc.Size = new System.Drawing.Size(457, 20);
+            this.PosterLoc.TabIndex = 23;
+            // 
             // UpdateRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 615);
+            this.ClientSize = new System.Drawing.Size(882, 685);
+            this.Controls.Add(this.PosterLoc);
+            this.Controls.Add(this.Poster);
             this.Controls.Add(this.Add);
             this.Controls.Add(this.ActorList);
             this.Controls.Add(this.AddActorItem);
@@ -294,5 +314,7 @@
         private System.Windows.Forms.TextBox AddActorItem;
         private System.Windows.Forms.CheckedListBox ActorList;
         private System.Windows.Forms.Button Add;
+        private System.Windows.Forms.Label Poster;
+        private System.Windows.Forms.TextBox PosterLoc;
     }
 }

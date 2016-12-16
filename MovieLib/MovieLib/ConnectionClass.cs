@@ -285,11 +285,11 @@ public class ConnectionClass
      * @pram int rowid, string title, string year, string genras, string rating, string length, string plot, string res
      * @return a bool on good insert
      */
-    public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot, String N_Res)
+    public bool UpDateRow(int Rid, String N_Title, String N_Year, String N_Genra, String N_Rating, String N_Length, String N_Plot, String N_Res, String posterUrl)
     {
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
-        SQLiteCommand com = new SQLiteCommand("UPDATE Movies set Title = @NTitle, Year = @NYear, Gerna = @NGenra, Rating = @NRating, Length = @NLength, Plot = @NPlot, Resolution = @NRes WHERE Rowid = " + Rid, con);
+        SQLiteCommand com = new SQLiteCommand("UPDATE Movies set Title = @NTitle, Year = @NYear, Gerna = @NGenra, Rating = @NRating, Length = @NLength, Plot = @NPlot, Resolution = @NRes, Poster = @pos WHERE Rowid = " + Rid, con);
         com.Parameters.AddWithValue("@NTitle", N_Title);
         com.Parameters.AddWithValue("@NYear", N_Year);
         com.Parameters.AddWithValue("@NGenra", N_Genra);
@@ -297,6 +297,7 @@ public class ConnectionClass
         com.Parameters.AddWithValue("@NLength", N_Length);
         com.Parameters.AddWithValue("@NPlot", N_Plot);
         com.Parameters.AddWithValue("@NRes", N_Res);
+        com.Parameters.AddWithValue("@pos", posterUrl);
         try
         {
             com.ExecuteNonQuery();
@@ -306,6 +307,8 @@ public class ConnectionClass
         }
         catch (SQLiteException e)
         {
+            com.Dispose();
+            con.Dispose();
             return false;
         }
     }
@@ -341,7 +344,7 @@ public class ConnectionClass
         }
         catch (SQLiteException e)
         {
-
+          
         }
 
         return Movie_Dets;
@@ -350,6 +353,7 @@ public class ConnectionClass
      * returns all movie of the selected Gernra
      * @param a gerna as string
      * @return A datatable with all the movie info
+     * No longer used
      */
     public DataTable GetMovieByGernra(String G)
     {
