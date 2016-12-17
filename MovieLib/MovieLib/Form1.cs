@@ -102,7 +102,7 @@ namespace MovieLib
          */
         private void ProccessFiles(String[] files)
         {
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 6 },
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = 4 },
               M_File =>
               {
                   ToFileTODatabase(M_File);
@@ -558,7 +558,7 @@ namespace MovieLib
             {
                 DisableContol(con);
             }
-            if (c.GetType() == typeof(MenuStrip) | c.GetType() == typeof(ComboBox) | c.GetType() == typeof(Button) | c.GetType() == typeof(TextBox))
+            if (c.GetType() == typeof(MenuStrip) | c.GetType() == typeof(ComboBox) | c.GetType() == typeof(Button) | c.GetType() == typeof(TextBox) | c.GetType() == typeof(DataGridView) )
             {
                 c.Enabled = false;
             }
