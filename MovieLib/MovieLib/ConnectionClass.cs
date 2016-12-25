@@ -223,6 +223,7 @@ public class ConnectionClass
         DataTable dt = new DataTable();
         dt.Columns.Add("Title");
         dt.Columns.Add("Year");
+        dt.Columns.Add("Rated");
         dt.Columns.Add("Gernra");
         dt.Columns.Add("Rating"); //EDIT
         dt.Columns.Add("Length");
@@ -245,6 +246,7 @@ public class ConnectionClass
                 String tempR = (String)r["Resolution"];
                 dr["Title"] = (String)r["Title"];
                 dr["Year"] = (String)r["Year"];
+                dr["Rated"] = (string)r["Rated"];
                 dr["Gernra"] = (String)r["Gerna"];
                 dr["Rating"] = (String)r["Rating"]; //EDIT
                 dr["Length"] = temp;
@@ -265,7 +267,10 @@ public class ConnectionClass
                 {
                     dr["sortRes"] = i * t;
                 }
-
+                else
+                {
+                    dr["sortRes"] = 0;
+                }
                 //add row to datatable
                 dt.Rows.Add(dr);
             }
@@ -504,6 +509,7 @@ public class ConnectionClass
         DataTable dt = new DataTable();
         dt.Columns.Add("Title");
         dt.Columns.Add("Year");
+        dt.Columns.Add("Rated");
         dt.Columns.Add("Gernra");
         dt.Columns.Add("Rating");
         dt.Columns.Add("Length");
@@ -525,6 +531,7 @@ public class ConnectionClass
                 string tempR = (string)r["Resolution"];
                 dr["Title"] = (String)r["Title"];
                 dr["Year"] = (String)r["Year"];
+                dr["Rated"] = (string)r["Rated"];
                 dr["Gernra"] = (String)r["Gerna"];
                 dr["Rating"] = (String)r["Rating"];
                 dr["Length"] = temp;
@@ -545,6 +552,10 @@ public class ConnectionClass
                 if (int.TryParse(restT[0], out i) && int.TryParse(restT[1], out t))
                 {
                     dr["sortRes"] = i * t;
+                }
+                else
+                {
+                    dr["sortRes"] = 0;
                 }
                 //add row to datatable
                 dt.Rows.Add(dr);
@@ -823,6 +834,7 @@ public class ConnectionClass
         DataTable dt = new DataTable();
         dt.Columns.Add("Title");
         dt.Columns.Add("Year");
+        dt.Columns.Add("Rated");
         dt.Columns.Add("Gernra");
         dt.Columns.Add("Rating");
         dt.Columns.Add("Length");
@@ -845,6 +857,7 @@ public class ConnectionClass
                 String tempR = (String)dr["Resolution"];
                 drt["Title"] = (String)dr["Title"];
                 drt["Year"] = (String)dr["Year"];
+                drt["Rated"] = (string)dr["Rated"];
                 drt["Gernra"] = (String)dr["Gerna"];
                 drt["Rating"] = (String)dr["Rating"];
                 drt["Length"] = tempL;
@@ -864,6 +877,10 @@ public class ConnectionClass
                 if (int.TryParse(restT[0], out i) && int.TryParse(restT[1], out t))
                 {
                     drt["sortRes"] = i * t;
+                }
+                else
+                {
+                    drt["sortRes"] = 0;
                 }
                 //add row to datatable
                 dt.Rows.Add(drt);
