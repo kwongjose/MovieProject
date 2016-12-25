@@ -50,14 +50,14 @@ namespace MovieLib
             DataTable dt = (DataTable)dts.DataSource;
             DataTable Cdt = dt.Copy();
             DataTable so = new DataTable();
-            if (e.ColumnIndex == 4)//sort length
+            if (e.ColumnIndex == 5)//sort length
             {
                 // Movies_Data.DataSource = SortAlphaNumColumn(dt, "Length");
                 IEnumerable<DataRow> dr = dt.Select().OrderBy(Row => Row["sort"]);
                 Movies_Data.DataSource = dr.ToArray().CopyToDataTable();
 
             }
-            if (e.ColumnIndex == 5)//sort res
+            if (e.ColumnIndex == 6)//sort res
             {
                 // Movies_Data.DataSource = SortAlphaNumColumn(dt, "Resolution");
                 IEnumerable<DataRow> dr = dt.Select().OrderBy(row => row["sortRes"]); Movies_Data.DataSource = dr.ToArray().CopyToDataTable();
