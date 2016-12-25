@@ -248,18 +248,18 @@ namespace MovieLib
                     DataGridViewRow r = senderGrid.Rows[e.RowIndex];
                     if (e.ColumnIndex == 0)
                     {
-                        if (r.Cells[6].Value.ToString() != null)
+                        if (r.Cells[7].Value.ToString() != null)
                         {
-                            int M_ID = int.Parse(r.Cells[6].Value.ToString());
+                            int M_ID = int.Parse(r.Cells[7].Value.ToString());
                             var form = new Movie_Info(M_ID);
                             form.Show(this);
                         }
                     }
-                    if (e.ColumnIndex == 6)//select ID
+                    if (e.ColumnIndex == 7)//select ID
                     {
-                        if (r.Cells[6].Value.ToString() != null)
+                        if (r.Cells[7].Value.ToString() != null)
                         {
-                            textBox2.Text = r.Cells[6].Value.ToString();
+                            textBox2.Text = r.Cells[7].Value.ToString();
                         }
                     }
                 }
