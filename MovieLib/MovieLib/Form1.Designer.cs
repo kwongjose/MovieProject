@@ -31,6 +31,9 @@ namespace MovieLib
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.Options_List = new System.Windows.Forms.ToolStripMenuItem();
             this.Load_Files = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +63,7 @@ namespace MovieLib
             this.Remove = new System.Windows.Forms.Button();
             this.Gerna = new System.Windows.Forms.TextBox();
             this.Add = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).BeginInit();
             this.panel1.SuspendLayout();
@@ -68,11 +72,12 @@ namespace MovieLib
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Options_List});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1254, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1254, 26);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -85,21 +90,22 @@ namespace MovieLib
             this.findBadNamesToolStripMenuItem,
             this.findDuplicatesToolStripMenuItem,
             this.addCustomGernaToolStripMenuItem});
+            this.Options_List.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Options_List.Name = "Options_List";
-            this.Options_List.Size = new System.Drawing.Size(61, 20);
+            this.Options_List.Size = new System.Drawing.Size(68, 22);
             this.Options_List.Text = "Options";
             // 
             // Load_Files
             // 
             this.Load_Files.Name = "Load_Files";
-            this.Load_Files.Size = new System.Drawing.Size(223, 22);
+            this.Load_Files.Size = new System.Drawing.Size(248, 22);
             this.Load_Files.Text = "Load Files";
             this.Load_Files.Click += new System.EventHandler(this.Load_Files_Click);
             // 
             // Rescan_Folder
             // 
             this.Rescan_Folder.Name = "Rescan_Folder";
-            this.Rescan_Folder.Size = new System.Drawing.Size(223, 22);
+            this.Rescan_Folder.Size = new System.Drawing.Size(248, 22);
             this.Rescan_Folder.Text = "Rescan";
             this.Rescan_Folder.Click += new System.EventHandler(this.Rescan_Folder_Click);
             // 
@@ -108,49 +114,51 @@ namespace MovieLib
             this.startOverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lastChanchToolStripMenuItem});
             this.startOverToolStripMenuItem.Name = "startOverToolStripMenuItem";
-            this.startOverToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.startOverToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.startOverToolStripMenuItem.Text = "Start Over";
             // 
             // lastChanchToolStripMenuItem
             // 
             this.lastChanchToolStripMenuItem.Name = "lastChanchToolStripMenuItem";
-            this.lastChanchToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.lastChanchToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.lastChanchToolStripMenuItem.Text = "Last Chanch";
             this.lastChanchToolStripMenuItem.Click += new System.EventHandler(this.lastChanchToolStripMenuItem_Click);
             // 
             // findBadNamesToolStripMenuItem
             // 
             this.findBadNamesToolStripMenuItem.Name = "findBadNamesToolStripMenuItem";
-            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.findBadNamesToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.findBadNamesToolStripMenuItem.Text = "Find Bad Names";
             this.findBadNamesToolStripMenuItem.Click += new System.EventHandler(this.findBadNamesToolStripMenuItem_Click);
             // 
             // findDuplicatesToolStripMenuItem
             // 
             this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
-            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates";
             this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click_1);
             // 
             // addCustomGernaToolStripMenuItem
             // 
             this.addCustomGernaToolStripMenuItem.Name = "addCustomGernaToolStripMenuItem";
-            this.addCustomGernaToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.addCustomGernaToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.addCustomGernaToolStripMenuItem.Text = "Add/Remove Custom Gerna";
             this.addCustomGernaToolStripMenuItem.Click += new System.EventHandler(this.addCustomGernaToolStripMenuItem_Click);
             // 
             // Sort_Genres
             // 
+            this.Sort_Genres.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Sort_Genres.FormattingEnabled = true;
-            this.Sort_Genres.Location = new System.Drawing.Point(81, 63);
+            this.Sort_Genres.Location = new System.Drawing.Point(146, 69);
             this.Sort_Genres.Name = "Sort_Genres";
-            this.Sort_Genres.Size = new System.Drawing.Size(121, 21);
+            this.Sort_Genres.Size = new System.Drawing.Size(121, 26);
             this.Sort_Genres.TabIndex = 3;
             this.Sort_Genres.Text = "Genres";
             this.Sort_Genres.SelectedIndexChanged += new System.EventHandler(this.Sort_Genres_SelectedIndexChanged);
             // 
             // Sort_Year
             // 
+            this.Sort_Year.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Sort_Year.FormattingEnabled = true;
             this.Sort_Year.Items.AddRange(new object[] {
             "2020s",
@@ -163,15 +171,16 @@ namespace MovieLib
             "1950s",
             "1940s",
             "1930s"});
-            this.Sort_Year.Location = new System.Drawing.Point(300, 63);
+            this.Sort_Year.Location = new System.Drawing.Point(324, 69);
             this.Sort_Year.Name = "Sort_Year";
-            this.Sort_Year.Size = new System.Drawing.Size(121, 21);
+            this.Sort_Year.Size = new System.Drawing.Size(121, 26);
             this.Sort_Year.TabIndex = 4;
             this.Sort_Year.Text = "Year";
             this.Sort_Year.SelectedIndexChanged += new System.EventHandler(this.Sort_Year_SelectedIndexChanged);
             // 
             // Sort_Rating
             // 
+            this.Sort_Rating.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Sort_Rating.FormattingEnabled = true;
             this.Sort_Rating.Items.AddRange(new object[] {
             "10",
@@ -185,9 +194,9 @@ namespace MovieLib
             "2",
             "1",
             "0"});
-            this.Sort_Rating.Location = new System.Drawing.Point(525, 63);
+            this.Sort_Rating.Location = new System.Drawing.Point(491, 69);
             this.Sort_Rating.Name = "Sort_Rating";
-            this.Sort_Rating.Size = new System.Drawing.Size(121, 21);
+            this.Sort_Rating.Size = new System.Drawing.Size(121, 26);
             this.Sort_Rating.TabIndex = 5;
             this.Sort_Rating.Text = "Rating";
             this.Sort_Rating.SelectedIndexChanged += new System.EventHandler(this.Sort_Rating_SelectedIndexChanged);
@@ -200,79 +209,111 @@ namespace MovieLib
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Movies_Data.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Movies_Data.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.Movies_Data.Location = new System.Drawing.Point(12, 109);
+            this.Movies_Data.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Movies_Data.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            this.Movies_Data.ColumnHeadersHeight = 26;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Movies_Data.DefaultCellStyle = dataGridViewCellStyle22;
+            this.Movies_Data.Location = new System.Drawing.Point(12, 119);
             this.Movies_Data.Name = "Movies_Data";
             this.Movies_Data.ReadOnly = true;
-            this.Movies_Data.Size = new System.Drawing.Size(1230, 457);
+            this.Movies_Data.RowHeadersVisible = false;
+            this.Movies_Data.Size = new System.Drawing.Size(1230, 487);
             this.Movies_Data.TabIndex = 6;
             this.Movies_Data.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Movies_Data_CellContentClick);
             this.Movies_Data.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Sorter);
             // 
             // Default
             // 
-            this.Default.Location = new System.Drawing.Point(704, 60);
+            this.Default.BackColor = System.Drawing.Color.White;
+            this.Default.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Default.Location = new System.Drawing.Point(654, 69);
             this.Default.Name = "Default";
-            this.Default.Size = new System.Drawing.Size(75, 23);
+            this.Default.Size = new System.Drawing.Size(76, 26);
             this.Default.TabIndex = 7;
             this.Default.Text = "Show All";
-            this.Default.UseVisualStyleBackColor = true;
+            this.Default.UseVisualStyleBackColor = false;
             this.Default.Click += new System.EventHandler(this.Default_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(828, 63);
+            this.textBox1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(829, 69);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 20);
+            this.textBox1.Size = new System.Drawing.Size(237, 26);
             this.textBox1.TabIndex = 8;
             this.textBox1.TextChanged += new System.EventHandler(this.Search_Click);
             // 
             // Search
             // 
-            this.Search.Location = new System.Drawing.Point(1100, 60);
+            this.Search.BackColor = System.Drawing.Color.White;
+            this.Search.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Search.Location = new System.Drawing.Point(1072, 68);
             this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(75, 23);
+            this.Search.Size = new System.Drawing.Size(76, 26);
             this.Search.TabIndex = 9;
             this.Search.Text = "Search";
-            this.Search.UseVisualStyleBackColor = true;
+            this.Search.UseVisualStyleBackColor = false;
             this.Search.Visible = false;
             this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(828, 28);
+            this.textBox2.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(829, 21);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(73, 20);
+            this.textBox2.Size = new System.Drawing.Size(73, 26);
             this.textBox2.TabIndex = 10;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // Edit
             // 
-            this.Edit.Location = new System.Drawing.Point(919, 25);
+            this.Edit.BackColor = System.Drawing.Color.White;
+            this.Edit.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Edit.Location = new System.Drawing.Point(908, 20);
             this.Edit.Name = "Edit";
-            this.Edit.Size = new System.Drawing.Size(75, 23);
+            this.Edit.Size = new System.Drawing.Size(76, 26);
             this.Edit.TabIndex = 11;
             this.Edit.Text = "Edit By ID";
-            this.Edit.UseVisualStyleBackColor = true;
+            this.Edit.UseVisualStyleBackColor = false;
             this.Edit.Click += new System.EventHandler(this.Edit_Click);
             // 
             // NRow
             // 
-            this.NRow.Location = new System.Drawing.Point(1100, 24);
+            this.NRow.BackColor = System.Drawing.Color.White;
+            this.NRow.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NRow.Location = new System.Drawing.Point(1115, 20);
             this.NRow.Name = "NRow";
-            this.NRow.Size = new System.Drawing.Size(75, 23);
+            this.NRow.Size = new System.Drawing.Size(76, 26);
             this.NRow.TabIndex = 12;
             this.NRow.Text = "New Row";
-            this.NRow.UseVisualStyleBackColor = true;
+            this.NRow.UseVisualStyleBackColor = false;
             this.NRow.Click += new System.EventHandler(this.NRow_Click);
             // 
             // DelBtn
             // 
-            this.DelBtn.Location = new System.Drawing.Point(1009, 24);
+            this.DelBtn.BackColor = System.Drawing.Color.White;
+            this.DelBtn.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DelBtn.Location = new System.Drawing.Point(990, 20);
             this.DelBtn.Name = "DelBtn";
-            this.DelBtn.Size = new System.Drawing.Size(75, 23);
+            this.DelBtn.Size = new System.Drawing.Size(76, 26);
             this.DelBtn.TabIndex = 13;
             this.DelBtn.TabStop = false;
             this.DelBtn.Text = "Delete Row";
-            this.DelBtn.UseVisualStyleBackColor = true;
+            this.DelBtn.UseVisualStyleBackColor = false;
             this.DelBtn.Click += new System.EventHandler(this.DelBtn_Click);
             // 
             // progressBar
@@ -280,24 +321,28 @@ namespace MovieLib
             this.progressBar.Location = new System.Drawing.Point(56, 67);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(357, 23);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 14;
             // 
             // working
             // 
             this.working.AutoSize = true;
-            this.working.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.working.Location = new System.Drawing.Point(154, 34);
+            this.working.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.working.Location = new System.Drawing.Point(138, 28);
             this.working.Name = "working";
-            this.working.Size = new System.Drawing.Size(155, 20);
+            this.working.Size = new System.Drawing.Size(188, 26);
             this.working.TabIndex = 15;
             this.working.Text = "Working Please Wait";
             this.working.Visible = false;
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.progressBar);
             this.panel1.Controls.Add(this.working);
+            this.panel1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(376, 268);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(457, 130);
@@ -309,52 +354,71 @@ namespace MovieLib
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(208, 93);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.Size = new System.Drawing.Size(0, 18);
             this.label1.TabIndex = 16;
             // 
             // Add_G
             // 
+            this.Add_G.BackColor = System.Drawing.Color.White;
+            this.Add_G.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Add_G.Controls.Add(this.Remove);
             this.Add_G.Controls.Add(this.Gerna);
             this.Add_G.Controls.Add(this.Add);
-            this.Add_G.Location = new System.Drawing.Point(315, 222);
+            this.Add_G.Location = new System.Drawing.Point(376, 250);
             this.Add_G.Name = "Add_G";
-            this.Add_G.Size = new System.Drawing.Size(576, 225);
+            this.Add_G.Size = new System.Drawing.Size(463, 167);
             this.Add_G.TabIndex = 17;
             this.Add_G.Visible = false;
             // 
             // Remove
             // 
-            this.Remove.Location = new System.Drawing.Point(357, 130);
+            this.Remove.BackColor = System.Drawing.Color.White;
+            this.Remove.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Remove.Location = new System.Drawing.Point(314, 101);
             this.Remove.Name = "Remove";
-            this.Remove.Size = new System.Drawing.Size(75, 23);
+            this.Remove.Size = new System.Drawing.Size(76, 26);
             this.Remove.TabIndex = 2;
             this.Remove.Text = "Remove";
-            this.Remove.UseVisualStyleBackColor = true;
+            this.Remove.UseVisualStyleBackColor = false;
             this.Remove.Click += new System.EventHandler(this.Remove_Click);
             // 
             // Gerna
             // 
-            this.Gerna.Location = new System.Drawing.Point(146, 104);
+            this.Gerna.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Gerna.Location = new System.Drawing.Point(103, 75);
             this.Gerna.Name = "Gerna";
-            this.Gerna.Size = new System.Drawing.Size(175, 20);
+            this.Gerna.Size = new System.Drawing.Size(175, 26);
             this.Gerna.TabIndex = 1;
             // 
             // Add
             // 
-            this.Add.Location = new System.Drawing.Point(357, 81);
+            this.Add.BackColor = System.Drawing.Color.White;
+            this.Add.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Add.Location = new System.Drawing.Point(314, 52);
             this.Add.Name = "Add";
-            this.Add.Size = new System.Drawing.Size(75, 23);
+            this.Add.Size = new System.Drawing.Size(76, 26);
             this.Add.TabIndex = 0;
             this.Add.Text = "Add";
-            this.Add.UseVisualStyleBackColor = true;
+            this.Add.UseVisualStyleBackColor = false;
             this.Add.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(774, 72);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 18);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Search";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1254, 662);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1254, 649);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.Add_G);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.DelBtn);
@@ -369,9 +433,11 @@ namespace MovieLib
             this.Controls.Add(this.Sort_Year);
             this.Controls.Add(this.Sort_Genres);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "My Movie Library";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Movies_Data)).EndInit();
@@ -419,6 +485,7 @@ namespace MovieLib
         private Button Add;
         private ToolStripMenuItem addCustomGernaToolStripMenuItem;
         private Button Remove;
+        private Label label2;
     }
 }
 

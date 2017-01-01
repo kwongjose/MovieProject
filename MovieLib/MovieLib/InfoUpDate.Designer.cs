@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateRow));
             this.Tpath = new System.Windows.Forms.TextBox();
             this.Plot = new System.Windows.Forms.TextBox();
             this.Length = new System.Windows.Forms.TextBox();
@@ -52,213 +53,266 @@
             this.Add = new System.Windows.Forms.Button();
             this.Poster = new System.Windows.Forms.Label();
             this.PosterLoc = new System.Windows.Forms.TextBox();
+            this.Fpath = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Tpath
             // 
-            this.Tpath.Location = new System.Drawing.Point(65, 36);
+            this.Tpath.BackColor = System.Drawing.Color.White;
+            this.Tpath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tpath.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Tpath.Location = new System.Drawing.Point(93, 37);
             this.Tpath.Multiline = true;
             this.Tpath.Name = "Tpath";
             this.Tpath.ReadOnly = true;
-            this.Tpath.Size = new System.Drawing.Size(395, 44);
+            this.Tpath.Size = new System.Drawing.Size(417, 26);
             this.Tpath.TabIndex = 0;
             // 
             // Plot
             // 
-            this.Plot.Location = new System.Drawing.Point(140, 495);
+            this.Plot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Plot.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Plot.Location = new System.Drawing.Point(93, 373);
             this.Plot.Multiline = true;
             this.Plot.Name = "Plot";
             this.Plot.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Plot.Size = new System.Drawing.Size(378, 67);
+            this.Plot.Size = new System.Drawing.Size(433, 84);
             this.Plot.TabIndex = 1;
             // 
             // Length
             // 
-            this.Length.Location = new System.Drawing.Point(140, 326);
+            this.Length.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Length.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Length.Location = new System.Drawing.Point(93, 278);
             this.Length.Name = "Length";
-            this.Length.Size = new System.Drawing.Size(100, 20);
+            this.Length.Size = new System.Drawing.Size(131, 26);
             this.Length.TabIndex = 2;
             // 
             // Rating
             // 
-            this.Rating.Location = new System.Drawing.Point(140, 269);
+            this.Rating.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Rating.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Rating.Location = new System.Drawing.Point(93, 228);
             this.Rating.Name = "Rating";
-            this.Rating.Size = new System.Drawing.Size(100, 20);
+            this.Rating.Size = new System.Drawing.Size(131, 26);
             this.Rating.TabIndex = 3;
             // 
             // Genra
             // 
-            this.Genra.Location = new System.Drawing.Point(140, 219);
+            this.Genra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Genra.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Genra.Location = new System.Drawing.Point(93, 137);
             this.Genra.Name = "Genra";
-            this.Genra.Size = new System.Drawing.Size(378, 20);
+            this.Genra.Size = new System.Drawing.Size(417, 26);
             this.Genra.TabIndex = 4;
             // 
             // Year
             // 
-            this.Year.Location = new System.Drawing.Point(140, 166);
+            this.Year.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Year.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Year.Location = new System.Drawing.Point(379, 231);
             this.Year.Name = "Year";
-            this.Year.Size = new System.Drawing.Size(100, 20);
+            this.Year.Size = new System.Drawing.Size(131, 26);
             this.Year.TabIndex = 5;
             // 
             // Title
             // 
-            this.Title.Location = new System.Drawing.Point(140, 113);
+            this.Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Title.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Title.Location = new System.Drawing.Point(93, 87);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(378, 20);
+            this.Title.Size = new System.Drawing.Size(417, 26);
             this.Title.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(71, 520);
+            this.label1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(21, 401);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(25, 13);
+            this.label1.Size = new System.Drawing.Size(33, 18);
             this.label1.TabIndex = 7;
             this.label1.Text = "Plot";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(68, 332);
+            this.label2.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(24, 281);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 8;
             this.label2.Text = "Length";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(68, 275);
+            this.label3.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(21, 234);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.Size = new System.Drawing.Size(46, 18);
             this.label3.TabIndex = 9;
             this.label3.Text = "Rating";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(71, 225);
+            this.label4.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(24, 140);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 13);
+            this.label4.Size = new System.Drawing.Size(45, 18);
             this.label4.TabIndex = 10;
             this.label4.Text = "Genra";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(71, 172);
+            this.label5.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(287, 234);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 13);
+            this.label5.Size = new System.Drawing.Size(34, 18);
             this.label5.TabIndex = 11;
             this.label5.Text = "Year";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(74, 119);
+            this.label6.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(24, 90);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 13);
+            this.label6.Size = new System.Drawing.Size(36, 18);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Title:";
+            this.label6.Text = "Title";
             // 
             // UpDate
             // 
-            this.UpDate.Location = new System.Drawing.Point(230, 631);
+            this.UpDate.BackColor = System.Drawing.Color.White;
+            this.UpDate.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpDate.Location = new System.Drawing.Point(695, 481);
             this.UpDate.Name = "UpDate";
-            this.UpDate.Size = new System.Drawing.Size(108, 23);
+            this.UpDate.Size = new System.Drawing.Size(108, 26);
             this.UpDate.TabIndex = 13;
-            this.UpDate.Text = "UpDate Movie";
-            this.UpDate.UseVisualStyleBackColor = true;
+            this.UpDate.Text = "Update Movie";
+            this.UpDate.UseVisualStyleBackColor = false;
             this.UpDate.Click += new System.EventHandler(this.UpDate_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(65, 384);
+            this.label7.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(287, 281);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.Size = new System.Drawing.Size(74, 18);
             this.label7.TabIndex = 14;
             this.label7.Text = "Resolution";
             // 
             // Nres
             // 
-            this.Nres.Location = new System.Drawing.Point(140, 377);
+            this.Nres.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Nres.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Nres.Location = new System.Drawing.Point(379, 278);
             this.Nres.Name = "Nres";
-            this.Nres.Size = new System.Drawing.Size(198, 20);
+            this.Nres.Size = new System.Drawing.Size(131, 26);
             this.Nres.TabIndex = 15;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(65, 631);
+            this.checkBox1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(584, 379);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(64, 17);
+            this.checkBox1.Size = new System.Drawing.Size(75, 22);
             this.checkBox1.TabIndex = 16;
             this.checkBox1.Text = "IMDb Id";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // ImdbId
             // 
-            this.ImdbId.Location = new System.Drawing.Point(140, 593);
+            this.ImdbId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ImdbId.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ImdbId.Location = new System.Drawing.Point(703, 373);
             this.ImdbId.Name = "ImdbId";
-            this.ImdbId.Size = new System.Drawing.Size(100, 20);
+            this.ImdbId.Size = new System.Drawing.Size(100, 26);
             this.ImdbId.TabIndex = 17;
             // 
             // IMDb_Id
             // 
             this.IMDb_Id.AutoSize = true;
-            this.IMDb_Id.Location = new System.Drawing.Point(68, 593);
+            this.IMDb_Id.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IMDb_Id.Location = new System.Drawing.Point(603, 401);
             this.IMDb_Id.Name = "IMDb_Id";
-            this.IMDb_Id.Size = new System.Drawing.Size(46, 13);
+            this.IMDb_Id.Size = new System.Drawing.Size(56, 18);
             this.IMDb_Id.TabIndex = 18;
             this.IMDb_Id.Text = "IMDB Id";
+            this.IMDb_Id.Visible = false;
             // 
             // AddActorItem
             // 
-            this.AddActorItem.Location = new System.Drawing.Point(594, 112);
+            this.AddActorItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AddActorItem.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddActorItem.Location = new System.Drawing.Point(584, 37);
             this.AddActorItem.Name = "AddActorItem";
-            this.AddActorItem.Size = new System.Drawing.Size(185, 20);
+            this.AddActorItem.Size = new System.Drawing.Size(127, 26);
             this.AddActorItem.TabIndex = 19;
             // 
             // ActorList
             // 
+            this.ActorList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ActorList.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActorList.FormattingEnabled = true;
-            this.ActorList.Location = new System.Drawing.Point(594, 166);
+            this.ActorList.Location = new System.Drawing.Point(584, 87);
             this.ActorList.Name = "ActorList";
-            this.ActorList.Size = new System.Drawing.Size(185, 169);
+            this.ActorList.Size = new System.Drawing.Size(219, 231);
             this.ActorList.TabIndex = 20;
             // 
             // Add
             // 
-            this.Add.Location = new System.Drawing.Point(795, 114);
+            this.Add.BackColor = System.Drawing.Color.White;
+            this.Add.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Add.Location = new System.Drawing.Point(727, 37);
             this.Add.Name = "Add";
-            this.Add.Size = new System.Drawing.Size(75, 23);
+            this.Add.Size = new System.Drawing.Size(76, 26);
             this.Add.TabIndex = 21;
             this.Add.Text = "Add";
-            this.Add.UseVisualStyleBackColor = true;
+            this.Add.UseVisualStyleBackColor = false;
             this.Add.Click += new System.EventHandler(this.Add_Click);
             // 
             // Poster
             // 
             this.Poster.AutoSize = true;
-            this.Poster.Location = new System.Drawing.Point(74, 444);
+            this.Poster.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Poster.Location = new System.Drawing.Point(21, 486);
             this.Poster.Name = "Poster";
-            this.Poster.Size = new System.Drawing.Size(37, 13);
+            this.Poster.Size = new System.Drawing.Size(48, 18);
             this.Poster.TabIndex = 22;
             this.Poster.Text = "Poster";
             // 
             // PosterLoc
             // 
-            this.PosterLoc.Location = new System.Drawing.Point(140, 436);
+            this.PosterLoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PosterLoc.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PosterLoc.Location = new System.Drawing.Point(93, 483);
             this.PosterLoc.Name = "PosterLoc";
-            this.PosterLoc.Size = new System.Drawing.Size(457, 20);
+            this.PosterLoc.Size = new System.Drawing.Size(417, 26);
             this.PosterLoc.TabIndex = 23;
+            // 
+            // Fpath
+            // 
+            this.Fpath.AutoSize = true;
+            this.Fpath.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Fpath.Location = new System.Drawing.Point(25, 41);
+            this.Fpath.Name = "Fpath";
+            this.Fpath.Size = new System.Drawing.Size(62, 18);
+            this.Fpath.TabIndex = 24;
+            this.Fpath.Text = "File Path";
             // 
             // UpdateRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 685);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(849, 552);
+            this.Controls.Add(this.Fpath);
             this.Controls.Add(this.PosterLoc);
             this.Controls.Add(this.Poster);
             this.Controls.Add(this.Add);
@@ -283,8 +337,11 @@
             this.Controls.Add(this.Length);
             this.Controls.Add(this.Plot);
             this.Controls.Add(this.Tpath);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "UpdateRow";
-            this.Text = "Form2";
+            this.Text = "Info Update";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,5 +373,6 @@
         private System.Windows.Forms.Button Add;
         private System.Windows.Forms.Label Poster;
         private System.Windows.Forms.TextBox PosterLoc;
+        private System.Windows.Forms.Label Fpath;
     }
 }

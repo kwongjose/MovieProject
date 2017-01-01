@@ -30,16 +30,24 @@ namespace MovieLib
             Movie_Name = mov.Title;
             Movie_Plot = mov.Plot;
             File_Path = mov.Path;
-            Title_Lable.Font = new Font(Title_Lable.Font.FontFamily, 16);
+            //Title_Lable.Font = new Font(Title_Lable.Font.FontFamily, 16);
             Title_Lable.Text = Movie_Name;
-            M_Plot.Font = new Font(M_Plot.Font.FontFamily, 12);
+            //M_Plot.Font = new Font(M_Plot.Font.FontFamily, 12);
             M_Plot.Text = Movie_Plot;
             Genre_Lable.Text = mov.Genre;
             Year_Lable.Text = mov.Year;
             Rating_Lable.Text = mov.imdbRating;
+            /*
             Actors_Lable.Text = "";
             actors.ForEach(i => Actors_Lable.Text += i + ",");//I Like this line
             Actors_Lable.Text.TrimEnd(',');
+            */
+            ActorsBox.Text = "";
+            String actorString = "";
+            actors.ForEach(i => actorString += i + ", ");//I Like this line
+            actorString = actorString.Substring(0, (actorString.Length - 2));
+            ActorsBox.Text = actorString;
+
             Res_Lable.Text = mov.Res;
             runtime_Lable.Text = mov.Runtime;
 
