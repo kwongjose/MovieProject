@@ -115,12 +115,12 @@ public class ConnectionClass
         SQLiteConnection con = new SQLiteConnection(ConString);
         con.Open();
         SQLiteCommand com = new SQLiteCommand(sel, con);
-        SQLiteDataReader dr = com.ExecuteReader();
+      //  SQLiteDataReader dr = com.ExecuteReader();
         List<String> Glist = new List<string>();
-        while (dr.Read())
-        {
-            Glist.Add((string)dr["genres"]);
-        }
+       // while (dr.Read())
+      // {
+//Glist.Add((string)dr["genres"]);
+      //  }
         return Glist;
     }
 

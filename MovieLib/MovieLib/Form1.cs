@@ -73,7 +73,7 @@ namespace MovieLib
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };
+                String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg", "*.ts" };
                 List<string> files = new List<string>();
 
                 foreach (String filter in FilterFile)

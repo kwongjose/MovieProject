@@ -35,6 +35,7 @@ public class FileToDataBase
         ApiCall.Append("?i=");
         ApiCall.Append(IMDB_Id);
         ApiCall.Append("&plot=full&r=json");
+        ApiCall.Append("&apikey=6fc2a537");
        
         Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
         Task.WhenAll(t);
@@ -127,7 +128,8 @@ public class FileToDataBase
         ApiCall.Append("?i=");
         ApiCall.Append(IMDB_Id);
         ApiCall.Append("&plot=full&r=json");
-                
+        ApiCall.Append("&apikey=6fc2a537");
+
 
         Full_Path = Path;
 
@@ -140,7 +142,7 @@ public class FileToDataBase
         Resulution = infile.Metadata.VideoData.FrameSize;
         Resulution = Resulution.Replace("x", " X ");
 
-        Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
+        Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));
         Task.WaitAll(t);
         ParseJson(t.Result);
 
@@ -216,6 +218,7 @@ public class FileToDataBase
                 ApiCall.Append("?i=");
                 ApiCall.Append(Movie_Year);
                 ApiCall.Append("&plot=full&r=json");
+                ApiCall.Append("&apikey=6fc2a537");
 
                 Task<String> t = Task.Run(() => CallWebApi(ApiCall.ToString()));//I don't know why this works
                 Task.WaitAll(t); 
@@ -300,6 +303,7 @@ public class FileToDataBase
             ApiCall.Append("&y=");
             ApiCall.Append(M_Year);
             ApiCall.Append("&plot=full&r=json");
+            ApiCall.Append("&apikey=6fc2a537");
         }
         Stopwatch watch = Stopwatch.StartNew();
         Task<String> t = Task.Run( () => CallWebApi(ApiCall.ToString() ) );//I don't know why this works
