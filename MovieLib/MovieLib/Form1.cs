@@ -278,7 +278,7 @@ namespace MovieLib
             //TODO::DEBUG HANGS ON INSERT IN INSERNEWROW CONCLASS
             int newFiles = 0;
 
-            String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };
+            String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg", "*.ts" };
 
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -452,7 +452,7 @@ namespace MovieLib
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg" };//video file types
+                String[] FilterFile = { "*.avi", "*.MP4", "*.mkv", "*.m4v", "*.mpg", "*.ts" };//video file types
 
                 List<String> files = new List<String>();
 
